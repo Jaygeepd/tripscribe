@@ -30,3 +30,4 @@ Tripscribe is an application designed for travellers to track and note down thei
 Misc. Features:
 - User can search for recommendations for their current city pin, based on other users/paid services such as advertising
 - Advertising canbe sold to local attractions and the like 
+- Book through the application for restaurants/attractions
