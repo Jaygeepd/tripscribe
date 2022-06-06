@@ -31,3 +31,4 @@ Misc. Features:
 - User can search for recommendations for their current city pin, based on other users/paid services such as advertising
 - Advertising canbe sold to local attractions and the like 
 - Book through the application for restaurants/attractions
+- Bucket List that the user can have to plan out trips (viewable on social?) 
