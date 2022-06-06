@@ -15,6 +15,7 @@ Tripscribe is an application designed for travellers to track and note down thei
 - City Pins can have attached smaller sub-pins (a restaurant within that city) 
 - Each Pin can have notes, reviews and images attached to them (City one has a gallery, sub-pin undecided atm) 
 - Pins are grouped together under a "Journey" which acts as a container for like pins
+- Event Pins can be created for events going on in an area - with a code users can join it (some social aspect included with this) 
 
 "Social" Features: 
 - Journeys can be shared with friends and other users, various ways in which this works are told below
