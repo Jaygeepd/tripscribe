@@ -8,7 +8,7 @@ TripScribe is a website designed to allow users to create, document and share jo
 The goal of this website is for people who are interested in traveling and documenting where they have been, both to share their experiences and keep a journal about their journeys. This idea came about originally as a replacement for a physical travel log - something I had used during a trip across America.
 
 ## How will this be used?
-The user will create an account on the website and gain access to a dashboard from which they can create new journeys and edit already created journeys. Within a journey they can detail the cities they visited and attractions/restaurants they went to while there, creating a review for each as well as attaching pictures. Journeys will be collected in a dashboard for easy viewing/editing. Account creation should only require basic information about the user.
+The user will create an account on the website and gain access to a dashboard from which they can create new journeys and edit already created journeys. Within a journey they can detail the major stops they visited and attractions/restaurants they went to while there, creating a review for each as well as attaching pictures. Journeys will be collected in a dashboard for easy viewing/editing. Account creation should only require basic information about the user.
 
 ### Create Journey
 - User clicks "Create Journey" in the dashboard
@@ -20,19 +20,19 @@ The user will create an account on the website and gain access to a dashboard fr
 - User is shown information attached to that journey (Stops, Places Visited, Photos, etc.)
 - User can click an "Edit Journey" button which allows them to add new details or edit existing one (When first redirected here, editing will be enabled)
 
-### Add City (Maybe stop better term?)
-- Once a journey is in edit mode, the user can add Cities that they have visited
-- User enters the name of the city, the date arrived, and the date of departure (autocomplete the city maybe?)
+### Add Stop 
+- Once a journey is in edit mode, the user can add stops that they have visited, with a stop being a city, national park, event, etc.
+- User enters the name of the stop, the date arrived, and the date of departure
 
 ### Add Location
-- With a city created, the user can add a location they visited, including name and brief description (Restaurant, Museum, etc.) 
+- With a stop created, the user can add a location they visited within that stop, including name and brief description (Restaurant, Museum, etc.) 
 
 ### Add Photographies and Reviews
-- Both the city in general as well as individual locations can be given a review or attached photographs
-- For a review, the user writes what they want posted and when complete it will appear in that journey along the attached city/stop
+- Both the stop in general as well as individual locations can be given a review or attached photographs
+- For a review, the user writes what they want posted and when complete it will appear in that journey along the attached stop
 - For photographs, the other uploads photographs from their local file storage/drag and drop function 
 
-These are the basic functions that the user should be able to accomplish. Once a journey has been created, the details of it should be able to be seen in the dashboard - for example showing the number of visited cities and range of dates that the journey took place on. When the user goes from the dashboard into a journey, they will find the cities listed in chronological order with attached reviews and photos in a "gallery". 
+These are the basic functions that the user should be able to accomplish. Once a journey has been created, the details of it should be able to be seen in the dashboard - for example showing the number of visited stops and range of dates that the journey took place on. When the user goes from the dashboard into a journey, they will find the stops listed in chronological order with attached reviews and photos in a "gallery". 
 
 Furthermore once a user has created a journey, they should be able to share it using a link to their friends. With this link, the user should be able to see the same page but without the ability to edit the page.
 
