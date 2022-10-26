@@ -64,5 +64,17 @@ Furthermore once a user has created a journey, they should be able to share it u
 - Add photos to city and location
 - User can share a journey with someone else (Being a user not required maybe)
 
-## Stretch Goals
-- 
+## Stretch Goals 1 - Basic Social Media
+- Social media aspect allowing users to add others to a friend's list from where they can see all their trips
+- Privacy settings for journeys (private, friend's only, public)
+- Allow users to search and find public journeys from other user's using the name of a stop or location
+
+## Stretch Goals 2 - Planner Feature
+- Allow user's to create journeys in advance instead of just in the past
+- Invite other user's who will be joining them 
+- They can organise a timetable for their travel plans and use public reviews to decide to add certain places to their plans
+
+## Stretch Goals 3 - Mapper Feature
+- Add a world map to the user's dashboard
+- Populate the map with a number of 'pins' that represent places from their journeys
+- Clicking a pin will select that journey as if they selected it from the list
