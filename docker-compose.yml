@@ -1,0 +1,14 @@
+version: "3.4"
+services:
+  db:
+    image: postgres:14-bullseye
+    container_name: tripscribe_postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: tripscribe
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db:/var/lib/postgresql/data
