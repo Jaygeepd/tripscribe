@@ -80,5 +80,5 @@ Furthermore once a user has created a journey, they should be able to share it u
 - Clicking a pin will select that journey as if they selected it from the list
 
 ### Misc. Links
-Trello - https://trello.com/b/G33esPU4/tripscribe-kanban
-Lucidchart Database ERD - https://lucid.app/lucidchart/836838f8-d65a-44f7-8172-ce222fe9e87c/edit?viewport_loc=-1376%2C-334%2C3491%2C1760%2CLaP3wGvsL-Vc&invitationId=inv_b329b385-764e-4ddc-9f05-c24404f51496
+- Trello - https://trello.com/b/G33esPU4/tripscribe-kanban
+- Lucidchart Database ERD - https://lucid.app/lucidchart/836838f8-d65a-44f7-8172-ce222fe9e87c/edit?viewport_loc=-1376%2C-334%2C3491%2C1760%2CLaP3wGvsL-Vc&invitationId=inv_b329b385-764e-4ddc-9f05-c24404f51496
