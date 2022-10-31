@@ -15,10 +15,14 @@ services:
 
   flyway:
     image: flyway/flyway:9-alpine
-    container_name: car-migo_flyway
-    command: -url=jdbc:postgresql://db/carmigo -schemas=public -user=admin
+    container_name: tripscribe_flyway
+    command: -url=jdbc:postgresql://db/tripscribe -schemas=public -user=admin
       -password=password -connectRetries=5 migrate
     volumes:
       - ./migrations:/flyway/sql
     depends_on:
       - db
+
+volumes:
+  db:
+    name: tripscribe_postgres
