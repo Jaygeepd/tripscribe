@@ -55,6 +55,8 @@ Furthermore once a user has created a journey, they should be able to share it u
 - **Review**, a text review of the user's thoughts which can be attached to both a stop or location
 - **Gallery**, a collection of photos that are attached to a stop or location
 
+***
+
 ## MVP
 - User account Creation
 - Journey Creation
@@ -78,6 +80,363 @@ Furthermore once a user has created a journey, they should be able to share it u
 - Add a world map to the user's dashboard
 - Populate the map with a number of 'pins' that represent places from their journeys
 - Clicking a pin will select that journey as if they selected it from the list
+
+***
+
+## API Specification
+
+#### ACCOUNTS
+
+`GET /accounts` Return a list of accounts
+
+Response
+
+```json
+[
+   {
+      "id": 1,
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john.doe@tester.com",
+      "password": "passc0de"
+   },
+   {
+      "id": 2,
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "email": "jane_smith@tester.com",
+      "password": "speakfriend"
+   }
+]
+```
+
+`GET /accounts/{accountId}` Return the account matching the id
+
+Response
+
+```json
+{
+   "id": 1,
+   "first_name": "John",
+   "last_name": "Doe",
+   "email": "john.doe@tester.com",
+   "password": "passc0de"
+}
+
+```
+
+`GET /accounts/{accountId}/journeys` Return a list of journeys tied to the given account
+
+Response
+
+```json
+[
+   {
+      "id": 1,
+      "title": "Canadian Adventure",
+      "description": "Trekking Canada",
+      "timestamp": "2021-07-10 17:30:00"
+   },
+   {
+      "id": 2,
+      "title": "My French Trip",
+      "description": "Time Spent in Paris and Lyon",
+      "timestamp": "2022-01-05 08:00:00"
+   }
+]
+```
+
+`GET /accounts/{accountId}/reviews` Return a list of reviews tied to the given account
+
+Response
+
+```json
+[
+   {
+      "id": 1,
+      "review_text": "Great views of Toronto",
+      "score": 5,
+      "timestamp": "2022-01-06 12:30:00"
+   },
+   {
+      "id": 2,
+      "review_text": "Very romantic, very crowded",
+      "score": 4,
+      "timestamp": "2021-07-11 10:30:00"
+   }
+]
+```
+
+`POST /accounts` Create an account
+
+Request
+
+```json
+{
+   "first_name": "new_f_name",
+   "last_name": "new_l_name",
+   "email": "new_email",
+   "password": "new_password"
+}
+```
+
+Response - `201 Created`
+
+`PUT /accounts/{accoundId}` Update an account using a given id
+
+Request
+
+```json
+{
+   "first_name": "update_f_name",
+   "last_name": "update_l_name",
+   "email": "update_email",
+   "password": "update_password"
+}
+```
+
+Response - `204 Updated`
+
+#### JOURNEYS
+
+`GET /journeys` Return a list of journeys
+
+Response
+
+```json
+[
+   {
+      "id": 1,
+      "title": "Canadian Adventure",
+      "description": "Trekking Canada",
+      "timestamp": "2021-07-10 17:30:00"
+   },
+   {
+      "id": 2,
+      "title": "My French Trip",
+      "description": "Time Spent in Paris and Lyon",
+      "timestamp": "2022-01-05 08:00:00"
+   }
+]
+```
+
+`GET /journeys/{journeyId}` Return the journey matching the id
+
+Response
+
+```json
+{
+   "id": 1,
+   "title": "Canadian Adventure",
+   "description": "Trekking Canada",
+   "timestamp": "2021-07-10 17:30:00"
+}
+```
+
+`GET /journeys/{journeyId}/accounts` Return a list of accounts tied to the given journey
+
+Response
+
+```json
+[
+   {
+      "id": 1,
+      "first_name": "John",
+      "last_name": "Doe",
+      "email": "john.doe@tester.com",
+      "password": "passc0de"
+   },
+   {
+      "id": 2,
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "email": "jane_smith@tester.com",
+      "password": "speakfriend"
+   }
+]
+```
+
+`GET /journeys/{journeyId}/reviews` Return a list of reviews tied to the given journey
+
+Response
+
+```json
+[
+   {
+      "id": 1,
+      "review_text": "Great views of Toronto",
+      "score": 5,
+      "timestamp": "2022-01-06 12:30:00"
+   },
+   {
+      "id": 2,
+      "review_text": "Very romantic, very crowded",
+      "score": 4,
+      "timestamp": "2021-07-11 10:30:00"
+   }
+]
+```
+
+`POST /journeys` Create a new journey
+
+Request
+
+```json
+{
+   "title": "new_journey",
+   "description": "new_description"
+}
+```
+
+Response - `201 Created`
+
+`PUT /journeys/{journeyId}` Update a journey based on a given id
+
+Request
+
+```json
+{
+   "title": "update_journey",
+   "description": "update_desc"
+}
+```
+
+Response - `204 Updated`
+
+#### STOPS
+
+`GET /stops/{stopId}` Return a single stop matching the id
+
+Response
+
+```json
+{
+   "id": 1,
+   "name": "Toronto",
+   "date_arrived": "2021-06-15 06:00:00",
+   "date_departed": "2021-06-22 18:30:00",
+   "journey_id": 1
+}
+```
+
+`GET /stops/{journeyId}` Return a list of stops matching the given journey
+
+Response
+
+```json
+[
+   {
+      "id": 1,
+      "name": "Toronto",
+      "date_arrived": "2021-06-15 06:00:00",
+      "date_departed": "2021-06-22 18:30:00",
+      "journey_id": 1
+   },
+   {
+      "id": 3,
+      "name": "Montreal",
+      "date_arrived": "2021-06-22 22:00:00",
+      "date_departed": "2021-06-26 10:00:00",
+      "journey_id": 1
+   }
+]
+```
+
+`GET /stops/{stopId}/reviews` Return a list of reviews tied to the given stop
+
+Response
+
+```json
+[
+   {
+      "id": 1,
+      "review_text": "Great views of Toronto",
+      "score": 5,
+      "timestamp": "2022-01-06 12:30:00"
+   },
+   {
+      "id": 2,
+      "review_text": "Very romantic, very crowded",
+      "score": 4,
+      "timestamp": "2021-07-11 10:30:00"
+   }
+]
+```
+
+#### LOCATIONS
+
+`GET /locations/{locationId}` Return a single location matching the id
+
+Response
+
+```json
+{
+   "id": 1,
+   "name": "CN Tower",
+   "date_arrived": "2022-01-02 15:00:00",
+   "location_type": "Attraction",
+   "stop_id": 1
+}
+```
+
+`GET /locations/{stopId}` Return a list of locations matching the given stop
+
+Response
+
+```json
+[
+   {
+      "id": 1,
+      "name": "CN Tower",
+      "date_arrived": "2022-01-02 15:00:00",
+      "location_type": "Attraction",
+      "stop_id": 1
+   },
+   {
+      "id": 3,
+      "name": "Jack Astor's",
+      "date_arrived": "2022-01-04 20:00:00",
+      "location_type": "Restaurant",
+      "stop_id": 1
+   }
+]
+```
+
+`GET /locations/{locationId}/reviews` Return a list of reviews tied to the given location
+
+Response
+
+```json
+[
+   {
+      "id": 1,
+      "review_text": "Great views of Toronto",
+      "score": 5,
+      "timestamp": "2022-01-06 12:30:00"
+   },
+   {
+      "id": 2,
+      "review_text": "Very romantic, very crowded",
+      "score": 4,
+      "timestamp": "2021-07-11 10:30:00"
+   }
+]
+```
+
+#### REVIEWS 
+
+`GET /reviews/{reviewId}` Return a single review matching the id
+
+Response
+
+```json
+{
+   "id": 1,
+   "review_text": "Great views of Toronto",
+   "score": 5,
+   "timestamp": "2022-01-06 12:30:00"
+}
+```
 
 ### Misc. Links
 - Trello - https://trello.com/b/G33esPU4/tripscribe-kanban
