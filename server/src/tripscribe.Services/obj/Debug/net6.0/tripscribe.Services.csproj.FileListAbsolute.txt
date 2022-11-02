@@ -1,0 +1,12 @@
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.deps.json
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.dll
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.pdb
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.csproj.AssemblyReference.cache
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.GeneratedMSBuildEditorConfig.editorconfig
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.AssemblyInfoInputs.cache
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.AssemblyInfo.cs
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.csproj.CoreCompileInputs.cache
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.dll
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/refint/tripscribe.Services.dll
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.pdb
+/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/ref/tripscribe.Services.dll

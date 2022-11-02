@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "tripscribe.Dal/1.0.0": {
+        "runtime": {
+          "tripscribe.Dal.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "tripscribe.Dal/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
