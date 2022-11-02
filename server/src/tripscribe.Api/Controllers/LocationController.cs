@@ -1,44 +1,44 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.testDI;
-using tripscribe.Api.ViewModels.Journeys;
+using tripscribe.Api.ViewModels.Locations;
 
 namespace tripscribe.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class JourneyController : ControllerBase
+public class LocationController : ControllerBase
 {
     private readonly IDoStuff _doStuff;
-    public JourneyController(IDoStuff doStuff)
+    public LocationController(IDoStuff doStuff)
     {
         _doStuff = doStuff;
     }
     
     [HttpGet]
-    public ActionResult<JourneyViewModel> GetJourneys()
+    public ActionResult<LocationViewModel> GetLocations()
     {
         var stuff = _doStuff.Stuff();
-        var journeys = new List<JourneyViewModel>
+        var locations = new List<LocationViewModel>
         {
-            new JourneyViewModel()
+            new LocationViewModel()
             {
-                Title = stuff
+                Name = stuff
             }
         };
         
-        return Ok(journeys);
+        return Ok(locations);
     }
     
-    [HttpGet("{id}", Name = "GetJourney")]
-    public ActionResult<JourneyDetailViewModel> GetJourney(int id)
+    [HttpGet("{id}", Name = "GetLocation")]
+    public ActionResult<LocationDetailViewModel> GetLocation(int id)
     {
         return Ok(new { Amount = 108, Message = "Hello" });
     }
     
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.Created)]
-    public ActionResult CreateJourney( [FromBody] CreateJourneyViewModel journeyDetails)
+    public ActionResult CreateLocation( [FromBody] CreateLocationViewModel locationDetails)
     {
         return StatusCode((int)HttpStatusCode.Created);
     }
@@ -46,7 +46,7 @@ public class JourneyController : ControllerBase
     [HttpPut]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public ActionResult UpdateJourney(int id, [FromBody] UpdateJourneyViewModel journeyDetails)
+    public ActionResult UpdateLocation(int id, [FromBody] UpdateLocationViewModel locationDetails)
     {
         return NoContent();
     }
@@ -54,7 +54,7 @@ public class JourneyController : ControllerBase
     [HttpDelete]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public ActionResult UpdateJourney(int id)
+    public ActionResult UpdateLocation(int id)
     {
         return NoContent();
     }

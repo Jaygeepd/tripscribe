@@ -1,44 +1,44 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.testDI;
-using tripscribe.Api.ViewModels.Journeys;
+using tripscribe.Api.ViewModels.Stop;
 
 namespace tripscribe.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class JourneyController : ControllerBase
+public class StopController : ControllerBase
 {
     private readonly IDoStuff _doStuff;
-    public JourneyController(IDoStuff doStuff)
+    public StopController(IDoStuff doStuff)
     {
         _doStuff = doStuff;
     }
     
     [HttpGet]
-    public ActionResult<JourneyViewModel> GetJourneys()
+    public ActionResult<StopViewModel> GetStops()
     {
         var stuff = _doStuff.Stuff();
-        var journeys = new List<JourneyViewModel>
+        var stops = new List<StopViewModel>
         {
-            new JourneyViewModel()
+            new StopViewModel()
             {
-                Title = stuff
+                Name = stuff
             }
         };
         
-        return Ok(journeys);
+        return Ok(stops);
     }
     
-    [HttpGet("{id}", Name = "GetJourney")]
-    public ActionResult<JourneyDetailViewModel> GetJourney(int id)
+    [HttpGet("{id}", Name = "GetStop")]
+    public ActionResult<StopDetailViewModel> GetStop(int id)
     {
         return Ok(new { Amount = 108, Message = "Hello" });
     }
     
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.Created)]
-    public ActionResult CreateJourney( [FromBody] CreateJourneyViewModel journeyDetails)
+    public ActionResult CreateStop( [FromBody] CreateStopViewModel stopDetails)
     {
         return StatusCode((int)HttpStatusCode.Created);
     }
@@ -46,7 +46,7 @@ public class JourneyController : ControllerBase
     [HttpPut]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public ActionResult UpdateJourney(int id, [FromBody] UpdateJourneyViewModel journeyDetails)
+    public ActionResult UpdateStop(int id, [FromBody] UpdateStopViewModel stopDetails)
     {
         return NoContent();
     }
@@ -54,7 +54,7 @@ public class JourneyController : ControllerBase
     [HttpDelete]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public ActionResult UpdateJourney(int id)
+    public ActionResult UpdateStop(int id)
     {
         return NoContent();
     }
