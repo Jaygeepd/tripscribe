@@ -1,6 +1,7 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.testDI;
+using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Api.ViewModels.Stop;
 
 namespace tripscribe.Api.Controllers;
@@ -14,9 +15,9 @@ public class StopController : ControllerBase
     {
         _doStuff = doStuff;
     }
-    
-    [HttpGet]
-    public ActionResult<StopViewModel> GetStops()
+     
+    [HttpGet("{journeyId}", Name = "GetStopsByJourneyId")]
+    public ActionResult<StopViewModel> GetStopsByJourneyId()
     {
         var stuff = _doStuff.Stuff();
         var stops = new List<StopViewModel>
@@ -28,6 +29,21 @@ public class StopController : ControllerBase
         };
         
         return Ok(stops);
+    }
+    
+    [HttpGet("{Id}/reviews", Name = "GetReviewsByStopId")]
+    public ActionResult<ReviewViewModel> GetReviewsByStopId()
+    {
+        var stuff = _doStuff.Stuff();
+        var reviews = new List<ReviewViewModel>
+        {
+            new ReviewViewModel()
+            {
+                ReviewText = stuff
+            }
+        };
+        
+        return Ok(reviews);
     }
     
     [HttpGet("{id}", Name = "GetStop")]

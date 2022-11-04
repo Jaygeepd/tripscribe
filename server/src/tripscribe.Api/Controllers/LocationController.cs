@@ -2,6 +2,7 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.testDI;
 using tripscribe.Api.ViewModels.Locations;
+using tripscribe.Api.ViewModels.Reviews;
 
 namespace tripscribe.Api.Controllers;
 
@@ -15,8 +16,8 @@ public class LocationController : ControllerBase
         _doStuff = doStuff;
     }
     
-    [HttpGet]
-    public ActionResult<LocationViewModel> GetLocations()
+    [HttpGet("{stopId}", Name = "GetLocationsByStopId")]
+    public ActionResult<LocationViewModel> GetLocationsByStopId()
     {
         var stuff = _doStuff.Stuff();
         var locations = new List<LocationViewModel>
@@ -34,6 +35,21 @@ public class LocationController : ControllerBase
     public ActionResult<LocationDetailViewModel> GetLocation(int id)
     {
         return Ok(new { Amount = 108, Message = "Hello" });
+    }
+    
+    [HttpGet("{id}/reviews", Name = "GetReviewsByLocationId")]
+    public ActionResult<ReviewViewModel> GetReviewsByLocationId()
+    {
+        var stuff = _doStuff.Stuff();
+        var reviews = new List<ReviewViewModel>
+        {
+            new ReviewViewModel()
+            {
+                ReviewText = stuff
+            }
+        };
+        
+        return Ok(reviews);
     }
     
     [HttpPost]

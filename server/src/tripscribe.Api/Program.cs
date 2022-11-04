@@ -1,5 +1,8 @@
+using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 using tripscribe.Api.testDI;
+using tripscribe.Dal.Contexts;
+using tripscribe.Dal.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +32,11 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+builder.Services.AddFluentValidation(s =>
+    s.RegisterValidatorsFromAssemblyContaining<Program>()
+);
+
+builder.Services.AddScoped<ITripscribeDatabase, TripscribeContext>(_ => new TripscribeContext("Server=localhost;Port=5432;Database=tripscribe;User Id=postgres;Password=password;"));
 
 var app = builder.Build();
 
