@@ -14,4 +14,6 @@ public class Journey
     [Column("description")] public string Description { get; set; }
 
     [Column("timestamp")] public DateTime Timestamp { get; set; }
+    
+    public ICollection<AccountJourney> AccountJourneys { get; set; }
 }

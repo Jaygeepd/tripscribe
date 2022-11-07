@@ -1,5 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using tripscribe.Api.testDI;
 using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Api.ViewModels.Stop;
@@ -46,7 +47,10 @@ public class StopController : ControllerBase
     [HttpGet("{id}", Name = "GetStop")]
     public ActionResult<StopDetailViewModel> GetStop(int id)
     {
-        var stop = _database.Get<Stop>().FirstOrDefault(x => x.Id == id);
+        var stop = _database
+            .Get<Stop>()
+            .Select(x => new { Id = x.Id, Name = x.Name, Locations = x.Locations.Select(y => y.Name)})
+            .FirstOrDefault(x => x.Id == id);
         if (stop == null)
         {
             return NotFound();

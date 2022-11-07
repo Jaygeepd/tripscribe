@@ -16,4 +16,7 @@ public class Stop
     [Column("date_departed")] public DateTime DateDeparted { get; set; }
     
     [Column("journey_id")] public int JourneyId { get; set; }
+
+    public ICollection<Location> Locations { get; set; }
+
 }

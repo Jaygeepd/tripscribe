@@ -14,4 +14,8 @@ public class Account
     [Column("last_name")] public string LastName { get; set; }
 
     [Column("email")] public string Email { get; set; }
+    
+    [Column("password")] public string Password { get; set; }
+    
+    public ICollection<AccountJourney> AccountJourneys { get; set; }
 }

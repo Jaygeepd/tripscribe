@@ -1,5 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using tripscribe.Api.testDI;
 using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Api.ViewModels.Journeys;
@@ -40,7 +41,10 @@ public class AccountController : ControllerBase
     [HttpGet("{id}/reviews", Name = "GetAccountReviews")]
     public ActionResult<ReviewViewModel> GetAccountReviews(int id)
     {
-        var reviews = _database.Get<Review>().Where(search => search.Id.Equals(id)).ToList();
+        var reviews = _database
+            .Get<Review>()
+            .Where(x => x.Id.Equals(id))
+            .ToList();
         return Ok(new { reviews });
     }
     
@@ -48,7 +52,11 @@ public class AccountController : ControllerBase
     public ActionResult<JourneyViewModel> GetAccountJourneys(int id)
     {
         
-        var journeys = _database.Get<Journey>().Where(search => search.Id.Equals(id)).ToList();
+        var journeys = _database
+            .Get<AccountJourney>()
+            .Where(x => x.AccountId.Equals(id))
+            .Select(x => x.Journey)
+            .ToList();
         return Ok(new { journeys });
     }
     
@@ -56,6 +64,22 @@ public class AccountController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.Created)]
     public ActionResult CreateAccount( [FromBody] CreateAccountViewModel accountDetails)
     {
+
+        var newAccount = new Account
+        {
+            FirstName = accountDetails.FirstName,
+            LastName = accountDetails.LastName, 
+            Email = accountDetails.Email,
+            Password = accountDetails.Password
+        };
+
+        _database.Add(newAccount);
+        var account = _database.Get<Account>()
+            .AsNoTracking()
+            .FirstOrDefault(x => x.Id == 1);
+        account.FirstName = "Hello";
+        _database.SaveChanges();
+        
         return StatusCode((int)HttpStatusCode.Created);
     }
     
