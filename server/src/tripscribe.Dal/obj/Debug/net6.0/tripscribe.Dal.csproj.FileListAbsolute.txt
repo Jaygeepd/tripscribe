@@ -12,3 +12,17 @@
 /Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/obj/Debug/net6.0/ref/tripscribe.Dal.dll
 /Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/bin/Debug/net6.0/tripscribe.Dal.runtimeconfig.json
 /Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/obj/Debug/net6.0/tripscribe.Dal.genruntimeconfig.cache
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\bin\Debug\net6.0\tripscribe.Dal.deps.json
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\bin\Debug\net6.0\tripscribe.Dal.runtimeconfig.json
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\bin\Debug\net6.0\tripscribe.Dal.dll
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\bin\Debug\net6.0\tripscribe.Dal.pdb
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\obj\Debug\net6.0\tripscribe.Dal.csproj.AssemblyReference.cache
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\obj\Debug\net6.0\tripscribe.Dal.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\obj\Debug\net6.0\tripscribe.Dal.AssemblyInfoInputs.cache
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\obj\Debug\net6.0\tripscribe.Dal.AssemblyInfo.cs
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\obj\Debug\net6.0\tripscribe.Dal.csproj.CoreCompileInputs.cache
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\obj\Debug\net6.0\tripscribe.Dal.dll
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\obj\Debug\net6.0\refint\tripscribe.Dal.dll
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\obj\Debug\net6.0\tripscribe.Dal.pdb
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\obj\Debug\net6.0\tripscribe.Dal.genruntimeconfig.cache
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Dal\obj\Debug\net6.0\ref\tripscribe.Dal.dll

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.testDI;
 using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Api.ViewModels.Stop;
+using tripscribe.Dal.Interfaces;
+using tripscribe.Dal.Models;
 
 namespace tripscribe.Api.Controllers;
 
@@ -10,36 +12,31 @@ namespace tripscribe.Api.Controllers;
 [Route("[controller]")]
 public class StopController : ControllerBase
 {
-    private readonly IDoStuff _doStuff;
-    public StopController(IDoStuff doStuff)
+    private readonly ITripscribeDatabase _database;
+    public StopController(ITripscribeDatabase database) => _database = database;
+    
+    [HttpGet]
+    public ActionResult<StopViewModel> GetAccounts()
     {
-        _doStuff = doStuff;
+        var accounts = _database.Get<Stop>().ToList();
+        return Ok(new { accounts });
     }
      
-    [HttpGet("{journeyId}", Name = "GetStopsByJourneyId")]
-    public ActionResult<StopViewModel> GetStopsByJourneyId()
+    [HttpGet("journey/{id}", Name = "GetStopsByJourneyId")]
+    public ActionResult<StopViewModel> GetStopsByJourneyId(int id)
     {
-        var stuff = _doStuff.Stuff();
-        var stops = new List<StopViewModel>
-        {
-            new StopViewModel()
-            {
-                Name = stuff
-            }
-        };
-        
-        return Ok(stops);
+        var stops = _database.Get<Stop>().Where(search => search.JourneyId.Equals(id)).ToList();
+        return Ok(new { stops });
     }
     
     [HttpGet("{Id}/reviews", Name = "GetReviewsByStopId")]
     public ActionResult<ReviewViewModel> GetReviewsByStopId()
     {
-        var stuff = _doStuff.Stuff();
         var reviews = new List<ReviewViewModel>
         {
             new ReviewViewModel()
             {
-                ReviewText = stuff
+                ReviewText = "pass"
             }
         };
         
@@ -49,7 +46,15 @@ public class StopController : ControllerBase
     [HttpGet("{id}", Name = "GetStop")]
     public ActionResult<StopDetailViewModel> GetStop(int id)
     {
-        return Ok(new { Amount = 108, Message = "Hello" });
+        var stop = _database.Get<Stop>().FirstOrDefault(x => x.Id == id);
+        if (stop == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(new
+            { Id = stop.Id, Name = stop.Name, DateArrived = stop.DateArrived, DateDeparted = stop.DateDeparted, 
+                JourneyId = stop.JourneyId });
     }
     
     [HttpPost]

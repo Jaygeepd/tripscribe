@@ -11,4 +11,7 @@ public class TripscribeContext : BaseContext,ITripscribeDatabase
     
     public virtual DbSet<Account> Accounts { get; set; }
     public virtual DbSet<Journey> Journeys { get; set; }
+    public virtual DbSet<Stop> Stops { get; set; }
+    public virtual DbSet<Location> Locations { get; set; }
+    public virtual DbSet<Review> Reviews { get; set; }
 }

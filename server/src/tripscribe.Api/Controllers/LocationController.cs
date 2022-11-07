@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.testDI;
 using tripscribe.Api.ViewModels.Locations;
 using tripscribe.Api.ViewModels.Reviews;
+using tripscribe.Dal.Interfaces;
+using tripscribe.Dal.Models;
 
 namespace tripscribe.Api.Controllers;
 
@@ -10,42 +12,38 @@ namespace tripscribe.Api.Controllers;
 [Route("[controller]")]
 public class LocationController : ControllerBase
 {
-    private readonly IDoStuff _doStuff;
-    public LocationController(IDoStuff doStuff)
-    {
-        _doStuff = doStuff;
-    }
+    private readonly ITripscribeDatabase _database;
+    public LocationController(ITripscribeDatabase database) => _database = database;
     
-    [HttpGet("{stopId}", Name = "GetLocationsByStopId")]
-    public ActionResult<LocationViewModel> GetLocationsByStopId()
+    [HttpGet("stop/{id}", Name = "GetLocationsByStopId")]
+    public ActionResult<LocationViewModel> GetLocationsByStopId(int id)
     {
-        var stuff = _doStuff.Stuff();
-        var locations = new List<LocationViewModel>
-        {
-            new LocationViewModel()
-            {
-                Name = stuff
-            }
-        };
-        
-        return Ok(locations);
+        var stops = _database.Get<Location>().Where(search => search.StopId.Equals(id)).ToList();
+        return Ok(new { stops });
     }
     
     [HttpGet("{id}", Name = "GetLocation")]
     public ActionResult<LocationDetailViewModel> GetLocation(int id)
     {
-        return Ok(new { Amount = 108, Message = "Hello" });
+        var location = _database.Get<Location>().FirstOrDefault(x => x.Id == id);
+        if (location == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(new
+        { Id = location.Id, Name = location.Name, DateVisited = location.DateVisited, 
+            LocationType = location.LocationType, StopId = location.StopId });
     }
     
     [HttpGet("{id}/reviews", Name = "GetReviewsByLocationId")]
     public ActionResult<ReviewViewModel> GetReviewsByLocationId()
     {
-        var stuff = _doStuff.Stuff();
         var reviews = new List<ReviewViewModel>
         {
             new ReviewViewModel()
             {
-                ReviewText = stuff
+                ReviewText = "Pass"
             }
         };
         
