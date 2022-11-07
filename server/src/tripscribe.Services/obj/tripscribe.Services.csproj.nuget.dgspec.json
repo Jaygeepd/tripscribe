@@ -4,14 +4,14 @@
     "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj": {}
   },
   "projects": {
-    "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj": {
+    "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/tripscribe.Dal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj",
-        "projectName": "tripscribe.Services",
-        "projectPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj",
+        "projectUniqueName": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/tripscribe.Dal.csproj",
+        "projectName": "tripscribe.Dal",
+        "projectPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/tripscribe.Dal.csproj",
         "packagesPath": "/Users/john.mahon/.nuget/packages/",
-        "outputPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/",
+        "outputPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/john.mahon/.nuget/NuGet/NuGet.Config"
@@ -37,6 +37,115 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.8.0, )"
+            },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.2.2, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.7, )"
+            },
+            "Unosquare.EntityFramework.Specification.EFCore": {
+              "target": "Package",
+              "version": "[1.0.7, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj",
+        "projectName": "tripscribe.Services",
+        "projectPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj",
+        "packagesPath": "/Users/john.mahon/.nuget/packages/",
+        "outputPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/john.mahon/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/tripscribe.Dal.csproj": {
+                "projectPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/tripscribe.Dal.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.8.0, )"
+            },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.2.2, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.7, )"
+            },
+            "Unosquare.EntityFramework.Specification.EFCore": {
+              "target": "Package",
+              "version": "[1.0.7, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
