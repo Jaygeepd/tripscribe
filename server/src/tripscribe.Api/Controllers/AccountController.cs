@@ -55,7 +55,7 @@ public class AccountController : ControllerBase
         var journeys = _database
             .Get<AccountJourney>()
             .Where(x => x.AccountId.Equals(id))
-            .Select(x => x.Journey)
+            .Select(x => x.Journey.Title)
             .ToList();
         return Ok(new { journeys });
     }

@@ -16,9 +16,4 @@ public class TripscribeContext : BaseContext,ITripscribeDatabase
     public virtual DbSet<Review> Reviews { get; set; }
     public virtual DbSet<AccountJourney> AccountJourneys { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<AccountJourney>().HasKey(x => new { x.AccountId, x.JourneyId });
-    }
 }

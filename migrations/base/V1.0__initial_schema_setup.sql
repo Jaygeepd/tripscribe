@@ -14,9 +14,9 @@ CREATE TABLE journeys (
 );
 
 CREATE TABLE account_journeys (
+	id serial PRIMARY KEY, 
 	account_id INTEGER NOT NULL, 
 	journey_id INTEGER NOT NULL,
-	PRIMARY KEY (account_id, journey_id),
 	CONSTRAINT fk_account FOREIGN KEY (account_id)
 		REFERENCES accounts (id),
 	CONSTRAINT fk_journey FOREIGN KEY (journey_id)
@@ -51,6 +51,7 @@ CREATE TABLE reviews (
 );
 
 CREATE TABLE journey_reviews (
+	id serial PRIMARY KEY,
 	journey_id INTEGER NOT NULL,
 	review_id INTEGER NOT NULL,
 	account_id INTEGER NOT NULL,
@@ -63,6 +64,7 @@ CREATE TABLE journey_reviews (
 );
 
 CREATE TABLE stop_reviews (
+	id serial PRIMARY KEY,
 	stop_id INTEGER NOT NULL,
 	review_id INTEGER NOT NULL,
 	account_id INTEGER NOT NULL,
@@ -75,6 +77,7 @@ CREATE TABLE stop_reviews (
 );
 
 CREATE TABLE location_reviews (
+	id serial PRIMARY KEY,
 	location_id INTEGER NOT NULL,
 	review_id INTEGER NOT NULL,
 	account_id INTEGER NOT NULL,

@@ -26,7 +26,10 @@ public class StopController : ControllerBase
     [HttpGet("journey/{id}", Name = "GetStopsByJourneyId")]
     public ActionResult<StopViewModel> GetStopsByJourneyId(int id)
     {
-        var stops = _database.Get<Stop>().Where(search => search.JourneyId.Equals(id)).ToList();
+        var stops = _database
+            .Get<Stop>()
+            .Where(search => search.JourneyId.Equals(id))
+            .ToList();
         return Ok(new { stops });
     }
     
@@ -49,7 +52,9 @@ public class StopController : ControllerBase
     {
         var stop = _database
             .Get<Stop>()
-            .Select(x => new { Id = x.Id, Name = x.Name, Locations = x.Locations.Select(y => y.Name)})
+            .Select(x => new { Id = x.Id, Name = x.Name, 
+                DateArrived = x.DateArrived, DateDeparted = x.DateDeparted,
+                Locations = x.Locations.Select(y => y.Name)})
             .FirstOrDefault(x => x.Id == id);
         if (stop == null)
         {
@@ -58,7 +63,7 @@ public class StopController : ControllerBase
 
         return Ok(new
             { Id = stop.Id, Name = stop.Name, DateArrived = stop.DateArrived, DateDeparted = stop.DateDeparted, 
-                JourneyId = stop.JourneyId });
+                Locations = stop.Locations });
     }
     
     [HttpPost]
