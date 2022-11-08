@@ -74,10 +74,7 @@ public class AccountController : ControllerBase
         };
 
         _database.Add(newAccount);
-        var account = _database.Get<Account>()
-            .AsNoTracking()
-            .FirstOrDefault(x => x.Id == 1);
-        account.FirstName = "Hello";
+        
         _database.SaveChanges();
         
         return StatusCode((int)HttpStatusCode.Created);
@@ -86,16 +83,37 @@ public class AccountController : ControllerBase
     [HttpPut]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public ActionResult UpdateAccount(int id, [FromBody] UpdateAccountViewModel accountDetails)
+    public ActionResult UpdateAccount(int id, [FromBody] UpdateAccountViewModel updateDetails)
     {
-        return NoContent();
+        var updateAcc = new Account
+        {
+            FirstName = updateDetails.FirstName,
+            LastName = updateDetails.LastName
+        };
+        
+        var currentAcc = _database
+            .Get<Account>()
+            .FirstOrDefault(x => x.Id.Equals(id));
+
+        if (currentAcc == null)
+        {
+            return NotFound();
+        }
+        
+        currentAcc.FirstName = updateAcc.FirstName;
+        currentAcc.LastName = updateAcc.LastName;
+
+        _database.SaveChanges();
+
+        return StatusCode((int)HttpStatusCode.Accepted);
     }
     
     [HttpDelete]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public ActionResult UpdateAccount(int id)
+    public ActionResult DeleteAccount(int id, [FromBody] UpdateAccountViewModel updateDetails)
     {
+
         return NoContent();
     }
 }

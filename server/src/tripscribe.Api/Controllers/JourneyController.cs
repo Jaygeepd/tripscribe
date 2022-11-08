@@ -40,7 +40,9 @@ public class JourneyController : ControllerBase
     public ActionResult<AccountViewModel> GetJourneyAccounts()
     {
         
-        var accounts = _database.Get<Account>().ToList();
+        var accounts = _database
+            .Get<Account>()
+            .ToList();
         return Ok(accounts);
     }
     
@@ -56,6 +58,17 @@ public class JourneyController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.Created)]
     public ActionResult CreateJourney( [FromBody] CreateJourneyViewModel journeyDetails)
     {
+        var newJourney = new Journey
+        {
+            Title = journeyDetails.Title,
+            Description = journeyDetails.Description, 
+            Timestamp = DateTime.Now
+        };
+
+        _database.Add(newJourney);
+        
+        _database.SaveChanges();
+        
         return StatusCode((int)HttpStatusCode.Created);
     }
     
@@ -64,6 +77,21 @@ public class JourneyController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public ActionResult UpdateJourney(int id, [FromBody] UpdateJourneyViewModel journeyDetails)
     {
+        var updateJour = new Journey
+        {
+            Title = journeyDetails.Title,
+            Description = journeyDetails.Description
+        };
+
+        var currJour = _database
+            .Get<Journey>()
+            .FirstOrDefault(x => x.Id == id);
+
+        currJour.Title = updateJour.Title;
+        currJour.Description = updateJour.Description;
+
+        _database.SaveChanges();
+        
         return NoContent();
     }
     
