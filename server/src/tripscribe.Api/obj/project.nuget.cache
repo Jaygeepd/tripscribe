@@ -1,13 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "LHNwS6+FD2E0q/p2hUAbEKryFavPV+V4EYYDJPLByzNGVw5GG4LVliU0bzv7p0+/8SU50uJM92fJsq9lKeFEpg==",
+  "dgSpecHash": "vo17pXsqhmk/YIgDHCRutKHZ8/4SNtlaSUIAeYexKwCDgTW3b1gbkVDm7sIH8sX/jclsNEmQ1t+ykse8a3ue1w==",
   "success": true,
   "projectFilePath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Api/tripscribe.Api.csproj",
   "expectedPackageFiles": [
+    "/Users/john.mahon/.nuget/packages/automapper/12.0.0/automapper.12.0.0.nupkg.sha512",
+    "/Users/john.mahon/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.0/automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "/Users/john.mahon/.nuget/packages/fluentassertions/6.8.0/fluentassertions.6.8.0.nupkg.sha512",
     "/Users/john.mahon/.nuget/packages/fluentvalidation/11.2.1/fluentvalidation.11.2.1.nupkg.sha512",
     "/Users/john.mahon/.nuget/packages/fluentvalidation.aspnetcore/11.2.2/fluentvalidation.aspnetcore.11.2.2.nupkg.sha512",
     "/Users/john.mahon/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.2.1/fluentvalidation.dependencyinjectionextensions.11.2.1.nupkg.sha512",
+    "/Users/john.mahon/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/john.mahon/.nuget/packages/microsoft.entityframeworkcore/6.0.7/microsoft.entityframeworkcore.6.0.7.nupkg.sha512",
     "/Users/john.mahon/.nuget/packages/microsoft.entityframeworkcore.abstractions/6.0.7/microsoft.entityframeworkcore.abstractions.6.0.7.nupkg.sha512",
     "/Users/john.mahon/.nuget/packages/microsoft.entityframeworkcore.analyzers/6.0.7/microsoft.entityframeworkcore.analyzers.6.0.7.nupkg.sha512",

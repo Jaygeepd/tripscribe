@@ -16,4 +16,6 @@ public class Journey
     [Column("timestamp")] public DateTime Timestamp { get; set; }
     
     public ICollection<AccountJourney> AccountJourneys { get; set; }
+    
+    public ICollection<JourneyReview> JourneyReviews { get; set; }
 }

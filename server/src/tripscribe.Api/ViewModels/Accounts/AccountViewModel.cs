@@ -7,4 +7,6 @@ public class AccountViewModel
     public string LastName { get; set; }
     public string Email { get; set; }
     
+    public DateTime TestDate { get; set; }
+    
 }

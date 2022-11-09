@@ -7,6 +7,9 @@ using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
+using tripscribe.Dal.Specifications.AccountJourneys;
+using tripscribe.Dal.Specifications.Journeys;
+using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
 
@@ -28,7 +31,7 @@ public class JourneyController : ControllerBase
     [HttpGet("{id}", Name = "GetJourney")]
     public ActionResult<JourneyDetailViewModel> GetJourney(int id)
     {
-        var journey = _database.Get<Journey>().FirstOrDefault(x => x.Id == id);
+        var journey = _database.Get<Journey>().FirstOrDefault(new JourneyByIdSpec(id));
         if (journey == null)
         {
             return NotFound();
@@ -37,13 +40,15 @@ public class JourneyController : ControllerBase
     }
 
     [HttpGet(template:"{id}/accounts", Name = "GetJourneyAccounts")]
-    public ActionResult<AccountViewModel> GetJourneyAccounts()
+    public ActionResult<AccountViewModel> GetJourneyAccounts(int id)
     {
         
         var accounts = _database
-            .Get<Account>()
+            .Get<AccountJourney>()
+            .Where(new AccountJourneysByJourneyIdSpec(id))
+            .Select(x => x.Account.FirstName)
             .ToList();
-        return Ok(accounts);
+        return Ok(new { accounts });
     }
     
     [HttpGet("{id}/reviews", Name = "GetJourneyReviews")]

@@ -19,4 +19,5 @@ public class Stop
 
     public ICollection<Location> Locations { get; set; }
 
+    public ICollection<StopReview> StopReviews { get; set; }
 }

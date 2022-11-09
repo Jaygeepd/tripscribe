@@ -13,10 +13,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
     <PackageReference Include="Unosquare.EntityFramework.Specification.EFCore" Version="1.0.7" />
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\tripscribe.Dal\tripscribe.Dal.csproj" />
   </ItemGroup>
-
+  
 </Project>

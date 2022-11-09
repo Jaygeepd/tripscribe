@@ -1,4 +1,6 @@
 using System.Net;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using tripscribe.Api.testDI;
@@ -7,7 +9,9 @@ using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
+using tripscribe.Dal.Specifications.AccountJourneys;
 using tripscribe.Dal.Specifications.Accounts;
+using tripscribe.Dal.Specifications.Reviews;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
@@ -17,13 +21,18 @@ namespace tripscribe.Api.Controllers;
 public class AccountController : ControllerBase
 {
     private readonly ITripscribeDatabase _database;
-    public AccountController(ITripscribeDatabase database) => _database = database;
+    private readonly IMapper _mapper;
+    public AccountController(ITripscribeDatabase database, IMapper mapper) => 
+        (_database, _mapper) = (database, mapper);
     
     [HttpGet]
-    public ActionResult<AccountViewModel> GetAccounts()
+    public ActionResult<IList<AccountViewModel>> GetAccounts()
     {
-        var accounts = _database.Get<Account>().ToList();
-        return Ok(new { accounts });
+        var accountViewModels = _mapper.ProjectTo<AccountViewModel>(
+            _database.Get<Account>()
+            ).ToList();
+        
+        return Ok(accountViewModels);
     }
 
     [HttpGet("{id}", Name = "GetAccount")]
@@ -31,8 +40,8 @@ public class AccountController : ControllerBase
     {
         var account = _database
             .Get<Account>()
-            .FirstOrDefault(new AccountByIdSpec(id)
-                .And (new AccountByEmailSpec("HelloThere@email.com")));
+            .FirstOrDefault(new AccountByIdSpec(id));
+        
         if (account == null)
         {
             return NotFound();
@@ -45,10 +54,27 @@ public class AccountController : ControllerBase
     [HttpGet("{id}/reviews", Name = "GetAccountReviews")]
     public ActionResult<ReviewViewModel> GetAccountReviews(int id)
     {
-        var reviews = _database
-            .Get<Review>()
-            .Where(x => x.Id.Equals(id))
+        var journeyReviews = _database
+            .Get<JourneyReview>()
+            .Where(new JourneyReviewsByAccountIdSpec(id))
+            .Select(x => x.Review.ReviewText)
             .ToList();
+
+        var stopReviews = _database
+            .Get<StopReview>()
+            .Where(new StopReviewsByAccountIdSpec(id))
+            .Select(x => x.Review.ReviewText)
+            .ToList();
+
+        var locationReviews = _database
+            .Get<LocationReview>()
+            .Where(new LocationReviewsByAccountIdSpec(id))
+            .Select(x => x.Review.ReviewText)
+            .ToList();
+
+        var reviews = journeyReviews.Concat(stopReviews).ToList();
+        reviews = reviews.Concat(locationReviews).ToList();
+        
         return Ok(new { reviews });
     }
     
@@ -58,7 +84,7 @@ public class AccountController : ControllerBase
         
         var journeys = _database
             .Get<AccountJourney>()
-            .Where(x => x.AccountId.Equals(id))
+            .Where(new AccountJourneysByAccountIdSpec(id))
             .Select(x => x.Journey.Title)
             .ToList();
         return Ok(new { journeys });
@@ -97,7 +123,7 @@ public class AccountController : ControllerBase
         
         var currentAcc = _database
             .Get<Account>()
-            .FirstOrDefault(x => x.Id.Equals(id));
+            .FirstOrDefault(new AccountByIdSpec(id));
 
         if (currentAcc == null)
         {

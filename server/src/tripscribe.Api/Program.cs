@@ -37,6 +37,7 @@ builder.Services.AddFluentValidation(s =>
 );
 
 builder.Services.AddScoped<ITripscribeDatabase, TripscribeContext>(_ => new TripscribeContext("Server=localhost;Port=5432;Database=tripscribe;User Id=postgres;Password=password;"));
+builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly);
 
 var app = builder.Build();
 

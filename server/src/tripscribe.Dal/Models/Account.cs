@@ -18,4 +18,10 @@ public class Account
     [Column("password")] public string Password { get; set; }
     
     public ICollection<AccountJourney> AccountJourneys { get; set; }
+    
+    public ICollection<JourneyReview> JourneyReviews { get; set; }
+    
+    public ICollection<StopReview> StopReviews { get; set; }
+    
+    public ICollection<LocationReview> LocationReviews { get; set; }
 }

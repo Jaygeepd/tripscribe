@@ -17,4 +17,6 @@ public class Location
     
     [Column("stop_id")] public int StopId { get; set; }
     [ForeignKey(nameof(StopId))] public Stop Stop { get; set; }
+    
+    public ICollection<LocationReview> LocationReviews { get; set; }
 }
