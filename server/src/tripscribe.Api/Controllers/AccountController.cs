@@ -7,6 +7,7 @@ using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
+using tripscribe.Dal.Specifications.Accounts;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
@@ -28,7 +29,10 @@ public class AccountController : ControllerBase
     [HttpGet("{id}", Name = "GetAccount")]
     public ActionResult<AccountDetailViewModel> GetAccount(int id)
     {
-        var account = _database.Get<Account>().FirstOrDefault(x => x.Id == id);
+        var account = _database
+            .Get<Account>()
+            .FirstOrDefault(new AccountByIdSpec(id)
+                .And (new AccountByEmailSpec("HelloThere@email.com")));
         if (account == null)
         {
             return NotFound();
