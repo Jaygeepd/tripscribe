@@ -1,6 +1,7 @@
 using AutoMapper;
 using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Dal.Models;
+using tripscribe.Services.DTOs;
 
 namespace tripscribe.Api.Profiles;
 
@@ -8,12 +9,12 @@ public class AccountProfile : Profile
 {
     public AccountProfile()
     {
-        ConfigureDomainToViewModel();
+        ConfigureDTOToViewModel();
     }
 
-    private void ConfigureDomainToViewModel()
+    private void ConfigureDTOToViewModel()
     {
-        CreateMap<Account, AccountViewModel>()
-            .ForMember(d => d.Id, o => o.Ignore());
+        CreateMap<AccountDTO, AccountViewModel>();
+
     }
 }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
+using tripscribe.Dal.Specifications.Accounts;
 using tripscribe.Services.DTOs;
+using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Services.Services;
 
@@ -9,16 +11,33 @@ public class AccountService : IAccountService
 {
     private readonly ITripscribeDatabase _database;
     private readonly IMapper _mapper;
-    public AccountService(ITripscribeDatabase database, IMapper _mapper) => 
-        _database = database;
+    public AccountService(ITripscribeDatabase database, IMapper mapper) =>
+        (_database, _mapper) = (database, mapper);
 
-    public IList<AccountDTO> GetAccounts()
+    public IList<AccountDTO> GetAccounts(string? email = null, string? firstName = null, string? lastName = null)
     {
-        var accountDTOs = _mapper.ProjectTo<AccountDTO>(
-            _database.Get<Account>()
-        ).ToList();
+        var accountQuery = _database
+            .Get<Account>()
+            .Where(new AccountSearchSpec(email, firstName, lastName));
+
+        return _mapper
+            .ProjectTo<AccountDTO>(accountQuery)
+            .ToList();
         
-        return accountDTOs;
+    }
+
+    public void UpdateAccount(int id, AccountDTO account)
+    {
+
+        var currentAcc = _database
+            .Get<Account>()
+            .FirstOrDefault(new AccountByIdSpec(id));
+
+        if (currentAcc == null) throw new Exception("Not Found");
+
+        _mapper.Map(account, currentAcc);
+
+        _database.SaveChanges();
     }
 
 }

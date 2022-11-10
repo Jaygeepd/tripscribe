@@ -12,6 +12,8 @@ using tripscribe.Dal.Models;
 using tripscribe.Dal.Specifications.AccountJourneys;
 using tripscribe.Dal.Specifications.Accounts;
 using tripscribe.Dal.Specifications.Reviews;
+using tripscribe.Services.DTOs;
+using tripscribe.Services.Services;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
@@ -22,17 +24,16 @@ public class AccountController : ControllerBase
 {
     private readonly ITripscribeDatabase _database;
     private readonly IMapper _mapper;
-    public AccountController(ITripscribeDatabase database, IMapper mapper) => 
-        (_database, _mapper) = (database, mapper);
+    private readonly IAccountService _service;
+    public AccountController(ITripscribeDatabase database, IMapper mapper, IAccountService service) => 
+        (_database, _mapper, _service) = (database, mapper, service);
     
     [HttpGet]
-    public ActionResult<IList<AccountViewModel>> GetAccounts()
+    public ActionResult<IList<AccountViewModel>> GetAccounts([FromQuery] string email, [FromQuery] string firstName, [FromQuery] string lastName)
     {
-        var accountViewModels = _mapper.ProjectTo<AccountViewModel>(
-            _database.Get<Account>()
-            ).ToList();
-        
-        return Ok(accountViewModels);
+        var accounts = _service.GetAccounts(email, firstName, lastName);
+
+        return Ok(_mapper.Map<IList<AccountViewModel>>(accounts));
     }
 
     [HttpGet("{id}", Name = "GetAccount")]
@@ -115,27 +116,11 @@ public class AccountController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public ActionResult UpdateAccount(int id, [FromBody] UpdateAccountViewModel updateDetails)
     {
-        var updateAcc = new Account
-        {
-            FirstName = updateDetails.FirstName,
-            LastName = updateDetails.LastName
-        };
+        var account = _mapper.Map<AccountDTO>(updateDetails);
+
+        _service.UpdateAccount(id, account);
         
-        var currentAcc = _database
-            .Get<Account>()
-            .FirstOrDefault(new AccountByIdSpec(id));
-
-        if (currentAcc == null)
-        {
-            return NotFound();
-        }
-        
-        currentAcc.FirstName = updateAcc.FirstName;
-        currentAcc.LastName = updateAcc.LastName;
-
-        _database.SaveChanges();
-
-        return StatusCode((int)HttpStatusCode.Accepted);
+        return StatusCode((int)HttpStatusCode.NoContent);
     }
     
     [HttpDelete]

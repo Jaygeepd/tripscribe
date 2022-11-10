@@ -5,17 +5,17 @@ using Unosquare.EntityFramework.Specification.Common.Primitive;
 
 namespace tripscribe.Dal.Specifications.Accounts;
 
-public class AccountByEmailSpec : Specification<Account>
+public class AccountByFirstNameSpec : Specification<Account>
 {
-    private readonly string? _email;
+    private readonly string? _firstName;
     
-    public AccountByEmailSpec(string? email) => _email = email;
+    public AccountByFirstNameSpec(string? firstName) => _firstName = firstName;
 
     public override Expression<Func<Account, bool>> BuildExpression()
     {
-        if (string.IsNullOrWhiteSpace(_email)) return ShowAll;
+        if (string.IsNullOrWhiteSpace(_firstName)) return ShowAll;
         
-        return x => x.Email.Contains(_email);
+        return x => x.Email.Contains(_firstName);
     }
     
 }
