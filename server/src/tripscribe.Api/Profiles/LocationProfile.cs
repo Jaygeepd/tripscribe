@@ -1,19 +1,19 @@
-using AutoMapper;
-using tripscribe.Api.ViewModels.Accounts;
+﻿using AutoMapper;
+using tripscribe.Api.ViewModels.Locations;
 using tripscribe.Dal.Models;
 
 namespace tripscribe.Api.Profiles;
 
-public class AccountProfile : Profile
+public class LocationProfile : Profile
 {
-    public AccountProfile()
+    public LocationProfile()
     {
         ConfigureDomainToViewModel();
     }
 
     private void ConfigureDomainToViewModel()
     {
-        CreateMap<Account, AccountViewModel>()
+        CreateMap<Location, LocationViewModel>()
             .ForMember(d => d.Id, o => o.Ignore());
     }
 }

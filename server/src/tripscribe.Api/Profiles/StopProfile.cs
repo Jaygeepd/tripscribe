@@ -1,19 +1,19 @@
-using AutoMapper;
-using tripscribe.Api.ViewModels.Accounts;
+﻿using AutoMapper;
+using tripscribe.Api.ViewModels.Stop;
 using tripscribe.Dal.Models;
 
 namespace tripscribe.Api.Profiles;
 
-public class AccountProfile : Profile
+public class StopProfile : Profile
 {
-    public AccountProfile()
+    public StopProfile()
     {
         ConfigureDomainToViewModel();
     }
 
     private void ConfigureDomainToViewModel()
     {
-        CreateMap<Account, AccountViewModel>()
+        CreateMap<Stop, StopViewModel>()
             .ForMember(d => d.Id, o => o.Ignore());
     }
 }

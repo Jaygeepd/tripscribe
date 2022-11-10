@@ -1,4 +1,5 @@
 using System.Net;
+using AutoMapper;
 using FluentAssertions.Equivalency.Tracing;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.testDI;
@@ -19,14 +20,19 @@ namespace tripscribe.Api.Controllers;
 public class JourneyController : ControllerBase
 {
     private readonly ITripscribeDatabase _database;
+    private readonly IMapper _mapper;
     
-    public JourneyController(ITripscribeDatabase database) => _database = database;
+    public JourneyController(ITripscribeDatabase database, IMapper mapper) => 
+        (_database, _mapper) = (database, mapper);
     
     [HttpGet]
-    public ActionResult<JourneyViewModel> GetJourneys()
+    public ActionResult<IList<JourneyViewModel>> GetJourneys()
     {
-        var journeys = _database.Get<Journey>().ToList();
-        return Ok(journeys);
+        var journeyViewModels = _mapper.ProjectTo<JourneyViewModel>(
+            _database.Get<Journey>()
+        ).ToList();
+        
+        return Ok(journeyViewModels);
     }
     
     [HttpGet("{id}", Name = "GetJourney")]
