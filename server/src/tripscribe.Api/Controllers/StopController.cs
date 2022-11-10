@@ -6,6 +6,9 @@ using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Api.ViewModels.Stop;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
+using tripscribe.Dal.Specifications.Reviews;
+using tripscribe.Dal.Specifications.Stops;
+using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
 
@@ -28,23 +31,23 @@ public class StopController : ControllerBase
     {
         var stops = _database
             .Get<Stop>()
-            .Where(search => search.JourneyId.Equals(id))
+            .Where(new StopsByJourneyIdSpec(id))
             .ToList();
         return Ok(new { stops });
     }
     
     [HttpGet("{Id}/reviews", Name = "GetReviewsByStopId")]
-    public ActionResult<ReviewViewModel> GetReviewsByStopId()
+    public ActionResult<ReviewViewModel> GetReviewsByStopId(int id)
     {
-        var reviews = new List<ReviewViewModel>
-        {
-            new ReviewViewModel()
-            {
-                ReviewText = "pass"
-            }
-        };
         
+        var reviews = _database
+            .Get<StopReview>()
+            .Where(new StopReviewsByStopIdSpec(id))
+            .Select(x => x.Review.ReviewText)
+            .ToList();
+
         return Ok(reviews);
+        
     }
     
     [HttpGet("{id}", Name = "GetStop")]
@@ -52,10 +55,15 @@ public class StopController : ControllerBase
     {
         var stop = _database
             .Get<Stop>()
-            .Select(x => new { Id = x.Id, Name = x.Name, 
+            
+            .Select(x => new
+            {
+                Id = x.Id, Name = x.Name,
                 DateArrived = x.DateArrived, DateDeparted = x.DateDeparted,
-                Locations = x.Locations.Select(y => y.Name)})
-            .FirstOrDefault(x => x.Id == id);
+                Locations = x.Locations.Select(y => y.Name)
+            })
+            .FirstOrDefault(x => x.Id  == id);
+        
         if (stop == null)
         {
             return NotFound();

@@ -9,6 +9,7 @@ using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Dal.Specifications.AccountJourneys;
 using tripscribe.Dal.Specifications.Journeys;
+using tripscribe.Dal.Specifications.Reviews;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
@@ -54,7 +55,11 @@ public class JourneyController : ControllerBase
     [HttpGet("{id}/reviews", Name = "GetJourneyReviews")]
     public ActionResult<ReviewViewModel> GetJourneyReviews(int id)
     {
-        var reviews = _database.Get<Review>().ToList();
+        var reviews = _database
+            .Get<JourneyReview>()
+            .Where(new JourneyReviewsByJourneyIdSpec(id))
+            .Select(x => x.Review.ReviewText)
+            .ToList();
 
         return Ok(reviews);
     }

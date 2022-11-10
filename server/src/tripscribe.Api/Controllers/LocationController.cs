@@ -5,6 +5,9 @@ using tripscribe.Api.ViewModels.Locations;
 using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
+using tripscribe.Dal.Specifications.Locations;
+using tripscribe.Dal.Specifications.Reviews;
+using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
 
@@ -18,14 +21,18 @@ public class LocationController : ControllerBase
     [HttpGet("stop/{id}", Name = "GetLocationsByStopId")]
     public ActionResult<LocationViewModel> GetLocationsByStopId(int id)
     {
-        var stops = _database.Get<Location>().Where(search => search.StopId.Equals(id)).ToList();
+        var stops = _database.Get<Location>()
+            .Where(new LocationsByStopIdSpec(id))
+            .ToList();
         return Ok(new { stops });
     }
     
     [HttpGet("{id}", Name = "GetLocation")]
     public ActionResult<LocationDetailViewModel> GetLocation(int id)
     {
-        var location = _database.Get<Location>().FirstOrDefault(x => x.Id == id);
+        var location = _database
+            .Get<Location>()
+            .FirstOrDefault(new LocationByIdSpec(id));
         if (location == null)
         {
             return NotFound();
@@ -37,16 +44,14 @@ public class LocationController : ControllerBase
     }
     
     [HttpGet("{id}/reviews", Name = "GetReviewsByLocationId")]
-    public ActionResult<ReviewViewModel> GetReviewsByLocationId()
+    public ActionResult<ReviewViewModel> GetLocationReviews(int id)
     {
-        var reviews = new List<ReviewViewModel>
-        {
-            new ReviewViewModel()
-            {
-                ReviewText = "Pass"
-            }
-        };
-        
+        var reviews = _database
+            .Get<LocationReview>()
+            .Where(new LocationReviewsByLocationIdSpec(id))
+            .Select(x => x.Review.ReviewText)
+            .ToList();
+
         return Ok(reviews);
     }
     
