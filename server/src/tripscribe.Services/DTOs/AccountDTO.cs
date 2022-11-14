@@ -9,4 +9,6 @@ public class AccountDTO
     public string LastName { get; set; }
     
     public string Email { get; set; }
+    
+    public IList<JourneyDTO> Journeys { get; set; }
 }

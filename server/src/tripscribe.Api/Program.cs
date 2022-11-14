@@ -1,6 +1,5 @@
 using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
-using tripscribe.Api.testDI;
 using tripscribe.Dal.Contexts;
 using tripscribe.Dal.Interfaces;
 
@@ -11,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddScoped<IDoStuff, DoStuff2>(); // Interface implementation to handle 
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo

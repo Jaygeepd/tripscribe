@@ -1,6 +1,5 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using tripscribe.Api.testDI;
 using tripscribe.Api.ViewModels.Reviews;
 
 namespace tripscribe.Api.Controllers;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using tripscribe.Dal.Models;
 using tripscribe.Services.DTOs;
+using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Services.Profiles;
 
@@ -14,7 +15,9 @@ public class AccountServiceProfile : Profile
 
     private void ConfigureDomainToDto()
     {
-        CreateMap<Account, AccountDTO>();
+        CreateMap<Account, AccountDTO>()
+            .ForMember(d => d.Journeys, o=> 
+                o.MapFrom(x => x.AccountJourneys));
     }
     
     private void ConfigureDtoToDomain()

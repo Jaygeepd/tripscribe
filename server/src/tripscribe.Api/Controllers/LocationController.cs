@@ -1,6 +1,5 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using tripscribe.Api.testDI;
 using tripscribe.Api.ViewModels.Locations;
 using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Dal.Interfaces;
