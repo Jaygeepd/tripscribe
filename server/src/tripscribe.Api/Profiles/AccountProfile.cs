@@ -17,4 +17,9 @@ public class AccountProfile : Profile
         CreateMap<AccountDTO, AccountViewModel>();
 
     }
+
+    private void ConfigureCreateModelToDTO()
+    {
+        CreateMap<CreateAccountViewModel, AccountDTO>();
+    }
 }

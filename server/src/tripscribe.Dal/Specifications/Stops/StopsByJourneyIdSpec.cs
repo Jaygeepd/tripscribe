@@ -6,13 +6,15 @@ namespace tripscribe.Dal.Specifications.Stops;
 
 public class StopsByJourneyIdSpec : Specification<Stop>
 {
-    private readonly int _journeyId;
+    private readonly int? _journeyId;
     
-    public StopsByJourneyIdSpec(int id) => _journeyId = id;
+    public StopsByJourneyIdSpec(int? id) => _journeyId = id;
 
     public override Expression<Func<Stop, bool>> BuildExpression()
     {
-        return _journeyId <= 0 ? ShowNone : x => x.JourneyId == _journeyId;
+        if (_journeyId == null) return ShowAll;
+
+        return x => x.JourneyId == _journeyId;
     }
         
 }

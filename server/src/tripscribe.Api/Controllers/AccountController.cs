@@ -3,7 +3,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using tripscribe.Api.testDI;
 using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
@@ -22,34 +21,18 @@ namespace tripscribe.Api.Controllers;
 [Route("[controller]")]
 public class AccountController : ControllerBase
 {
-    private readonly ITripscribeDatabase _database;
     private readonly IMapper _mapper;
     private readonly IAccountService _service;
+    private readonly ITripscribeDatabase _database;
     public AccountController(ITripscribeDatabase database, IMapper mapper, IAccountService service) => 
         (_database, _mapper, _service) = (database, mapper, service);
     
     [HttpGet]
-    public ActionResult<IList<AccountViewModel>> GetAccounts([FromQuery] string email, [FromQuery] string firstName, [FromQuery] string lastName)
+    public ActionResult<IList<AccountViewModel>> GetAccounts([FromQuery] int id, [FromQuery] string email, [FromQuery] string firstName, [FromQuery] string lastName)
     {
-        var accounts = _service.GetAccounts(email, firstName, lastName);
+        var accounts = _service.GetAccounts(id, email, firstName, lastName);
 
         return Ok(_mapper.Map<IList<AccountViewModel>>(accounts));
-    }
-
-    [HttpGet("{id}", Name = "GetAccount")]
-    public ActionResult<AccountDetailViewModel> GetAccount(int id)
-    {
-        var account = _database
-            .Get<Account>()
-            .FirstOrDefault(new AccountByIdSpec(id));
-        
-        if (account == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(new
-            { Id = account.Id, FirstName = account.FirstName, LastName = account.LastName, Email = account.Email });
     }
 
     [HttpGet("{id}/reviews", Name = "GetAccountReviews")]

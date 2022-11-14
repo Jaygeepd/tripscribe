@@ -15,7 +15,7 @@ public class AccountByLastNameSpec : Specification<Account>
     {
         if (string.IsNullOrWhiteSpace(_lastName)) return ShowAll;
         
-        return x => x.Email.Contains(_lastName);
+        return x => x.LastName.Contains(_lastName);
     }
     
 }

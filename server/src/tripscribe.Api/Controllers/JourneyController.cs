@@ -2,7 +2,6 @@ using System.Net;
 using AutoMapper;
 using FluentAssertions.Equivalency.Tracing;
 using Microsoft.AspNetCore.Mvc;
-using tripscribe.Api.testDI;
 using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
@@ -11,6 +10,7 @@ using tripscribe.Dal.Models;
 using tripscribe.Dal.Specifications.AccountJourneys;
 using tripscribe.Dal.Specifications.Journeys;
 using tripscribe.Dal.Specifications.Reviews;
+using tripscribe.Services.Services;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
@@ -20,30 +20,18 @@ namespace tripscribe.Api.Controllers;
 public class JourneyController : ControllerBase
 {
     private readonly ITripscribeDatabase _database;
+    private readonly IJourneyService _service;
     private readonly IMapper _mapper;
     
-    public JourneyController(ITripscribeDatabase database, IMapper mapper) => 
-        (_database, _mapper) = (database, mapper);
+    public JourneyController(ITripscribeDatabase database, IJourneyService service, IMapper mapper) => 
+        (_database, _service, _mapper) = (database, service, mapper);
     
     [HttpGet]
-    public ActionResult<IList<JourneyViewModel>> GetJourneys()
+    public ActionResult<IList<JourneyViewModel>> GetJourneys([FromQuery] int id, [FromQuery] string title, [FromQuery] DateTime startTime, [FromQuery] DateTime endTime)
     {
-        var journeyViewModels = _mapper.ProjectTo<JourneyViewModel>(
-            _database.Get<Journey>()
-        ).ToList();
+        var journeyViewModels = _service.GetJourneys(id, title, startTime, endTime);
         
         return Ok(journeyViewModels);
-    }
-    
-    [HttpGet("{id}", Name = "GetJourney")]
-    public ActionResult<JourneyDetailViewModel> GetJourney(int id)
-    {
-        var journey = _database.Get<Journey>().FirstOrDefault(new JourneyByIdSpec(id));
-        if (journey == null)
-        {
-            return NotFound();
-        }
-        return Ok(new { Id = journey.Id, Title = journey.Title, Description = journey.Description, Timestamp = journey.Timestamp});
     }
 
     [HttpGet(template:"{id}/accounts", Name = "GetJourneyAccounts")]

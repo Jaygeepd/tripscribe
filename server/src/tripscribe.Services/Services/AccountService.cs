@@ -14,11 +14,11 @@ public class AccountService : IAccountService
     public AccountService(ITripscribeDatabase database, IMapper mapper) =>
         (_database, _mapper) = (database, mapper);
 
-    public IList<AccountDTO> GetAccounts(string? email = null, string? firstName = null, string? lastName = null)
+    public IList<AccountDTO> GetAccounts(int? id = null, string? email = null, string? firstName = null, string? lastName = null)
     {
         var accountQuery = _database
             .Get<Account>()
-            .Where(new AccountSearchSpec(email, firstName, lastName));
+            .Where(new AccountSearchSpec(id, email, firstName, lastName));
 
         return _mapper
             .ProjectTo<AccountDTO>(accountQuery)

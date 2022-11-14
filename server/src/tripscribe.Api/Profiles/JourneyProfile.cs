@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using tripscribe.Api.ViewModels.Journeys;
-using tripscribe.Dal.Models;
+using tripscribe.Services.DTOs;
 
 namespace tripscribe.Api.Profiles;
 
@@ -13,7 +13,7 @@ public class JourneyProfile : Profile
 
     private void ConfigureDomainToViewModel()
     {
-        CreateMap<Journey, JourneyViewModel>()
+        CreateMap<JourneyDTO, JourneyViewModel>()
             .ForMember(d => d.Id, o => o.Ignore());
     }
 }

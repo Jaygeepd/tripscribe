@@ -6,13 +6,15 @@ namespace tripscribe.Dal.Specifications.Locations;
 
 public class LocationsByStopIdSpec : Specification<Location>
 {
-    private readonly int _stopId;
+    private readonly int? _stopId;
     
-    public LocationsByStopIdSpec(int id) => _stopId = id;
+    public LocationsByStopIdSpec(int? id) => _stopId = id;
 
     public override Expression<Func<Location, bool>> BuildExpression()
     {
-        return _stopId <= 0 ? ShowNone : x => x.StopId == _stopId;
+        if (_stopId == null) return ShowAll; 
+        
+        return x => x.StopId == _stopId;
     }
         
 }
