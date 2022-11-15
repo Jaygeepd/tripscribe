@@ -14,11 +14,22 @@ public class LocationService : ILocationService
     public LocationService(ITripscribeDatabase database, IMapper mapper) =>
         (_database, _mapper) = (database, mapper);
 
-    public IList<LocationDTO> GetLocations(int? id = null, string? name = null, string? locationType = null, DateTime? startDate = null, DateTime? endDate = null, int? stopId = null)
+    public IList<LocationDTO> GetLocation(int id)
     {
         var locationQuery = _database
             .Get<Location>()
-            .Where(new LocationSearchSpec(id, name, locationType, startDate, endDate, stopId));
+            .Where(new LocationByIdSpec(id));
+
+        return _mapper
+            .ProjectTo<LocationDTO>(locationQuery)
+            .ToList();
+    }
+
+    public IList<LocationDTO> GetLocations(string? name = null, string? locationType = null, DateTime? startDate = null, DateTime? endDate = null, int? stopId = null)
+    {
+        var locationQuery = _database
+            .Get<Location>()
+            .Where(new LocationSearchSpec(name, locationType, startDate, endDate, stopId));
 
         return _mapper
             .ProjectTo<LocationDTO>(locationQuery)

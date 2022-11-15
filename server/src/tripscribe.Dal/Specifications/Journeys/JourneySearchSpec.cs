@@ -10,10 +10,9 @@ public class JourneySearchSpec : Specification<Journey>
 {
     private readonly Specification<Journey> _spec;
 
-    public JourneySearchSpec(int? id, string? title, DateTime? startDate, DateTime? endDate)
+    public JourneySearchSpec(string? title, DateTime? startDate, DateTime? endDate)
     {
-        _spec = new JourneyByIdSpec(id)
-            .Or(new JourneyByTitleSpec(title))
+        _spec = new JourneyByTitleSpec(title)
             .Or(new JourneyByStartTimeSpec(startDate))
             .Or(new JourneyByEndTimeSpec(endDate));
     }

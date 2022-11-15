@@ -9,10 +9,9 @@ public class StopSearchSpec : Specification<Stop>
 {
     private readonly Specification<Stop> _spec;
 
-    public StopSearchSpec(int? id, string? name, DateTime? arrivedStartDate, DateTime? arrivedEndDate, DateTime? departedStartDate, DateTime? departedEndDate, int? journeyId)
+    public StopSearchSpec(string? name, DateTime? arrivedStartDate, DateTime? arrivedEndDate, DateTime? departedStartDate, DateTime? departedEndDate, int? journeyId)
     {
-        _spec = new StopByIdSpec(id)
-            .Or(new StopsByNameSpec(name))
+        _spec = new StopsByNameSpec(name)
             .Or(new StopsByStartDateArrivedSpec(arrivedStartDate))
             .Or(new StopsByEndDateArrivedSpec(arrivedEndDate))
             .Or(new StopsByStartDateDepartedSpec(departedStartDate))

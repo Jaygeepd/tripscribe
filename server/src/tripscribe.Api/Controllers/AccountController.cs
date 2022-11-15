@@ -1,15 +1,12 @@
 using System.Net;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Dal.Specifications.AccountJourneys;
-using tripscribe.Dal.Specifications.Accounts;
 using tripscribe.Dal.Specifications.Reviews;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Services;
@@ -27,10 +24,18 @@ public class AccountController : ControllerBase
     public AccountController(ITripscribeDatabase database, IMapper mapper, IAccountService service) => 
         (_database, _mapper, _service) = (database, mapper, service);
     
-    [HttpGet]
-    public ActionResult<IList<AccountViewModel>> GetAccounts([FromQuery] int id, [FromQuery] string email, [FromQuery] string firstName, [FromQuery] string lastName)
+    [HttpGet("{id}", Name = "GetAccountsById")]
+    public ActionResult<IList<AccountViewModel>> GetAccount([FromQuery] int id)
     {
-        var accounts = _service.GetAccounts(id, email, firstName, lastName);
+        var accounts = _service.GetAccount(id);
+
+        return Ok(_mapper.Map<IList<AccountViewModel>>(accounts));
+    }
+    
+    [HttpGet]
+    public ActionResult<IList<AccountViewModel>> GetAccounts([FromQuery] string? email, [FromQuery] string? firstName, [FromQuery] string? lastName)
+    {
+        var accounts = _service.GetAccounts(email, firstName, lastName);
 
         return Ok(_mapper.Map<IList<AccountViewModel>>(accounts));
     }

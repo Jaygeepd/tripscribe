@@ -1,4 +1,5 @@
 using System.Net;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.ViewModels.Locations;
 using tripscribe.Api.ViewModels.Reviews;
@@ -6,6 +7,7 @@ using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Dal.Specifications.Locations;
 using tripscribe.Dal.Specifications.Reviews;
+using tripscribe.Services.Services;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
@@ -14,32 +16,31 @@ namespace tripscribe.Api.Controllers;
 [Route("[controller]")]
 public class LocationController : ControllerBase
 {
+    private readonly ILocationService _service;
     private readonly ITripscribeDatabase _database;
-    public LocationController(ITripscribeDatabase database) => _database = database;
+    private readonly IMapper _mapper;
+    public LocationController(ITripscribeDatabase database, IMapper mapper, ILocationService service) => 
+        (_database, _mapper, _service) = (database, mapper, service);
     
-    [HttpGet("stop/{id}", Name = "GetLocationsByStopId")]
-    public ActionResult<LocationViewModel> GetLocationsByStopId(int id)
+    [HttpGet]
+    public ActionResult<LocationViewModel> GetLocations([FromQuery] string name, [FromQuery] string locationType, 
+        [FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int stopId)
     {
-        var stops = _database.Get<Location>()
-            .Where(new LocationsByStopIdSpec(id))
-            .ToList();
-        return Ok(new { stops });
+        var locations = _service.GetLocations(name, locationType, startDate, endDate, stopId);
+        return Ok(_mapper.Map<IList<LocationViewModel>>(locations));
     }
     
     [HttpGet("{id}", Name = "GetLocation")]
     public ActionResult<LocationDetailViewModel> GetLocation(int id)
     {
-        var location = _database
-            .Get<Location>()
-            .FirstOrDefault(new LocationByIdSpec(id));
+        var location = _service.GetLocation(id);
+        
         if (location == null)
         {
             return NotFound();
         }
 
-        return Ok(new
-        { Id = location.Id, Name = location.Name, DateVisited = location.DateVisited, 
-            LocationType = location.LocationType, StopId = location.StopId });
+        return Ok(_mapper.Map<IList<LocationViewModel>>(location));
     }
     
     [HttpGet("{id}/reviews", Name = "GetReviewsByLocationId")]

@@ -1,4 +1,5 @@
 using System.Net;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using tripscribe.Api.ViewModels.Reviews;
@@ -7,6 +8,7 @@ using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Dal.Specifications.Reviews;
 using tripscribe.Dal.Specifications.Stops;
+using tripscribe.Services.Services;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
@@ -16,23 +18,17 @@ namespace tripscribe.Api.Controllers;
 public class StopController : ControllerBase
 {
     private readonly ITripscribeDatabase _database;
-    public StopController(ITripscribeDatabase database) => _database = database;
+    private readonly IMapper _mapper;
+    private readonly IStopService _service;
+    public StopController(ITripscribeDatabase database, IMapper mapper, IStopService service) =>
+        (_database, _mapper, _service) = (database, mapper, service);
     
     [HttpGet]
-    public ActionResult<StopViewModel> GetAccounts()
+    public ActionResult<StopViewModel> GetStops([FromQuery] string name, DateTime arrivedStartDate, DateTime arrivedEndDate, DateTime departedStartDate, DateTime departedEndDate, int journeyId)
     {
-        var accounts = _database.Get<Stop>().ToList();
-        return Ok(new { accounts });
-    }
-     
-    [HttpGet("journey/{id}", Name = "GetStopsByJourneyId")]
-    public ActionResult<StopViewModel> GetStopsByJourneyId(int id)
-    {
-        var stops = _database
-            .Get<Stop>()
-            .Where(new StopsByJourneyIdSpec(id))
-            .ToList();
-        return Ok(new { stops });
+        var stops = _service.GetStops(name, arrivedStartDate, arrivedEndDate, 
+            departedStartDate, departedEndDate, journeyId);
+        return Ok(_mapper.Map<IList<StopViewModel>>(stops));
     }
     
     [HttpGet("{Id}/reviews", Name = "GetReviewsByStopId")]

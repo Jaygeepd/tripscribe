@@ -2,6 +2,8 @@ using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 using tripscribe.Dal.Contexts;
 using tripscribe.Dal.Interfaces;
+using tripscribe.Dal.Models;
+using tripscribe.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,10 @@ builder.Services.AddFluentValidation(s =>
 );
 
 builder.Services.AddScoped<ITripscribeDatabase, TripscribeContext>(_ => new TripscribeContext("Server=localhost;Port=5432;Database=tripscribe;User Id=postgres;Password=password;"));
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IJourneyService, JourneyService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IStopService, StopService>();
 builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly);
 
 var app = builder.Build();

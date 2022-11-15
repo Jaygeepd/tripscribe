@@ -10,10 +10,9 @@ public class AccountSearchSpec : Specification<Account>
 {
     private readonly Specification<Account> _spec;
 
-    public AccountSearchSpec(int? id, string? email, string? firstName, string? lastName)
+    public AccountSearchSpec(string? email, string? firstName, string? lastName)
     {
-        _spec = new AccountByIdSpec(id)
-            .Or(new AccountByEmailSpec(email))
+        _spec = new AccountByEmailSpec(email)
             .Or(new AccountByFirstNameSpec(firstName)
                 .Or(new AccountByLastNameSpec(lastName)));
     }

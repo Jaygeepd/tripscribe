@@ -16,8 +16,7 @@ public class AccountServiceProfile : Profile
     private void ConfigureDomainToDto()
     {
         CreateMap<Account, AccountDTO>()
-            .ForMember(d => d.Journeys, o=> 
-                o.MapFrom(x => x.AccountJourneys));
+            .ForMember(d => d.Id, o => o.Ignore());
     }
     
     private void ConfigureDtoToDomain()

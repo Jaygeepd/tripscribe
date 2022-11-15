@@ -27,9 +27,9 @@ public class JourneyController : ControllerBase
         (_database, _service, _mapper) = (database, service, mapper);
     
     [HttpGet]
-    public ActionResult<IList<JourneyViewModel>> GetJourneys([FromQuery] int id, [FromQuery] string title, [FromQuery] DateTime startTime, [FromQuery] DateTime endTime)
+    public ActionResult<IList<JourneyViewModel>> GetJourneys([FromQuery] string title, [FromQuery] DateTime startTime, [FromQuery] DateTime endTime)
     {
-        var journeyViewModels = _service.GetJourneys(id, title, startTime, endTime);
+        var journeyViewModels = _service.GetJourneys(title, startTime, endTime);
         
         return Ok(journeyViewModels);
     }

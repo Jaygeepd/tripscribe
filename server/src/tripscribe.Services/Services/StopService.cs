@@ -7,19 +7,30 @@ using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Services.Services;
 
-public class StopService
+public class StopService : IStopService
 {
     private readonly ITripscribeDatabase _database;
     private readonly IMapper _mapper;
     public StopService(ITripscribeDatabase database, IMapper mapper) =>
         (_database, _mapper) = (database, mapper);
 
-    public IList<StopDTO> GetStops(int? id = null, string? name = null, DateTime? startArrivedTime = null, 
+    public IList<StopDTO> GetStop(int id)
+    {
+        var stopQuery = _database
+            .Get<Stop>()
+            .Where(new StopByIdSpec(id));
+
+        return _mapper
+            .ProjectTo<StopDTO>(stopQuery)
+            .ToList();
+    }
+
+    public IList<StopDTO> GetStops(string? name = null, DateTime? startArrivedTime = null, 
         DateTime? endArrivedTime = null, DateTime? startDepartedTime = null, DateTime? endDepartedTime = null, int? journeyId = null)
     {
         var stopQuery = _database
             .Get<Stop>()
-            .Where(new StopSearchSpec(id, name, startArrivedTime, endArrivedTime, startDepartedTime, endDepartedTime, journeyId));
+            .Where(new StopSearchSpec(name, startArrivedTime, endArrivedTime, startDepartedTime, endDepartedTime, journeyId));
 
         return _mapper
             .ProjectTo<StopDTO>(stopQuery)
@@ -27,7 +38,7 @@ public class StopService
         
     }
 
-    public void UpdateStops(int id, StopDTO stop)
+    public void UpdateStop(int id, StopDTO stop)
     {
 
         var currentStop = _database

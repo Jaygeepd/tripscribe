@@ -10,10 +10,9 @@ public class LocationSearchSpec : Specification<Location>
 {
     private readonly Specification<Location> _spec;
 
-    public LocationSearchSpec(int? id, string? name, string? locType, DateTime? startDate, DateTime? endDate, int? stopId)
+    public LocationSearchSpec(string? name, string? locType, DateTime? startDate, DateTime? endDate, int? stopId)
     {
-        _spec = new LocationByIdSpec(id)
-            .Or(new LocationsByNameSpec(name))
+        _spec = new LocationsByNameSpec(name)
             .Or(new LocationsByTypeSpec(locType))
             .Or(new LocationsByStartDateSpec(startDate))
             .Or(new LocationsByEndDateSpec(endDate))

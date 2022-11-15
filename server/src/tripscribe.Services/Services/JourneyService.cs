@@ -15,11 +15,22 @@ public class JourneyService : IJourneyService
     public JourneyService(ITripscribeDatabase database, IMapper mapper) =>
         (_database, _mapper) = (database, mapper);
 
-    public IList<JourneyDTO> GetJourneys(int? id = null, string? title = null, DateTime? startDate = null, DateTime? endDate = null)
+    public IList<JourneyDTO> GetJourney(int id)
     {
         var journeyQuery = _database
             .Get<Journey>()
-            .Where(new JourneySearchSpec(id, title, startDate, endDate));
+            .Where(new JourneyByIdSpec(id));
+
+        return _mapper
+            .ProjectTo<JourneyDTO>(journeyQuery)
+            .ToList();
+    }
+    
+    public IList<JourneyDTO> GetJourneys(string? title = null, DateTime? startDate = null, DateTime? endDate = null)
+    {
+        var journeyQuery = _database
+            .Get<Journey>()
+            .Where(new JourneySearchSpec(title, startDate, endDate));
 
         return _mapper
             .ProjectTo<JourneyDTO>(journeyQuery)
