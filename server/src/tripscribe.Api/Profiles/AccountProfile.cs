@@ -10,6 +10,7 @@ public class AccountProfile : Profile
     public AccountProfile()
     {
         ConfigureDTOToViewModel();
+        ConfigureViewModelToDTO();
     }
 
     private void ConfigureDTOToViewModel()
@@ -18,8 +19,9 @@ public class AccountProfile : Profile
 
     }
 
-    private void ConfigureCreateModelToDTO()
+    private void ConfigureViewModelToDTO()
     {
+        CreateMap<UpdateAccountViewModel, AccountDTO>();
         CreateMap<CreateAccountViewModel, AccountDTO>();
     }
 }

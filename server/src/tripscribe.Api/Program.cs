@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
+using tripscribe.Api.Filters;
 using tripscribe.Dal.Contexts;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
@@ -9,7 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<GeneralExceptionFilter>();
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -41,7 +45,8 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJourneyService, JourneyService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IStopService, StopService>();
-builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly);
+builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly, typeof(AccountService).Assembly);
+
 
 var app = builder.Build();
 

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripscribe.Dal", "src\trips
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripscribe.Services", "src\tripscribe.Services\tripscribe.Services.csproj", "{FCFA049B-2BD7-4563-965D-C9F419AEB05F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripscribe.Api.Test", "test\tripscribe.Api.Test\tripscribe.Api.Test.csproj", "{793DBD50-74A2-41D6-B9F7-78548B39CB43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripscribe.Services.Test", "test\tripscribe.Services.Test\tripscribe.Services.Test.csproj", "{00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{FCFA049B-2BD7-4563-965D-C9F419AEB05F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCFA049B-2BD7-4563-965D-C9F419AEB05F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCFA049B-2BD7-4563-965D-C9F419AEB05F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{793DBD50-74A2-41D6-B9F7-78548B39CB43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{793DBD50-74A2-41D6-B9F7-78548B39CB43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{793DBD50-74A2-41D6-B9F7-78548B39CB43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{793DBD50-74A2-41D6-B9F7-78548B39CB43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

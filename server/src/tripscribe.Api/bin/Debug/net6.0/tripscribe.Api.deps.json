@@ -9,11 +9,9 @@
       "tripscribe.Api/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
-          "FluentAssertions": "6.8.0",
           "FluentValidation.AspNetCore": "11.2.2",
           "Swashbuckle.AspNetCore": "6.2.3",
-          "tripscribe.Services": "1.0.0",
-          "xunit": "2.4.2"
+          "tripscribe.Services": "1.0.0"
         },
         "runtime": {
           "tripscribe.Api.dll": {}
@@ -970,7 +968,7 @@
         "runtime": {
           "lib/netstandard2.0/xunit.abstractions.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
+            "fileVersion": "0.0.0.0"
           }
         }
       },

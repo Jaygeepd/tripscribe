@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,11 @@ public class AccountController : ControllerBase
         (_database, _mapper, _service) = (database, mapper, service);
     
     [HttpGet("{id}", Name = "GetAccountsById")]
-    public ActionResult<IList<AccountViewModel>> GetAccount([FromQuery] int id)
+    public ActionResult<AccountViewModel> GetAccount([FromQuery] int id)
     {
         var accounts = _service.GetAccount(id);
 
-        return Ok(_mapper.Map<IList<AccountViewModel>>(accounts));
+        return Ok(_mapper.Map<AccountViewModel>(accounts));
     }
     
     [HttpGet]

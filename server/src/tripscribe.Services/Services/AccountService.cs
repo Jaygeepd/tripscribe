@@ -3,6 +3,7 @@ using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Dal.Specifications.Accounts;
 using tripscribe.Services.DTOs;
+using tripscribe.Services.Exceptions;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Services.Services;
@@ -14,7 +15,7 @@ public class AccountService : IAccountService
     public AccountService(ITripscribeDatabase database, IMapper mapper) =>
         (_database, _mapper) = (database, mapper);
 
-    public IList<AccountDTO> GetAccount(int id)
+    public AccountDTO GetAccount(int id)
     {
         var accountQuery = _database
             .Get<Account>()
@@ -22,7 +23,7 @@ public class AccountService : IAccountService
 
         return _mapper
             .ProjectTo<AccountDTO>(accountQuery)
-            .ToList();
+            .SingleOrDefault();
     }
 
     public IList<AccountDTO> GetAccounts(string? email = null, string? firstName = null, string? lastName = null)
@@ -44,7 +45,7 @@ public class AccountService : IAccountService
             .Get<Account>()
             .FirstOrDefault(new AccountByIdSpec(id));
 
-        if (currentAcc == null) throw new Exception("Not Found");
+        if (currentAcc == null) throw new NotFoundException("Account Not Found");
 
         _mapper.Map(account, currentAcc);
 
