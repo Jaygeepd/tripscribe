@@ -71,13 +71,11 @@ public class AccountController : ControllerBase
     [HttpGet("{id}/journeys", Name = "GetAccountJourneys")]
     public ActionResult<JourneyViewModel> GetAccountJourneys(int id)
     {
+
+        var journeys = _service
+            .GetAccountJourneys(id);
         
-        var journeys = _database
-            .Get<AccountJourney>()
-            .Where(new AccountJourneysByAccountIdSpec(id))
-            .Select(x => x.Journey.Title)
-            .ToList();
-        return Ok(new { journeys });
+        return Ok(_mapper.Map<JourneyViewModel>(journeys));
     }
     
     [HttpPost]
@@ -93,9 +91,9 @@ public class AccountController : ControllerBase
             Password = accountDetails.Password
         };
 
-        _database.Add(newAccount);
+        var account = _mapper.Map<AccountDTO>(newAccount);
         
-        _database.SaveChanges();
+        _service.CreateAccount(account);
         
         return StatusCode((int)HttpStatusCode.Created);
     }
@@ -115,9 +113,10 @@ public class AccountController : ControllerBase
     [HttpDelete]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public ActionResult DeleteAccount(int id, [FromBody] UpdateAccountViewModel updateDetails)
+    public ActionResult DeleteAccount(int id)
     {
+        _service.DeleteAccount(id);
 
-        return NoContent();
+        return StatusCode((int)HttpStatusCode.NoContent);
     }
 }

@@ -7525,32 +7525,34 @@
     ]
   },
   "packageFolders": {
-    "/Users/john.mahon/.nuget/packages/": {}
+    "C:\\Users\\John Mahon\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/john.mahon/Documents/repos/tripscribe/server/test/tripscribe.Api.Test/tripscribe.Api.Test.csproj",
+      "projectUniqueName": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\test\\tripscribe.Api.Test\\tripscribe.Api.Test.csproj",
       "projectName": "tripscribe.Api.Test",
-      "projectPath": "/Users/john.mahon/Documents/repos/tripscribe/server/test/tripscribe.Api.Test/tripscribe.Api.Test.csproj",
-      "packagesPath": "/Users/john.mahon/.nuget/packages/",
-      "outputPath": "/Users/john.mahon/Documents/repos/tripscribe/server/test/tripscribe.Api.Test/obj/",
+      "projectPath": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\test\\tripscribe.Api.Test\\tripscribe.Api.Test.csproj",
+      "packagesPath": "C:\\Users\\John Mahon\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\test\\tripscribe.Api.Test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/john.mahon/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\John Mahon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Api/tripscribe.Api.csproj": {
-              "projectPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Api/tripscribe.Api.csproj"
+            "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\src\\tripscribe.Api\\tripscribe.Api.csproj": {
+              "projectPath": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\src\\tripscribe.Api\\tripscribe.Api.csproj"
             }
           }
         }
@@ -7610,7 +7612,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

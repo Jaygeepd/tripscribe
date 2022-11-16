@@ -5,11 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
-using tripscribe.Dal.Interfaces;
-using tripscribe.Dal.Models;
-using tripscribe.Dal.Specifications.AccountJourneys;
-using tripscribe.Dal.Specifications.Journeys;
-using tripscribe.Dal.Specifications.Reviews;
+using tripscribe.Services.DTOs;
 using tripscribe.Services.Services;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
@@ -19,59 +15,60 @@ namespace tripscribe.Api.Controllers;
 [Route("[controller]")]
 public class JourneyController : ControllerBase
 {
-    private readonly ITripscribeDatabase _database;
     private readonly IJourneyService _service;
     private readonly IMapper _mapper;
     
-    public JourneyController(ITripscribeDatabase database, IJourneyService service, IMapper mapper) => 
-        (_database, _service, _mapper) = (database, service, mapper);
+    public JourneyController(IMapper mapper, IJourneyService service) => 
+        (_mapper, _service) = (mapper, service);
+    
+    [HttpGet]
+    public ActionResult<JourneyViewModel> GetJourney([FromQuery] int id)
+    {
+        var journey = _service.GetJourney(id);
+        
+        return Ok(_mapper.Map<JourneyViewModel>(journey));
+    }
     
     [HttpGet]
     public ActionResult<IList<JourneyViewModel>> GetJourneys([FromQuery] string title, [FromQuery] DateTime startTime, [FromQuery] DateTime endTime)
     {
-        var journeyViewModels = _service.GetJourneys(title, startTime, endTime);
+        var journeys = _service.GetJourneys(title, startTime, endTime);
         
-        return Ok(journeyViewModels);
+        return Ok(_mapper.Map<JourneyViewModel>(journeys));
     }
 
     [HttpGet(template:"{id}/accounts", Name = "GetJourneyAccounts")]
     public ActionResult<AccountViewModel> GetJourneyAccounts(int id)
     {
-        
-        var accounts = _database
-            .Get<AccountJourney>()
-            .Where(new AccountJourneysByJourneyIdSpec(id))
-            .Select(x => x.Account.FirstName)
-            .ToList();
-        return Ok(new { accounts });
+
+        var accounts = _service
+            .GetJourneyAccounts(id);
+        return Ok(_mapper.Map<IList<AccountViewModel>>(accounts));
     }
     
     [HttpGet("{id}/reviews", Name = "GetJourneyReviews")]
-    public ActionResult<ReviewViewModel> GetJourneyReviews(int id)
+    public ActionResult<IList<ReviewViewModel>> GetJourneyReviews(int id)
     {
-        var reviews = _database
-            .Get<JourneyReview>()
-            .Where(new JourneyReviewsByJourneyIdSpec(id))
-            .Select(x => x.Review.ReviewText)
-            .ToList();
+        var reviews = _service
+            .GetJourneyReviews(id);
 
-        return Ok(reviews);
+        return Ok(_mapper.Map<IList<ReviewViewModel>>(reviews));
     }
     
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.Created)]
     public ActionResult CreateJourney( [FromBody] CreateJourneyViewModel journeyDetails)
     {
-        var newJourney = new Journey
+        var newJourney = new CreateJourneyViewModel
         {
             Title = journeyDetails.Title,
             Description = journeyDetails.Description, 
             Timestamp = DateTime.Now
         };
 
-        _database.Add(newJourney);
+        var journey = _mapper.Map<JourneyDTO>(newJourney);
         
-        _database.SaveChanges();
+        _service.CreateJourney(journey);
         
         return StatusCode((int)HttpStatusCode.Created);
     }
@@ -81,29 +78,20 @@ public class JourneyController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public ActionResult UpdateJourney(int id, [FromBody] UpdateJourneyViewModel journeyDetails)
     {
-        var updateJour = new Journey
-        {
-            Title = journeyDetails.Title,
-            Description = journeyDetails.Description
-        };
+        var journey = _mapper.Map<JourneyDTO>(journeyDetails);
 
-        var currJour = _database
-            .Get<Journey>()
-            .FirstOrDefault(x => x.Id == id);
-
-        currJour.Title = updateJour.Title;
-        currJour.Description = updateJour.Description;
-
-        _database.SaveChanges();
+        _service.UpdateJourney(id, journey);
         
-        return NoContent();
+        return StatusCode((int)HttpStatusCode.NoContent);
     }
     
     [HttpDelete]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public ActionResult UpdateJourney(int id)
+    public ActionResult DeleteJourney(int id)
     {
-        return NoContent();
+        _service.DeleteJourney(id);
+
+        return StatusCode((int)HttpStatusCode.NoContent);
     }
 }

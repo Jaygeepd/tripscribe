@@ -9,5 +9,11 @@ public interface ILocationService
     IList<LocationDTO> GetLocations(string? name, string? locationType, DateTime? startDate, DateTime? endDate,
         int? stopId);
 
+    void CreateLocation(LocationDTO location);
+    
     void UpdateLocation(int Id, LocationDTO location);
+
+    void DeleteLocation(int id);
+
+    IList<ReviewDTO> GetLocationReviews(int id);
 }

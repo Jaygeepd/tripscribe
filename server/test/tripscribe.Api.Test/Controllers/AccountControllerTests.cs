@@ -5,6 +5,7 @@ using NSubstitute;
 using tripscribe.Api.Controllers;
 using tripscribe.Api.Test.Extensions;
 using tripscribe.Api.ViewModels.Accounts;
+using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Services.DTOs;
@@ -52,6 +53,13 @@ public class AccountControllerTests
 
         _service.Received(1).GetAccount(id);
         _mapper.Received(1).Map<AccountViewModel>(account);
+    }
+
+    [Fact]
+    public void GetJourney_WhenJourneyFound_MapsAndReturned()
+    {
+        // Arrange
+        const int id = 1;
     }
 
     private AccountController RetrieveController()

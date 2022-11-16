@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
+using tripscribe.Dal.Specifications.Reviews;
 using tripscribe.Dal.Specifications.Stops;
 using tripscribe.Services.DTOs;
+using tripscribe.Services.Exceptions;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Services.Services;
@@ -38,6 +40,14 @@ public class StopService : IStopService
         
     }
 
+    public void CreateStop(StopDTO stopDetails)
+    {
+        var stop = new Stop();
+        _mapper.Map(stopDetails, stop);
+        _database.Add(stop);
+        _database.SaveChanges();
+    }
+
     public void UpdateStop(int id, StopDTO stop)
     {
 
@@ -45,11 +55,35 @@ public class StopService : IStopService
             .Get<Stop>()
             .FirstOrDefault(new StopByIdSpec(id));
 
-        if (currentStop == null) throw new Exception("Not Found");
+        if (currentStop == null) throw new NotFoundException("Stop Not Found");
 
         _mapper.Map(stop, currentStop);
 
         _database.SaveChanges();
+    }
+
+    public void DeleteStop(int id)
+    {
+        var currentStop = _database
+            .Get<Stop>()
+            .FirstOrDefault(new StopByIdSpec(id));
+
+        if (currentStop == null) throw new NotFoundException("Stop Not Found");
+        
+        _database.Delete(currentStop);
+        _database.SaveChanges();
+    }
+
+    public IList<ReviewDTO> GetStopReviews(int id)
+    {
+        var reviewQuery = _database
+            .Get<StopReview>()
+            .Where(new StopReviewsByStopIdSpec(id))
+            .Select(x => x.Review);
+
+        return _mapper
+            .ProjectTo<ReviewDTO>(reviewQuery)
+            .ToList();
     }
 
 }

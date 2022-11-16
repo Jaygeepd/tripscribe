@@ -8,12 +8,19 @@ public class JourneyProfile : Profile
 {
     public JourneyProfile()
     {
-        ConfigureDomainToViewModel();
+        ConfigureDtoToViewModel();
+        ConfigureViewModelToDto();
     }
 
-    private void ConfigureDomainToViewModel()
+    private void ConfigureDtoToViewModel()
     {
         CreateMap<JourneyDTO, JourneyViewModel>()
             .ForMember(d => d.Id, o => o.Ignore());
+    }
+
+    private void ConfigureViewModelToDto()
+    {
+        CreateMap<CreateJourneyViewModel, JourneyDTO>();
+        CreateMap<UpdateJourneyViewModel, JourneyDTO>();
     }
 }

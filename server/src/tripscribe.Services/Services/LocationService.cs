@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
+using tripscribe.Dal.Specifications.Journeys;
 using tripscribe.Dal.Specifications.Locations;
+using tripscribe.Dal.Specifications.Reviews;
 using tripscribe.Services.DTOs;
+using tripscribe.Services.Exceptions;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Services.Services;
@@ -37,6 +40,14 @@ public class LocationService : ILocationService
         
     }
 
+    public void CreateLocation(LocationDTO location)
+    {
+        var newLocation = new Location();
+        _mapper.Map(location, newLocation);
+        _database.Add(newLocation);
+        _database.SaveChanges();
+    }
+
     public void UpdateLocation(int id, LocationDTO location)
     {
 
@@ -44,10 +55,34 @@ public class LocationService : ILocationService
             .Get<Location>()
             .FirstOrDefault(new LocationByIdSpec(id));
 
-        if (currentLocation == null) throw new Exception("Not Found");
+        if (currentLocation == null) throw new NotFoundException("Location Not Found");
 
         _mapper.Map(location, currentLocation);
 
         _database.SaveChanges();
+    }
+
+    public void DeleteLocation(int id)
+    {
+        var currentLoc = _database
+            .Get<Location>()
+            .FirstOrDefault(new LocationByIdSpec(id));
+
+        if (currentLoc == null) throw new NotFoundException("Location Not Found");
+        
+        _database.Delete(currentLoc);
+        _database.SaveChanges();
+    }
+
+    public IList<ReviewDTO> GetLocationReviews(int id)
+    {
+        var locationQuery = _database
+            .Get<LocationReview>()
+            .Where(new LocationReviewsByLocationIdSpec(id))
+            .Select(x => x.Review);
+
+        return _mapper
+            .ProjectTo<ReviewDTO>(locationQuery)
+            .ToList();
     }
 }

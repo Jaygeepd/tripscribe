@@ -4,9 +4,17 @@ namespace tripscribe.Services.Services;
 
 public interface IJourneyService
 {
-    IList<JourneyDTO> GetJourney(int id);
+    JourneyDTO GetJourney(int id);
 
-    IList<JourneyDTO> GetJourneys(string? Title, DateTime? StartTime, DateTime? EndTime);
+    IList<JourneyDTO> GetJourneys(string? title, DateTime? startTime, DateTime? endTime);
 
-    void UpdateJourney(int Id, JourneyDTO journey);
+    void CreateJourney(JourneyDTO journey);
+    
+    void UpdateJourney(int id, JourneyDTO journey);
+
+    void DeleteJourney(int id);
+
+    IList<AccountDTO> GetJourneyAccounts(int id);
+
+    IList<ReviewDTO> GetJourneyReviews(int id);
 }

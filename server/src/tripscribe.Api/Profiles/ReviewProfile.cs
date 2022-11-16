@@ -1,25 +1,26 @@
 ﻿using AutoMapper;
-using tripscribe.Api.ViewModels.Locations;
+using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Services.DTOs;
 
 namespace tripscribe.Api.Profiles;
 
-public class LocationProfile : Profile
+public class ReviewProfile : Profile
 {
-    public LocationProfile()
+    public ReviewProfile()
     {
         ConfigureDtoToViewModel();
+        ConfigureViewModelToDto();
     }
 
     private void ConfigureDtoToViewModel()
     {
-        CreateMap<LocationDTO, LocationViewModel>()
+        CreateMap<ReviewDTO, ReviewViewModel>()
             .ForMember(d => d.Id, o => o.Ignore());
     }
 
     private void ConfigureViewModelToDto()
     {
-        CreateMap<CreateLocationViewModel, LocationDTO>();
-        CreateMap<UpdateLocationViewModel, LocationDTO>();
+        CreateMap<CreateReviewViewModel, ReviewDTO>();
+        CreateMap<UpdateReviewViewModel, ReviewDTO>();
     }
 }

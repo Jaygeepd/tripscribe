@@ -1,9 +1,13 @@
-namespace tripscribe.Api.ViewModels.Reviews;
+﻿namespace tripscribe.Services.DTOs;
 
-public class ReviewViewModel
+public class ReviewDTO
 {
     public int Id { get; set; }
+    
     public string ReviewText { get; set; }
+    
     public int Score { get; set; }
+    
     public DateTime Timestamp { get; set; }
+    
 }
