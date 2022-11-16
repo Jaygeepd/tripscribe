@@ -1,17 +1,11 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
-using tripscribe.Dal.Interfaces;
-using tripscribe.Dal.Models;
-using tripscribe.Dal.Specifications.AccountJourneys;
-using tripscribe.Dal.Specifications.Reviews;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Services;
-using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Api.Controllers;
 
@@ -21,9 +15,8 @@ public class AccountController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IAccountService _service;
-    private readonly ITripscribeDatabase _database;
-    public AccountController(ITripscribeDatabase database, IMapper mapper, IAccountService service) => 
-        (_database, _mapper, _service) = (database, mapper, service);
+    public AccountController(IMapper mapper, IAccountService service) => 
+        (_mapper, _service) = (mapper, service);
     
     [HttpGet("{id}", Name = "GetAccountsById")]
     public ActionResult<AccountViewModel> GetAccount([FromQuery] int id)
@@ -34,7 +27,8 @@ public class AccountController : ControllerBase
     }
     
     [HttpGet]
-    public ActionResult<IList<AccountViewModel>> GetAccounts([FromQuery] string? email, [FromQuery] string? firstName, [FromQuery] string? lastName)
+    public ActionResult<IList<AccountViewModel>> GetAccounts([FromQuery] string? email, [FromQuery] string? firstName, 
+        [FromQuery] string? lastName)
     {
         var accounts = _service.GetAccounts(email, firstName, lastName);
 
@@ -42,30 +36,11 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet("{id}/reviews", Name = "GetAccountReviews")]
-    public ActionResult<ReviewViewModel> GetAccountReviews(int id)
+    public ActionResult<IList<ReviewViewModel>> GetAccountReviews(int id)
     {
-        var journeyReviews = _database
-            .Get<JourneyReview>()
-            .Where(new JourneyReviewsByAccountIdSpec(id))
-            .Select(x => x.Review.ReviewText)
-            .ToList();
+        var reviews = _service.GetAccountReviews(id);
 
-        var stopReviews = _database
-            .Get<StopReview>()
-            .Where(new StopReviewsByAccountIdSpec(id))
-            .Select(x => x.Review.ReviewText)
-            .ToList();
-
-        var locationReviews = _database
-            .Get<LocationReview>()
-            .Where(new LocationReviewsByAccountIdSpec(id))
-            .Select(x => x.Review.ReviewText)
-            .ToList();
-
-        var reviews = journeyReviews.Concat(stopReviews).ToList();
-        reviews = reviews.Concat(locationReviews).ToList();
-        
-        return Ok(new { reviews });
+        return Ok(_mapper.Map<IList<ReviewViewModel>>(reviews));
     }
     
     [HttpGet("{id}/journeys", Name = "GetAccountJourneys")]
@@ -83,15 +58,7 @@ public class AccountController : ControllerBase
     public ActionResult CreateAccount( [FromBody] CreateAccountViewModel accountDetails)
     {
 
-        var newAccount = new Account
-        {
-            FirstName = accountDetails.FirstName,
-            LastName = accountDetails.LastName, 
-            Email = accountDetails.Email,
-            Password = accountDetails.Password
-        };
-
-        var account = _mapper.Map<AccountDTO>(newAccount);
+        var account = _mapper.Map<AccountDTO>(accountDetails);
         
         _service.CreateAccount(account);
         
@@ -107,7 +74,7 @@ public class AccountController : ControllerBase
 
         _service.UpdateAccount(id, account);
         
-        return StatusCode((int)HttpStatusCode.NoContent);
+        return NoContent();
     }
     
     [HttpDelete]
@@ -117,6 +84,6 @@ public class AccountController : ControllerBase
     {
         _service.DeleteAccount(id);
 
-        return StatusCode((int)HttpStatusCode.NoContent);
+        return NoContent();
     }
 }

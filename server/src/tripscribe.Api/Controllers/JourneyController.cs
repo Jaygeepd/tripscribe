@@ -21,7 +21,7 @@ public class JourneyController : ControllerBase
     public JourneyController(IMapper mapper, IJourneyService service) => 
         (_mapper, _service) = (mapper, service);
     
-    [HttpGet]
+    [HttpGet("{id}")]
     public ActionResult<JourneyViewModel> GetJourney([FromQuery] int id)
     {
         var journey = _service.GetJourney(id);

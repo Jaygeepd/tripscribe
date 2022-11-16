@@ -76,28 +76,12 @@ public class AccountService : IAccountService
 
     public IList<ReviewDTO> GetAccountReviews(int id)
     {
-        var journeyReviews = _database
-            .Get<JourneyReview>()
-            .Where(new JourneyReviewsByAccountIdSpec(id))
-            .Select(x => x.Review)
-            .ToList();
+        var reviewQuery = _database
+            .Get<Review>()
+            .Where(new ReviewsByAccountIdSpec(id));
 
-        var stopReviews = _database
-            .Get<StopReview>()
-            .Where(new StopReviewsByAccountIdSpec(id))
-            .Select(x => x.Review)
-            .ToList();
+        return _mapper.ProjectTo<ReviewDTO>(reviewQuery).ToList();
 
-        var locationReviews = _database
-            .Get<LocationReview>()
-            .Where(new LocationReviewsByAccountIdSpec(id))
-            .Select(x => x.Review)
-            .ToList();
-
-        var reviews = journeyReviews.Concat(stopReviews).ToList();
-        reviews = reviews.Concat(locationReviews).ToList();
-        
-        
     }
 
     public IList<JourneyDTO> GetAccountJourneys(int id)
