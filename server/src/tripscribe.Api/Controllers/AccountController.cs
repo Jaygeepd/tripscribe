@@ -44,13 +44,13 @@ public class AccountController : ControllerBase
     }
     
     [HttpGet("{id}/journeys", Name = "GetAccountJourneys")]
-    public ActionResult<JourneyViewModel> GetAccountJourneys(int id)
+    public ActionResult<IList<JourneyViewModel>> GetAccountJourneys(int id)
     {
 
         var journeys = _service
             .GetAccountJourneys(id);
         
-        return Ok(_mapper.Map<JourneyViewModel>(journeys));
+        return Ok(_mapper.Map<IList<JourneyViewModel>>(journeys));
     }
     
     [HttpPost]

@@ -22,8 +22,8 @@ public class StopController : ControllerBase
     [HttpGet("{id}", Name = "GetReviewById")]
     public ActionResult<StopViewModel> GetStop(int id)
     {
-        var stops = _service.GetStop(id);
-        return Ok(_mapper.Map<IList<StopViewModel>>(stops));
+        var stop = _service.GetStop(id);
+        return Ok(_mapper.Map<StopViewModel>(stop));
     }
     
     [HttpGet]
@@ -35,12 +35,12 @@ public class StopController : ControllerBase
     }
     
     [HttpGet("{Id}/reviews", Name = "GetReviewsByStopId")]
-    public ActionResult<ReviewViewModel> GetReviewsByStopId(int id)
+    public ActionResult<IList<ReviewViewModel>> GetStopReviews(int id)
     {
 
         var reviews = _service.GetStopReviews(id);
 
-        return Ok(_mapper.Map<ReviewViewModel>(reviews));
+        return Ok(_mapper.Map<IList<ReviewViewModel>>(reviews));
         
     }
     
@@ -72,7 +72,7 @@ public class StopController : ControllerBase
 
         _service.UpdateStop(id, stop);
         
-        return StatusCode((int)HttpStatusCode.NoContent);
+        return NoContent();
     }
     
     [HttpDelete]
@@ -82,6 +82,6 @@ public class StopController : ControllerBase
     {
         _service.DeleteStop(id);
 
-        return StatusCode((int)HttpStatusCode.NoContent);
+        return NoContent();
     }
 }

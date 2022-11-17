@@ -38,7 +38,7 @@ public class JourneyController : ControllerBase
     }
 
     [HttpGet(template:"{id}/accounts", Name = "GetJourneyAccounts")]
-    public ActionResult<AccountViewModel> GetJourneyAccounts(int id)
+    public ActionResult<IList<AccountViewModel>> GetJourneyAccounts(int id)
     {
 
         var accounts = _service

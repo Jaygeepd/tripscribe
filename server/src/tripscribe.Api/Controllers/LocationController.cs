@@ -19,7 +19,7 @@ public class LocationController : ControllerBase
         (_mapper, _service) = (mapper, service);
     
     [HttpGet]
-    public ActionResult<LocationViewModel> GetLocations([FromQuery] string? name, [FromQuery] string? locationType, 
+    public ActionResult<IList<LocationViewModel>> GetLocations([FromQuery] string? name, [FromQuery] string? locationType, 
         [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] int? stopId)
     {
         var locations = _service.GetLocations(name, locationType, startDate, endDate, stopId);
@@ -27,19 +27,19 @@ public class LocationController : ControllerBase
     }
     
     [HttpGet("{id}")]
-    public ActionResult<LocationDetailViewModel> GetLocation(int id)
+    public ActionResult<LocationViewModel> GetLocation(int id)
     {
         var location = _service.GetLocation(id);
 
-        return Ok(_mapper.Map<IList<LocationViewModel>>(location));
+        return Ok(_mapper.Map<LocationViewModel>(location));
     }
     
     [HttpGet("{id}/reviews")]
-    public ActionResult<ReviewViewModel> GetLocationReviews(int id)
+    public ActionResult<IList<ReviewViewModel>> GetLocationReviews(int id)
     {
         var reviews = _service.GetLocationReviews(id);
 
-        return Ok(_mapper.Map<ReviewViewModel>(reviews));
+        return Ok(_mapper.Map<IList<ReviewViewModel>>(reviews));
     }
     
     [HttpPost]

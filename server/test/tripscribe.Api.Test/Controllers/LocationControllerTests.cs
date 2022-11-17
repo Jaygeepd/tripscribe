@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using NSubstitute;
 using tripscribe.Api.Controllers;
 using tripscribe.Api.Test.Extensions;
 using tripscribe.Api.ViewModels.Locations;
+using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Services;
 
@@ -55,7 +57,7 @@ public class LocationControllerTests
     [Theory]
     [InlineData("name", "datearrived", "locationtype", 1, "startdate", "enddate")]
     [InlineData(null, null, null, null, null, null)]
-    public void GetAccounts_WhenAccountsFound_MappedAndReturned(string name, DateTime dateArrived, string locationType, int stopId, DateTime startDate, DateTime endDate)
+    public void GetLocations_WhenLocationsFound_MappedAndReturned(string name, DateTime dateArrived, string locationType, int stopId, DateTime startDate, DateTime endDate)
     {
         // Arrange
         const int id1 = 1;
@@ -100,6 +102,126 @@ public class LocationControllerTests
         _service.Received(1).GetLocations(name, locationType, startDate, endDate, stopId);
         _mapper.Received(1).Map<IList<LocationViewModel>>(locationViewModels);
 
+    }
+    
+    [Theory]
+    [InlineData("name", "datearrived", "locationtype", 1)]
+    public void CreateLocation_WhenValidDataEntered_MappedAndSaved(string name, DateTime dateArrived, string locationType, int stopId)
+    {
+        // Arrange
+        var location = new LocationDTO
+        {
+            Name = name,
+            DateArrived = dateArrived,
+            LocationType = locationType,
+            StopId = stopId
+        };
+
+        var createLocationViewModel = new CreateLocationViewModel();
+
+        _mapper.Map<LocationDTO>(createLocationViewModel).Returns(location);
+
+        var controller = RetrieveController();
+
+        // Act
+        var actionResult = controller.CreateLocation(createLocationViewModel);
+
+        // Assert
+        actionResult.AssertResult<StatusCodeResult>(HttpStatusCode.Created);
+
+        _service.Received(1).CreateLocation(location);
+        _mapper.Received(1).Map<LocationDTO>(createLocationViewModel);
+    }
+    
+    [Theory]
+    [InlineData("name", "datearrived", "locationtype")]
+    [InlineData(null, null, null)]
+    public void UpdateLocation_WhenCalledWithValidViewModel_MappedAndSaved(string name, DateTime dateArrived, string locationType)
+    {
+        // Arrange
+        const int id = 1;
+        var location = new LocationDTO
+        {
+            Id = id,
+            Name = name,
+            DateArrived = dateArrived,
+            LocationType = locationType
+        };
+
+        var updateLocationViewModel = new UpdateLocationViewModel();
+
+        _mapper.Map<LocationDTO>(updateLocationViewModel).Returns(location);
+
+        var controller = RetrieveController();
+
+        // Act
+        var actionResult = controller.UpdateLocation(id, updateLocationViewModel);
+
+        // Assert
+        actionResult.AssertResult<NoContentResult>();
+
+        _service.Received(1).UpdateLocation(id, location);
+        _mapper.Received(1).Map<LocationDTO>(updateLocationViewModel);
+    }
+    
+    [Fact]
+    public void DeleteLocation_WhenCalledWithValidId_DeletedAndSaved()
+    {
+        // Arrange
+        const int id = 1;
+
+        var controller = RetrieveController();
+
+        // Act
+        var actionResult = controller.DeleteLocation(id);
+
+        // Assert
+        actionResult.AssertResult<NoContentResult>();
+
+        _service.Received(1).DeleteLocation(id);
+    }
+    
+    [Fact]
+    public void GetLocationReviews_WhenReviewsFound_MapsAndReturned()
+    {
+        // Arrange
+        const int searchId = 1;
+
+        const int id1 = 1;
+        const int id2 = 2;
+        
+        var review1 = new ReviewDTO
+        {
+            Id = id1
+        };
+
+        var review2 = new ReviewDTO
+        {
+            Id = id2
+        };
+
+        var reviewList = new List<ReviewDTO>
+        {
+            review1, review2
+        };
+        
+        var reviewViewModels = new List<ReviewViewModel>();
+
+        _service.GetLocationReviews(searchId).Returns(reviewList);
+        _mapper.Map<IList<ReviewViewModel>>(reviewList).Returns(reviewViewModels);
+
+        var controller = RetrieveController();
+        
+        // Act
+        var actionResult = controller.GetLocationReviews(searchId);
+        
+        // Assert
+        var result = actionResult.AssertObjectResult<IList<ReviewViewModel>, OkObjectResult>();
+
+        result.Should().BeSameAs(reviewViewModels);
+
+        _service.Received(1).GetLocationReviews(searchId);
+        _mapper.Received(1).Map<IList<ReviewViewModel>>(reviewList);
     }
 
     private LocationController RetrieveController()

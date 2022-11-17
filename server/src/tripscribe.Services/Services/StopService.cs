@@ -16,7 +16,7 @@ public class StopService : IStopService
     public StopService(ITripscribeDatabase database, IMapper mapper) =>
         (_database, _mapper) = (database, mapper);
 
-    public IList<StopDTO> GetStop(int id)
+    public StopDTO GetStop(int id)
     {
         var stopQuery = _database
             .Get<Stop>()
@@ -24,7 +24,7 @@ public class StopService : IStopService
 
         return _mapper
             .ProjectTo<StopDTO>(stopQuery)
-            .ToList();
+            .SingleOrDefault();
     }
 
     public IList<StopDTO> GetStops(string? name = null, DateTime? startArrivedTime = null, 

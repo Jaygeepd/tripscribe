@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,8 @@ using NSubstitute;
 using tripscribe.Api.Controllers;
 using tripscribe.Api.Test.Extensions;
 using tripscribe.Api.ViewModels.Accounts;
+using tripscribe.Api.ViewModels.Journeys;
+using tripscribe.Api.ViewModels.Reviews;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Services;
 
@@ -100,6 +103,168 @@ public class AccountControllerTests
         _service.Received(1).GetAccounts(email, firstName, lastName);
         _mapper.Received(1).Map<IList<AccountViewModel>>(accountList);
 
+    }
+    
+    [Theory]
+    [InlineData("email", "firstname", "lastname", "password")]
+    public void CreateAccount_WhenValidDataEntered_MappedAndSaved(string email, string firstName, string lastName, string password)
+    {
+        // Arrange
+        var account = new AccountDTO
+        {
+            Email = email,
+            FirstName = firstName,
+            LastName = lastName,
+            Password = password
+        };
+
+        var createAccountViewModel = new CreateAccountViewModel();
+
+        _mapper.Map<AccountDTO>(createAccountViewModel).Returns(account);
+
+        var controller = RetrieveController();
+
+        // Act
+        var actionResult = controller.CreateAccount(createAccountViewModel);
+
+        // Assert
+        actionResult.AssertResult<StatusCodeResult>(HttpStatusCode.Created);
+
+        _service.Received(1).CreateAccount(account);
+        _mapper.Received(1).Map<AccountDTO>(createAccountViewModel);
+    }
+    
+    [Theory]
+    [InlineData("firstname", "lastname")]
+    [InlineData(null, null)]
+    public void UpdateAccount_WhenCalledWithValidViewModel_MappedAndSaved(string firstName, string lastName)
+    {
+        // Arrange
+        const int id = 1;
+        var account = new AccountDTO
+        {
+            Id = id,
+            FirstName = firstName,
+            LastName = lastName,
+        };
+
+        var updateAccountViewModel = new UpdateAccountViewModel();
+
+        _mapper.Map<AccountDTO>(updateAccountViewModel).Returns(account);
+
+        var controller = RetrieveController();
+
+        // Act
+        var actionResult = controller.UpdateAccount(id, updateAccountViewModel);
+
+        // Assert
+        actionResult.AssertResult<NoContentResult>();
+
+        _service.Received(1).UpdateAccount(id, account);
+        _mapper.Received(1).Map<AccountDTO>(updateAccountViewModel);
+    }
+    
+    [Fact]
+    public void DeleteAccount_WhenCalledWithValidId_DeletedAndSaved()
+    {
+        // Arrange
+        const int id = 1;
+
+        var controller = RetrieveController();
+
+        // Act
+        var actionResult = controller.DeleteAccount(id);
+
+        // Assert
+        actionResult.AssertResult<NoContentResult>();
+
+        _service.Received(1).DeleteAccount(id);
+    }
+    
+    [Fact]
+    public void GetAccountReviews_WhenReviewsFound_MapsAndReturned()
+    {
+        // Arrange
+        const int searchId = 1;
+
+        const int id1 = 1;
+        const int id2 = 2;
+        
+        var review1 = new ReviewDTO
+        {
+            Id = id1
+        };
+
+        var review2 = new ReviewDTO
+        {
+            Id = id2
+        };
+
+        var reviewList = new List<ReviewDTO>
+        {
+            review1, review2
+        };
+        
+        var reviewViewModels = new List<ReviewViewModel>();
+
+        _service.GetAccountReviews(searchId).Returns(reviewList);
+        _mapper.Map<IList<ReviewViewModel>>(reviewList).Returns(reviewViewModels);
+
+        var controller = RetrieveController();
+        
+        // Act
+        var actionResult = controller.GetAccountReviews(searchId);
+        
+        // Assert
+        var result = actionResult.AssertObjectResult<IList<ReviewViewModel>, OkObjectResult>();
+
+        result.Should().BeSameAs(reviewViewModels);
+
+        _service.Received(1).GetAccountReviews(searchId);
+        _mapper.Received(1).Map<IList<ReviewViewModel>>(reviewList);
+    }
+    
+    [Fact]
+    public void GetAccountJourneys_WhenAccountJourneysFound_MapsAndReturned()
+    {
+        // Arrange
+        const int searchId = 1;
+
+        const int id1 = 1;
+        const int id2 = 2;
+        
+        var journey1 = new JourneyDTO
+        {
+            Id = id1
+        };
+
+        var journey2 = new JourneyDTO()
+        {
+            Id = id2
+        };
+
+        var journeyList = new List<JourneyDTO>
+        {
+            journey1, journey2
+        };
+        
+        var journeyViewModels = new List<JourneyViewModel>();
+
+        _service.GetAccountJourneys(searchId).Returns(journeyList);
+        _mapper.Map<IList<JourneyViewModel>>(journeyList).Returns(journeyViewModels);
+
+        var controller = RetrieveController();
+        
+        // Act
+        var actionResult = controller.GetAccountJourneys(searchId);
+        
+        // Assert
+        var result = actionResult.AssertObjectResult<IList<JourneyViewModel>, OkObjectResult>();
+
+        result.Should().BeSameAs(journeyViewModels);
+
+        _service.Received(1).GetAccountJourneys(searchId);
+        _mapper.Received(1).Map<IList<JourneyViewModel>>(journeyList);
     }
 
     private AccountController RetrieveController()

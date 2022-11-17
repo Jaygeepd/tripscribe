@@ -1,10 +1,12 @@
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 
 namespace tripscribe.Api.Controllers;
 
+[ExcludeFromCodeCoverage]
 [ApiController]
-public class TotalArmyBaseController : ControllerBase
+public class TripscribeBaseController : ControllerBase
 {
     protected ActionResult OkOrNoContent(object value)
     {

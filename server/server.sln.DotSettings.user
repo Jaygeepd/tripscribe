@@ -7,5 +7,12 @@
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c83aedcd_002Dc138_002D49e5_002D9f6c_002D88cf5e4dd835/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from AccountControllerTests.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;ProjectFile&gt;793DBD50-74A2-41D6-B9F7-78548B39CB43/d:Controllers/f:AccountControllerTests.cs&lt;/ProjectFile&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;ProjectFile&gt;793DBD50-74A2-41D6-B9F7-78548B39CB43/d:Controllers/f:AccountControllerTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.LocationControllerTests&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.JourneyControllerTests&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.StopControllerTests&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
