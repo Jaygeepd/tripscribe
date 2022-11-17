@@ -4,7 +4,7 @@ namespace tripscribe.Services.Services;
 
 public interface ILocationService
 {
-    IList<LocationDTO> GetLocation(int id);
+    LocationDTO GetLocation(int id);
     
     IList<LocationDTO> GetLocations(string? name, string? locationType, DateTime? startDate, DateTime? endDate,
         int? stopId);

@@ -19,14 +19,14 @@ public class LocationController : ControllerBase
         (_mapper, _service) = (mapper, service);
     
     [HttpGet]
-    public ActionResult<LocationViewModel> GetLocations([FromQuery] string name, [FromQuery] string locationType, 
-        [FromQuery] DateTime startDate, [FromQuery] DateTime endDate, [FromQuery] int stopId)
+    public ActionResult<LocationViewModel> GetLocations([FromQuery] string? name, [FromQuery] string? locationType, 
+        [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] int? stopId)
     {
         var locations = _service.GetLocations(name, locationType, startDate, endDate, stopId);
         return Ok(_mapper.Map<IList<LocationViewModel>>(locations));
     }
     
-    [HttpGet("{id}", Name = "GetLocation")]
+    [HttpGet("{id}")]
     public ActionResult<LocationDetailViewModel> GetLocation(int id)
     {
         var location = _service.GetLocation(id);
@@ -34,7 +34,7 @@ public class LocationController : ControllerBase
         return Ok(_mapper.Map<IList<LocationViewModel>>(location));
     }
     
-    [HttpGet("{id}/reviews", Name = "GetReviewsByLocationId")]
+    [HttpGet("{id}/reviews")]
     public ActionResult<ReviewViewModel> GetLocationReviews(int id)
     {
         var reviews = _service.GetLocationReviews(id);
@@ -70,7 +70,7 @@ public class LocationController : ControllerBase
 
         _service.UpdateLocation(id, location);
         
-        return StatusCode((int)HttpStatusCode.NoContent);
+        return NoContent();
     }
     
     [HttpDelete]
@@ -80,6 +80,6 @@ public class LocationController : ControllerBase
     {
         _service.DeleteLocation(id);
 
-        return StatusCode((int)HttpStatusCode.NoContent);
+        return NoContent();
     }
 }

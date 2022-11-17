@@ -8,6 +8,8 @@ public class LocationDTO
     
     public string LocationType { get; set; }
     
+    public DateTime DateArrived { get; set; }
+    
     public DateTime StartDate { get; set; }
     
     public DateTime EndDate { get; set; }

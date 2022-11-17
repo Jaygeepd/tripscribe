@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using tripscribe.Dal.Models;
 using tripscribe.Services.DTOs;
+using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Services.Profiles;
 
-public class StopServiceProfile : Profile
+public class AccountService : Profile
 {
-    public StopServiceProfile()
+    public AccountService()
     {
         ConfigureDomainToDto();
         ConfigureDtoToDomain();
@@ -14,13 +15,14 @@ public class StopServiceProfile : Profile
 
     private void ConfigureDomainToDto()
     {
-        CreateMap<Stop, StopDTO>();
+        CreateMap<Account, AccountDTO>()
+            .ForMember(d => d.Id, o => o.Ignore());
     }
     
     private void ConfigureDtoToDomain()
     {
-        CreateMap<StopDTO, Stop>()
+        CreateMap<AccountDTO, Account>()
             .ForMember(d => d.Id, o => o.Ignore())
-            .ForMember(d => d.JourneyId, o => o.Ignore());
+            .ForMember(d => d.Password, o => o.Ignore());
     }
 }

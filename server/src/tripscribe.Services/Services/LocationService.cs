@@ -17,7 +17,7 @@ public class LocationService : ILocationService
     public LocationService(ITripscribeDatabase database, IMapper mapper) =>
         (_database, _mapper) = (database, mapper);
 
-    public IList<LocationDTO> GetLocation(int id)
+    public LocationDTO GetLocation(int id)
     {
         var locationQuery = _database
             .Get<Location>()
@@ -25,7 +25,7 @@ public class LocationService : ILocationService
 
         return _mapper
             .ProjectTo<LocationDTO>(locationQuery)
-            .ToList();
+            .SingleOrDefault();
     }
 
     public IList<LocationDTO> GetLocations(string? name = null, string? locationType = null, DateTime? startDate = null, DateTime? endDate = null, int? stopId = null)

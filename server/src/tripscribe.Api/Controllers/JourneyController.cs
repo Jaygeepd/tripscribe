@@ -30,7 +30,7 @@ public class JourneyController : ControllerBase
     }
     
     [HttpGet]
-    public ActionResult<IList<JourneyViewModel>> GetJourneys([FromQuery] string title, [FromQuery] DateTime startTime, [FromQuery] DateTime endTime)
+    public ActionResult<IList<JourneyViewModel>> GetJourneys([FromQuery] string? title, [FromQuery] DateTime? startTime, [FromQuery] DateTime? endTime)
     {
         var journeys = _service.GetJourneys(title, startTime, endTime);
         
@@ -82,7 +82,7 @@ public class JourneyController : ControllerBase
 
         _service.UpdateJourney(id, journey);
         
-        return StatusCode((int)HttpStatusCode.NoContent);
+        return NoContent();
     }
     
     [HttpDelete]
@@ -92,6 +92,6 @@ public class JourneyController : ControllerBase
     {
         _service.DeleteJourney(id);
 
-        return StatusCode((int)HttpStatusCode.NoContent);
+        return NoContent();
     }
 }

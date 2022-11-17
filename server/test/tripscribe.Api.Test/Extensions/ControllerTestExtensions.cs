@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace tripscribe.Api.Test.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class ControllerTestExtensions
 {
     public static T AssertObjectResult<T, TU>(this ActionResult<T> @this) where TU : ActionResult
