@@ -55,8 +55,8 @@ public class StopControllerTests
     }
     
     [Theory]
-    [InlineData("name", "datearrived", "datedeparted", "arrivedStartDate", "arrivedEndDate", 
-        "departedStartDate", "departedEndDate", 1)]
+    [InlineData("name", "2017-7-10", "2017-7-10", "2017-7-10", "2017-7-10", 
+        "2017-7-10", "2017-7-10", 1)]
     [InlineData(null, null, null, null, null, null, null, null)]
     public void GetStops_WhenStopsFound_MappedAndReturned(string name, DateTime dateArrived, DateTime dateDeparted, 
         DateTime arrivedStartDate, DateTime arrivedEndDate, 
@@ -113,8 +113,8 @@ public class StopControllerTests
     }
     
     [Theory]
-    [InlineData("name", "datearrived", "datedeparted", 1)]
-    public void CreateAccount_WhenValidDataEntered_MappedAndSaved(string name, DateTime dateArrived, DateTime dateDeparted, int journeyId)
+    [InlineData("name", "2017-7-10", "2017-7-10", 1)]
+    public void CreateStop_WhenValidDataEntered_MappedAndSaved(string name, DateTime dateArrived, DateTime dateDeparted, int journeyId)
     {
         // Arrange
         var stop = new StopDTO
@@ -138,11 +138,11 @@ public class StopControllerTests
         actionResult.AssertResult<StatusCodeResult>(HttpStatusCode.Created);
 
         _service.Received(1).CreateStop(stop);
-        _mapper.Received(1).Map<AccountDTO>(createStopViewModel);
+        _mapper.Received(1).Map<StopDTO>(createStopViewModel);
     }
     
     [Theory]
-    [InlineData("name", "datearrived", "datedeparted")]
+    [InlineData("name", "2017-7-10", "2017-7-10")]
     [InlineData(null, null, null)]
     public void UpdateStop_WhenCalledWithValidViewModel_MappedAndSaved(string name, DateTime dateArrived, DateTime dateDeparted)
     {
@@ -168,7 +168,7 @@ public class StopControllerTests
         actionResult.AssertResult<NoContentResult>();
 
         _service.Received(1).UpdateStop(id, stop);
-        _mapper.Received(1).Map<AccountDTO>(updateStopViewModel);
+        _mapper.Received(1).Map<StopDTO>(updateStopViewModel);
     }
     
     [Fact]

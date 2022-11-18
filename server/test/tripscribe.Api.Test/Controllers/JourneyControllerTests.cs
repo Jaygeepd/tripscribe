@@ -56,7 +56,7 @@ public class JourneyControllerTests
     }
     
     [Theory]
-    [InlineData("title", "description", "timestamp", "starttime", "endtime")]
+    [InlineData("title", "description", "2017-7-10", "2017-7-10", "2017-7-10")]
     [InlineData(null, null, null, null, null)]
     public void GetJourneys_WhenJourneysFound_MappedAndReturned(string title, string description, DateTime timestamp, 
         DateTime startTime, DateTime endTime)
@@ -160,7 +160,7 @@ public class JourneyControllerTests
         actionResult.AssertResult<NoContentResult>();
 
         _service.Received(1).UpdateJourney(id, journey);
-        _mapper.Received(1).Map<AccountDTO>(updateJourneyViewModel);
+        _mapper.Received(1).Map<JourneyDTO>(updateJourneyViewModel);
     }
     
     [Fact]

@@ -55,7 +55,7 @@ public class LocationControllerTests
     }
 
     [Theory]
-    [InlineData("name", "datearrived", "locationtype", 1, "startdate", "enddate")]
+    [InlineData("name", "2017-7-10", "locationtype", 1, "2016-02-12", "2018-02-12")]
     [InlineData(null, null, null, null, null, null)]
     public void GetLocations_WhenLocationsFound_MappedAndReturned(string name, DateTime dateArrived, string locationType, int stopId, DateTime startDate, DateTime endDate)
     {
@@ -100,12 +100,12 @@ public class LocationControllerTests
         result.Should().BeSameAs(locationViewModels);
 
         _service.Received(1).GetLocations(name, locationType, startDate, endDate, stopId);
-        _mapper.Received(1).Map<IList<LocationViewModel>>(locationViewModels);
+        _mapper.Received(1).Map<IList<LocationViewModel>>(locationList);
 
     }
     
     [Theory]
-    [InlineData("name", "datearrived", "locationtype", 1)]
+    [InlineData("name", "2017-7-10", "locationtype", 1)]
     public void CreateLocation_WhenValidDataEntered_MappedAndSaved(string name, DateTime dateArrived, string locationType, int stopId)
     {
         // Arrange
@@ -134,7 +134,7 @@ public class LocationControllerTests
     }
     
     [Theory]
-    [InlineData("name", "datearrived", "locationtype")]
+    [InlineData("name", "2017-7-10", "locationtype")]
     [InlineData(null, null, null)]
     public void UpdateLocation_WhenCalledWithValidViewModel_MappedAndSaved(string name, DateTime dateArrived, string locationType)
     {

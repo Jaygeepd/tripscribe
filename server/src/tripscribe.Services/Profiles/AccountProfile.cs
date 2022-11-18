@@ -5,9 +5,9 @@ using Unosquare.EntityFramework.Specification.Common.Extensions;
 
 namespace tripscribe.Services.Profiles;
 
-public class AccountService : Profile
+public class AccountProfile : Profile
 {
-    public AccountService()
+    public AccountProfile()
     {
         ConfigureDomainToDto();
         ConfigureDtoToDomain();
@@ -15,8 +15,7 @@ public class AccountService : Profile
 
     private void ConfigureDomainToDto()
     {
-        CreateMap<Account, AccountDTO>()
-            .ForMember(d => d.Id, o => o.Ignore());
+        CreateMap<Account, AccountDTO>();
     }
     
     private void ConfigureDtoToDomain()

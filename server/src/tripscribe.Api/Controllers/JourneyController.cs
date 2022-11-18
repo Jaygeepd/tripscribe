@@ -34,7 +34,7 @@ public class JourneyController : ControllerBase
     {
         var journeys = _service.GetJourneys(title, startTime, endTime);
         
-        return Ok(_mapper.Map<JourneyViewModel>(journeys));
+        return Ok(_mapper.Map<IList<JourneyViewModel>>(journeys));
     }
 
     [HttpGet(template:"{id}/accounts", Name = "GetJourneyAccounts")]
