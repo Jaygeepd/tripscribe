@@ -42,8 +42,7 @@ public class StopService : IStopService
 
     public void CreateStop(StopDTO stopDetails)
     {
-        var stop = new Stop();
-        _mapper.Map(stopDetails, stop);
+        var stop = _mapper.Map<Stop>(stopDetails);
         _database.Add(stop);
         _database.SaveChanges();
     }

@@ -8,7 +8,7 @@ public class LocationDTO
     
     public string LocationType { get; set; }
     
-    public DateTime DateArrived { get; set; }
+    public DateTime DateVisited { get; set; }
     
     public DateTime StartDate { get; set; }
     

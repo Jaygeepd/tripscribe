@@ -6,7 +6,7 @@ public interface IJourneyService
 {
     JourneyDTO GetJourney(int id);
 
-    IList<JourneyDTO> GetJourneys(string? title, DateTime? startTime, DateTime? endTime);
+    IList<JourneyDTO> GetJourneys(string? title = null, DateTime? startTime = null, DateTime? endTime = null);
 
     void CreateJourney(JourneyDTO journey);
     

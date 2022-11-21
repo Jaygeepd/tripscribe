@@ -6,8 +6,8 @@ public interface ILocationService
 {
     LocationDTO GetLocation(int id);
     
-    IList<LocationDTO> GetLocations(string? name, string? locationType, DateTime? startDate, DateTime? endDate,
-        int? stopId);
+    IList<LocationDTO> GetLocations(string? name = null, string? locationType = null, DateTime? startDate = null, DateTime? endDate = null,
+        int? stopId = null);
 
     void CreateLocation(LocationDTO location);
     

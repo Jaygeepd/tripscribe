@@ -42,8 +42,7 @@ public class JourneyService : IJourneyService
 
     public void CreateJourney(JourneyDTO journey)
     {
-        var newJourney = new Journey();
-        _mapper.Map(journey, newJourney);
+        var newJourney = _mapper.Map<Journey>(journey);
         _database.Add(newJourney);
         _database.SaveChanges();
         

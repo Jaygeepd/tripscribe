@@ -46,5 +46,13 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fb124f2b_002D1227_002D4748_002D8f57_002Da7e8e40a33ab/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAccount_WhenAccountExist_ReturnsAccount #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.AccountServiceTest.GetAccount_WhenAccountExist_ReturnsAccount&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.JourneyServiceTest.GetJourney_WhenJourneyExist_ReturnsJourney&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.LocationServiceTest.GetLocation_WhenLocationExist_ReturnsLocation&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.StopServiceTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.AccountServiceTest.GetAccounts_WhenAccountsExist_ReturnsAccountList&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.AccountServiceTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.JourneyServiceTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.LocationServiceTest.CreateLocation_ValidDataEntered_MapperAndSaved&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.LocationServiceTest.GetLocations_WhenLocationsExist_ReturnsLocationList&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

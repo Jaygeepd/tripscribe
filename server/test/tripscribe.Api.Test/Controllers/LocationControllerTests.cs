@@ -67,7 +67,7 @@ public class LocationControllerTests
         {
             Id = id1,
             Name = name,
-            DateArrived = dateArrived,
+            DateVisited = dateArrived,
             LocationType = locationType
         };
         
@@ -75,7 +75,7 @@ public class LocationControllerTests
         {
             Id = id2,
             Name = name,
-            DateArrived = dateArrived,
+            DateVisited = dateArrived,
             LocationType = locationType
         };
 
@@ -112,7 +112,7 @@ public class LocationControllerTests
         var location = new LocationDTO
         {
             Name = name,
-            DateArrived = dateArrived,
+            DateVisited = dateArrived,
             LocationType = locationType,
             StopId = stopId
         };
@@ -144,7 +144,7 @@ public class LocationControllerTests
         {
             Id = id,
             Name = name,
-            DateArrived = dateArrived,
+            DateVisited = dateArrived,
             LocationType = locationType
         };
 

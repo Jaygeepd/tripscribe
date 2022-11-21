@@ -119,3 +119,5 @@
 /Users/john.mahon/Documents/repos/tripscribe/server/test/tripscribe.Services.Test/obj/Debug/net6.0/tripscribe.Services.Test.pdb
 /Users/john.mahon/Documents/repos/tripscribe/server/test/tripscribe.Services.Test/obj/Debug/net6.0/tripscribe.Services.Test.genruntimeconfig.cache
 /Users/john.mahon/Documents/repos/tripscribe/server/test/tripscribe.Services.Test/obj/Debug/net6.0/ref/tripscribe.Services.Test.dll
+/Users/john.mahon/Documents/repos/tripscribe/server/test/tripscribe.Services.Test/bin/Debug/net6.0/AutoFixture.dll
+/Users/john.mahon/Documents/repos/tripscribe/server/test/tripscribe.Services.Test/bin/Debug/net6.0/Fare.dll
