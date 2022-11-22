@@ -90,6 +90,8 @@ public class StopServiceTest
         _database.Received(1).SaveChanges();
         _database.Received(1).Add(Arg.Is<Stop>(x => x.Name == newStop.Name));
     }
+    
+    
 
     private IStopService RetrieveService()
     {

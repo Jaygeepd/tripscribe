@@ -20,15 +20,16 @@
     &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.JourneyControllerTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c83aedcd_002Dc138_002D49e5_002D9f6c_002D88cf5e4dd835/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from AccountControllerTests.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Or&gt;
-    &lt;ProjectFile&gt;793DBD50-74A2-41D6-B9F7-78548B39CB43/d:Controllers/f:AccountControllerTests.cs&lt;/ProjectFile&gt;
-    &lt;TestAncestor&gt;
-      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.LocationControllerTests&lt;/TestId&gt;
-      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.JourneyControllerTests&lt;/TestId&gt;
-      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.StopControllerTests&lt;/TestId&gt;
-    &lt;/TestAncestor&gt;
-  &lt;/Or&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c83aedcd_002Dc138_002D49e5_002D9f6c_002D88cf5e4dd835/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from AccountControllerTests.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;ProjectFile&gt;793DBD50-74A2-41D6-B9F7-78548B39CB43/d:Controllers/f:AccountControllerTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.LocationControllerTests&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.JourneyControllerTests&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.StopControllerTests&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;ProjectFile&gt;00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6/d:Services/f:AccountServiceTest.cs&lt;/ProjectFile&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cb65451c_002D0069_002D4fb1_002Db1c4_002D5dc243a3bc5d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateStop_WhenValidDataEntered_MappedAndSaved" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Or&gt;
