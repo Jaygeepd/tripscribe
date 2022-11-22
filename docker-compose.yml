@@ -19,5 +19,20 @@ services:
       - ./migrations:/flyway/sql
     depends_on:
       - db
+  server:
+    profiles: ["dev"]
+    build:
+      context: ./server
+      dockerfile: Dockerfile.local
+    environment:
+      ASPNETCORE_URLS: "https://+:7121;http://+:5126"
+      DbConnectionString: "Server=db,1433;Database=tripscribe;User Id=postgres;Password=password;"
+    volumes:
+      - ./server:/app
+    ports:
+      - 7121:7121
+      - 5126:5126
+    depends_on:
+      - flyway
 volumes:
   db:

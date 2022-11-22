@@ -59,14 +59,7 @@ public class JourneyController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.Created)]
     public ActionResult CreateJourney( [FromBody] CreateJourneyViewModel journeyDetails)
     {
-        var newJourney = new CreateJourneyViewModel
-        {
-            Title = journeyDetails.Title,
-            Description = journeyDetails.Description, 
-            Timestamp = DateTime.Now
-        };
-
-        var journey = _mapper.Map<JourneyDTO>(newJourney);
+        var journey = _mapper.Map<JourneyDTO>(journeyDetails);
         
         _service.CreateJourney(journey);
         

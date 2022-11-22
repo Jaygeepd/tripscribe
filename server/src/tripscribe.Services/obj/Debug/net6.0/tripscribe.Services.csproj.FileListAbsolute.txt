@@ -15,20 +15,37 @@
 /Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Dal.pdb
 /Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.csproj.CopyComplete
 /Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.genruntimeconfig.cache
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\bin\Debug\net6.0\tripscribe.Services.deps.json
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\bin\Debug\net6.0\tripscribe.Services.runtimeconfig.json
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\bin\Debug\net6.0\tripscribe.Services.dll
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\bin\Debug\net6.0\tripscribe.Services.pdb
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\bin\Debug\net6.0\tripscribe.Dal.dll
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\bin\Debug\net6.0\tripscribe.Dal.pdb
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\tripscribe.Services.csproj.AssemblyReference.cache
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\tripscribe.Services.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\tripscribe.Services.AssemblyInfoInputs.cache
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\tripscribe.Services.AssemblyInfo.cs
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\tripscribe.Services.csproj.CoreCompileInputs.cache
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\tripscribe.Services.csproj.CopyComplete
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\tripscribe.Services.dll
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\refint\tripscribe.Services.dll
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\tripscribe.Services.pdb
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\tripscribe.Services.genruntimeconfig.cache
-C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Services\obj\Debug\net6.0\ref\tripscribe.Services.dll
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.deps.json
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.runtimeconfig.json
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.dll
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.pdb
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Dal.dll
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Dal.pdb
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.csproj.AssemblyReference.cache
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.AssemblyInfoInputs.cache
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.AssemblyInfo.cs
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.csproj.CoreCompileInputs.cache
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.csproj.CopyComplete
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.dll
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/refint/tripscribe.Services.dll
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.pdb
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.genruntimeconfig.cache
+C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Services/obj/Debug/net6.0/ref/tripscribe.Services.dll
+/app/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.deps.json
+/app/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.runtimeconfig.json
+/app/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.dll
+/app/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Services.pdb
+/app/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Dal.dll
+/app/src/tripscribe.Services/bin/Debug/net6.0/tripscribe.Dal.pdb
+/app/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.csproj.AssemblyReference.cache
+/app/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.GeneratedMSBuildEditorConfig.editorconfig
+/app/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.AssemblyInfoInputs.cache
+/app/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.AssemblyInfo.cs
+/app/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.csproj.CoreCompileInputs.cache
+/app/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.csproj.CopyComplete
+/app/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.dll
+/app/src/tripscribe.Services/obj/Debug/net6.0/refint/tripscribe.Services.dll
+/app/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.pdb
+/app/src/tripscribe.Services/obj/Debug/net6.0/tripscribe.Services.genruntimeconfig.cache
+/app/src/tripscribe.Services/obj/Debug/net6.0/ref/tripscribe.Services.dll

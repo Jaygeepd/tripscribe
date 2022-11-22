@@ -14,13 +14,14 @@ public class JourneyProfile : Profile
 
     private void ConfigureDtoToViewModel()
     {
-        CreateMap<JourneyDTO, JourneyViewModel>()
-            .ForMember(d => d.Id, o => o.Ignore());
+        CreateMap<JourneyDTO, JourneyViewModel>();
     }
 
     private void ConfigureViewModelToDto()
     {
-        CreateMap<CreateJourneyViewModel, JourneyDTO>();
+        CreateMap<CreateJourneyViewModel, JourneyDTO>()
+            .ForMember(d => d.Timestamp, 
+                o => o.MapFrom(x => DateTime.UtcNow));
         CreateMap<UpdateJourneyViewModel, JourneyDTO>();
     }
 }

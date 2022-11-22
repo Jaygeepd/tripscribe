@@ -7002,34 +7002,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\John Mahon\\.nuget\\packages\\": {}
+    "/root/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\test\\tripscribe.Api.Test\\tripscribe.Api.Test.csproj",
+      "projectUniqueName": "/app/test/tripscribe.Api.Test/tripscribe.Api.Test.csproj",
       "projectName": "tripscribe.Api.Test",
-      "projectPath": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\test\\tripscribe.Api.Test\\tripscribe.Api.Test.csproj",
-      "packagesPath": "C:\\Users\\John Mahon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\test\\tripscribe.Api.Test\\obj\\",
+      "projectPath": "/app/test/tripscribe.Api.Test/tripscribe.Api.Test.csproj",
+      "packagesPath": "/root/.nuget/packages/",
+      "outputPath": "/app/test/tripscribe.Api.Test/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\John Mahon\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/root/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\src\\tripscribe.Api\\tripscribe.Api.csproj": {
-              "projectPath": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\src\\tripscribe.Api\\tripscribe.Api.csproj"
+            "/app/src/tripscribe.Api/tripscribe.Api.csproj": {
+              "projectPath": "/app/src/tripscribe.Api/tripscribe.Api.csproj"
             }
           }
         }
@@ -7089,7 +7087,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.403/RuntimeIdentifierGraph.json"
       }
     }
   }

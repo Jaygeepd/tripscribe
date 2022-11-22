@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\src\\tripscribe.Dal\\tripscribe.Dal.csproj": {}
+    "/app/src/tripscribe.Dal/tripscribe.Dal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\src\\tripscribe.Dal\\tripscribe.Dal.csproj": {
+    "/app/src/tripscribe.Dal/tripscribe.Dal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\src\\tripscribe.Dal\\tripscribe.Dal.csproj",
+        "projectUniqueName": "/app/src/tripscribe.Dal/tripscribe.Dal.csproj",
         "projectName": "tripscribe.Dal",
-        "projectPath": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\src\\tripscribe.Dal\\tripscribe.Dal.csproj",
-        "packagesPath": "C:\\Users\\John Mahon\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\John Mahon\\Documents\\GitHub\\tripscribe\\server\\src\\tripscribe.Dal\\obj\\",
+        "projectPath": "/app/src/tripscribe.Dal/tripscribe.Dal.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/app/src/tripscribe.Dal/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\John Mahon\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -81,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.403/RuntimeIdentifierGraph.json"
         }
       }
     }
