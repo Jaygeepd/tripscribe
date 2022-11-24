@@ -23,5 +23,6 @@ public class AccountProfile : Profile
         CreateMap<AccountDTO, Account>()
             .ForMember(d => d.Id, o => o.Ignore())
             .ForMember(d => d.Password, o => o.Ignore());
+        
     }
 }

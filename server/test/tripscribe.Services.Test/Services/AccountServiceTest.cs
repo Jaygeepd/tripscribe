@@ -8,6 +8,7 @@ using tripscribe.Dal.Models;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Profiles;
 using tripscribe.Services.Services;
+using tripscribe.Services.Test.Extensions;
 
 namespace tripscribe.Services.Test.Services;
 
@@ -163,18 +164,26 @@ public class AccountServiceTest
         const int journeyId = 1;
         const int accountId = 1;
         
-        var accountJourneyList = _fixture.Build<AccountJourney>()
-            .With(x => x.AccountId, accountId)
-            .With(x => x.JourneyId, journeyId)
-            .CreateMany()
-            .ToList();
-
-        var journeyList = _fixture.Build<Journey>()
-            .Without(x => x.JourneyReviews)
+        var journey = _fixture
+            .Build<Journey>()
             .With(x => x.Id, journeyId)
-            .With(x => x.AccountJourneys, accountJourneyList)
-            .CreateMany();
-        _database.Get<Journey>().Returns(journeyList.AsQueryable());
+            .Without(x => x.AccountJourneys)
+            .CreateMany(1)
+            .ToArray();
+
+        var  accountIds = _fixture.MockWithOne(accountId);
+        
+        var accountJourneyList = _fixture
+            .Build<AccountJourney>()
+            .With(x => x.AccountId, accountIds.GetValue)
+            .With(x => x.JourneyId, journeyId)
+            .With(x => x.Journey, journey.First())
+            .CreateMany()
+            .AsQueryable();
+
+        // accountJourneyList.First().AccountId = accountId;
+
+        _database.Get<AccountJourney>().Returns(accountJourneyList);
         
         var service = RetrieveService();
 
@@ -182,7 +191,7 @@ public class AccountServiceTest
         var result = service.GetAccountJourneys(accountId);
 
         // Assert
-        result.Should().BeEquivalentTo(journeyList, options => options.ExcludingMissingMembers());
+        result.Should().BeEquivalentTo(journey, options => options.ExcludingMissingMembers());
     }
     
     [Fact]
