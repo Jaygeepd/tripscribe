@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/app/src/tripscribe.Services/tripscribe.Services.csproj": {}
+    "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj": {}
   },
   "projects": {
-    "/app/src/tripscribe.Dal/tripscribe.Dal.csproj": {
+    "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/tripscribe.Dal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/app/src/tripscribe.Dal/tripscribe.Dal.csproj",
+        "projectUniqueName": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/tripscribe.Dal.csproj",
         "projectName": "tripscribe.Dal",
-        "projectPath": "/app/src/tripscribe.Dal/tripscribe.Dal.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/app/src/tripscribe.Dal/obj/",
+        "projectPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/tripscribe.Dal.csproj",
+        "packagesPath": "/Users/john.mahon/.nuget/packages/",
+        "outputPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/Users/john.mahon/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -79,21 +79,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.403/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/app/src/tripscribe.Services/tripscribe.Services.csproj": {
+    "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/app/src/tripscribe.Services/tripscribe.Services.csproj",
+        "projectUniqueName": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj",
         "projectName": "tripscribe.Services",
-        "projectPath": "/app/src/tripscribe.Services/tripscribe.Services.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/app/src/tripscribe.Services/obj/",
+        "projectPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/tripscribe.Services.csproj",
+        "packagesPath": "/Users/john.mahon/.nuget/packages/",
+        "outputPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Services/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/Users/john.mahon/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -105,8 +105,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/app/src/tripscribe.Dal/tripscribe.Dal.csproj": {
-                "projectPath": "/app/src/tripscribe.Dal/tripscribe.Dal.csproj"
+              "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/tripscribe.Dal.csproj": {
+                "projectPath": "/Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Dal/tripscribe.Dal.csproj"
               }
             }
           }
@@ -166,7 +166,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.403/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.402/RuntimeIdentifierGraph.json"
         }
       }
     }

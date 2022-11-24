@@ -22,6 +22,10 @@ public class AccountServiceTest
         _database = Substitute.For<ITripscribeDatabase>();
         _mapper = GetMapper();
         _fixture = new Fixture();
+        
+        _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+            .ForEach(b => _fixture.Behaviors.Remove(b));
+        _fixture.Behaviors.Add(new OmitOnRecursionBehavior(1));
     }
 
     [Fact]
@@ -116,13 +120,16 @@ public class AccountServiceTest
 
         var updateAccount = accountList.First(); 
         
+        _database.When(x => x.SaveChanges()).Do(x =>
+        {
+            accountList.First().Should().BeEquivalentTo(accountDTO, o => o.ExcludingMissingMembers());
+        });
+        
         // Act
         service.UpdateAccount(updateAccount.Id, accountDTO);
 
         // Assert
-        _database.Received(1).Get<Account>();
         _database.Received(1).SaveChanges();
-        _database.Received(1).Add(Arg.Is<Account>(x => x.FirstName == updateAccount.FirstName));
     }
     
     [Fact]
@@ -145,6 +152,7 @@ public class AccountServiceTest
 
         // Assert
         _database.Received(1).Get<Account>();
+        _database.Received(1).Delete(accountList.First());
         _database.Received(1).SaveChanges();
     }
 
@@ -152,25 +160,26 @@ public class AccountServiceTest
     public void GetAccountJourneys_ValidIdEntered_ReturnedAndMapped()
     {
         // Arrange
-        var accountList = _fixture.Build<Account>()
-            .Without(x => x.AccountJourneys)
-            .Without(x => x.JourneyReviews)
-            .Without(x => x.LocationReviews)
-            .Without(x => x.StopReviews)
-            .CreateMany();
-        _database.Get<Account>().Returns(accountList.AsQueryable());
+        const int journeyId = 1;
+        const int accountId = 1;
+        
+        var accountJourneyList = _fixture.Build<AccountJourney>()
+            .With(x => x.AccountId, accountId)
+            .With(x => x.JourneyId, journeyId)
+            .CreateMany()
+            .ToList();
 
         var journeyList = _fixture.Build<Journey>()
-            .Without(x => x.AccountJourneys)
             .Without(x => x.JourneyReviews)
+            .With(x => x.Id, journeyId)
+            .With(x => x.AccountJourneys, accountJourneyList)
             .CreateMany();
         _database.Get<Journey>().Returns(journeyList.AsQueryable());
         
         var service = RetrieveService();
-        
 
         // Act
-        var result = service.GetAccountJourneys(accountList.First().Id);
+        var result = service.GetAccountJourneys(accountId);
 
         // Assert
         result.Should().BeEquivalentTo(journeyList, options => options.ExcludingMissingMembers());
@@ -179,27 +188,30 @@ public class AccountServiceTest
     [Fact]
     public void GetAccountReviews_ValidIdEntered_ReturnedAndMapped()
     {
-        // Arrange 
-        var accountList = _fixture.Build<Account>()
-            .Without(x => x.AccountJourneys)
-            .Without(x => x.JourneyReviews)
-            .Without(x => x.LocationReviews)
-            .Without(x => x.StopReviews)
-            .CreateMany();
-        _database.Get<Account>().Returns(accountList.AsQueryable());
+        // Arrange
+        const int reviewId = 1;
+        const int accountId = 1;
         
+        var accountReviewList = _fixture.Build<JourneyReview>()
+            .With(x => x.AccountId, accountId)
+            .With(x => x.ReviewId, reviewId)
+            .CreateMany()
+            .ToList();
+
         var reviewList = _fixture.Build<Review>()
-            .Without(x => x.LocationReviews)
             .Without(x => x.JourneyReviews)
+            .Without(x => x.LocationReviews)
             .Without(x => x.StopReviews)
+            .With(x => x.Id, reviewId)
+            .With(x => x.JourneyReviews, accountReviewList)
             .CreateMany();
         _database.Get<Review>().Returns(reviewList.AsQueryable());
-
+        
         var service = RetrieveService();
-        
-        // Act 
-        var result = service.GetAccountReviews(accountList.First().Id);
-        
+
+        // Act
+        var result = service.GetAccountReviews(accountId);
+
         // Assert
         result.Should().BeEquivalentTo(reviewList, options => options.ExcludingMissingMembers());
     }
@@ -215,6 +227,7 @@ public class AccountServiceTest
             cfg.AddProfile<AccountProfile>();
             cfg.AddProfile<JourneyProfile>();
             cfg.AddProfile<StopProfile>();
+            cfg.AddProfile<ReviewProfile>();
         });
         
         return new Mapper(config);

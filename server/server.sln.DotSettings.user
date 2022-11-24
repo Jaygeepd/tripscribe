@@ -1,4 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=42ee7875_002D8abc_002D4db1_002D9d2b_002Dee6b9daa42a6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="LocationServiceTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.LocationServiceTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.StopServiceTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.AccountServiceTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.JourneyServiceTest.GetJourneyAccounts_ValidIdEntered_ReturnedAndMapped&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
 	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8ecc7ae2_002D3ec5_002D468a_002D957b_002D4bbd77ad2f43/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetLocations_WhenLocationsFound_MappedAndReturned" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
@@ -20,16 +28,16 @@
     &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.JourneyControllerTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c83aedcd_002Dc138_002D49e5_002D9f6c_002D88cf5e4dd835/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from AccountControllerTests.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Or&gt;&#xD;
-    &lt;ProjectFile&gt;793DBD50-74A2-41D6-B9F7-78548B39CB43/d:Controllers/f:AccountControllerTests.cs&lt;/ProjectFile&gt;&#xD;
-    &lt;TestAncestor&gt;&#xD;
-      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.LocationControllerTests&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.JourneyControllerTests&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.StopControllerTests&lt;/TestId&gt;&#xD;
-    &lt;/TestAncestor&gt;&#xD;
-    &lt;ProjectFile&gt;00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6/d:Services/f:AccountServiceTest.cs&lt;/ProjectFile&gt;&#xD;
-  &lt;/Or&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c83aedcd_002Dc138_002D49e5_002D9f6c_002D88cf5e4dd835/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from AccountControllerTests.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Or&gt;
+    &lt;ProjectFile&gt;793DBD50-74A2-41D6-B9F7-78548B39CB43/d:Controllers/f:AccountControllerTests.cs&lt;/ProjectFile&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.LocationControllerTests&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.JourneyControllerTests&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.StopControllerTests&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;ProjectFile&gt;00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6/d:Services/f:AccountServiceTest.cs&lt;/ProjectFile&gt;
+  &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cb65451c_002D0069_002D4fb1_002Db1c4_002D5dc243a3bc5d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateStop_WhenValidDataEntered_MappedAndSaved" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Or&gt;
@@ -44,7 +52,7 @@
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.AccountServiceTest.GetAccount_WhenAccountExist_ReturnsAccount&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fb124f2b_002D1227_002D4748_002D8f57_002Da7e8e40a33ab/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAccount_WhenAccountExist_ReturnsAccount #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fb124f2b_002D1227_002D4748_002D8f57_002Da7e8e40a33ab/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetAccount_WhenAccountExist_ReturnsAccount #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.AccountServiceTest.GetAccount_WhenAccountExist_ReturnsAccount&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.JourneyServiceTest.GetJourney_WhenJourneyExist_ReturnsJourney&lt;/TestId&gt;
@@ -55,5 +63,6 @@
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.JourneyServiceTest&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.LocationServiceTest.CreateLocation_ValidDataEntered_MapperAndSaved&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.LocationServiceTest.GetLocations_WhenLocationsExist_ReturnsLocationList&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.LocationServiceTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

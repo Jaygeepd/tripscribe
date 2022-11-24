@@ -92,6 +92,77 @@ public class StopServiceTest
     }
     
     
+    [Theory]
+    [InlineData("name", "2017-07-10", "2017-07-13")]
+    [InlineData(null, null, null)]
+    public void UpdateStop_ValidDataEntered_MapperAndSaved(string name, DateTime dateArrived, DateTime dateDeparted)
+    {
+        // Arrange
+        var stopList = _fixture.Build<Stop>()
+        .Without(x => x.StopReviews)
+        .CreateMany();
+        var stopDTO = _mapper.Map<StopDTO>(stopList.First());
+        
+        _database.Get<Stop>().Returns(stopList.AsQueryable());
+        
+        var service = RetrieveService();
+
+        var updateStop = stopList.First(); 
+        
+        // Act
+        service.UpdateStop(updateStop.Id, stopDTO);
+
+        // Assert
+        _database.Received(1).Get<Stop>();
+        _database.Received(1).SaveChanges();
+        _database.Received(1).Add(Arg.Is<Stop>(x => x.Name == updateStop.Name));
+    }
+    
+    [Fact]
+    public void DeleteStop_ValidIdEntered_MapperAndSaved()
+    {
+        // Arrange
+        var stopList = _fixture.Build<Stop>()
+            .Without(x => x.StopReviews)
+            .CreateMany();
+
+        _database.Get<Stop>().Returns(stopList.AsQueryable());
+        
+        var service = RetrieveService();
+
+        // Act
+        service.DeleteStop(stopList.First().Id);
+
+        // Assert
+        _database.Received(1).Get<Stop>();
+        _database.Received(1).SaveChanges();
+    }
+
+    [Fact]
+    public void GetStopReviews_ValidIdEntered_ReturnedAndMapped()
+    {
+        // Arrange 
+        var stopList = _fixture.Build<Stop>()
+            .Without(x => x.StopReviews)
+            .CreateMany();
+        _database.Get<Stop>().Returns(stopList.AsQueryable());
+        
+        var reviewList = _fixture.Build<Review>()
+            .Without(x => x.LocationReviews)
+            .Without(x => x.JourneyReviews)
+            .Without(x => x.StopReviews)
+            .CreateMany();
+        _database.Get<Review>().Returns(reviewList.AsQueryable());
+
+        var service = RetrieveService();
+        
+        // Act 
+        var result = service.GetStopReviews(stopList.First().Id);
+        
+        // Assert
+        result.Should().BeEquivalentTo(reviewList, options => options.ExcludingMissingMembers());
+    }
+    
 
     private IStopService RetrieveService()
     {

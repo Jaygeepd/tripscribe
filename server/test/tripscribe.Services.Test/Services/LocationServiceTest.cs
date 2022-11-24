@@ -90,6 +90,77 @@ public class LocationServiceTest
         _database.Received(1).SaveChanges();
         _database.Received(1).Add(Arg.Is<Location>(x => x.Name == newLocation.Name));
     }
+    
+    [Theory]
+    [InlineData("name", "2017-07-10", "attractionType")]
+    [InlineData(null, null, null)]
+    public void UpdateLocation_ValidDataEntered_MapperAndSaved(string name, DateTime dateArrived, string attractionType)
+    {
+        // Arrange
+        var locationList = _fixture.Build<Location>()
+        .Without(x => x.LocationReviews)
+        .CreateMany();
+        var locationDTO = _mapper.Map<LocationDTO>(locationList.First());
+        
+        _database.Get<Location>().Returns(locationList.AsQueryable());
+        
+        var service = RetrieveService();
+
+        var updateLocation = locationList.First(); 
+        
+        // Act
+        service.UpdateLocation(updateLocation.Id, locationDTO);
+
+        // Assert
+        _database.Received(1).Get<Location>();
+        _database.Received(1).SaveChanges();
+        _database.Received(1).Add(Arg.Is<Location>(x => x.Name == updateLocation.Name));
+    }
+    
+    [Fact]
+    public void DeleteLocation_ValidIdEntered_MapperAndSaved()
+    {
+        // Arrange
+        var locationList = _fixture.Build<Location>()
+            .Without(x => x.LocationReviews)
+            .CreateMany();
+
+        _database.Get<Location>().Returns(locationList.AsQueryable());
+        
+        var service = RetrieveService();
+
+        // Act
+        service.DeleteLocation(locationList.First().Id);
+
+        // Assert
+        _database.Received(1).Get<Location>();
+        _database.Received(1).SaveChanges();
+    }
+
+    [Fact]
+    public void GetLocationReviews_ValidIdEntered_ReturnedAndMapped()
+    {
+        // Arrange 
+        var locationList = _fixture.Build<Location>()
+            .Without(x => x.LocationReviews)
+            .CreateMany();
+        _database.Get<Location>().Returns(locationList.AsQueryable());
+        
+        var reviewList = _fixture.Build<Review>()
+            .Without(x => x.LocationReviews)
+            .Without(x => x.JourneyReviews)
+            .Without(x => x.StopReviews)
+            .CreateMany();
+        _database.Get<Review>().Returns(reviewList.AsQueryable());
+
+        var service = RetrieveService();
+        
+        // Act 
+        var result = service.GetLocationReviews(locationList.First().Id);
+        
+        // Assert
+        result.Should().BeEquivalentTo(reviewList, options => options.ExcludingMissingMembers());
+    }
 
     private ILocationService RetrieveService()
     {
