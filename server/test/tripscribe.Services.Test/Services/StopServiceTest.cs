@@ -5,6 +5,7 @@ using NSubstitute;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Services.DTOs;
+using tripscribe.Services.Exceptions;
 using tripscribe.Services.Profiles;
 using tripscribe.Services.Services;
 
@@ -21,6 +22,10 @@ public class StopServiceTest
         _database = Substitute.For<ITripscribeDatabase>();
         _mapper = GetMapper();
         _fixture = new Fixture();
+        
+        _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+            .ForEach(b => _fixture.Behaviors.Remove(b));
+        _fixture.Behaviors.Add(new OmitOnRecursionBehavior(1));
     }
 
     [Fact]
@@ -116,6 +121,27 @@ public class StopServiceTest
         _database.Received(1).Get<Stop>();
         _database.Received(1).SaveChanges();
         _database.Received(1).Add(Arg.Is<Stop>(x => x.Name == updateStop.Name));
+    }
+    
+    [Fact]
+    public void UpdateStop_StopDoesNotExist_ThrowNotFoundException()
+    {
+        // Arrange 
+        const int correctId = 1;
+        const int incorrectId = 2;
+        
+        var stop = _fixture.Build<Stop>()
+            .With(x => x.Id, correctId)
+            .Create();
+
+        var updateDTO = _fixture.Build<StopDTO>()
+            .Create();
+
+        var service = RetrieveService();
+        
+        // Act/Assert
+        Assert.Throws<NotFoundException>(() => service.UpdateStop(incorrectId, updateDTO));
+
     }
     
     [Fact]

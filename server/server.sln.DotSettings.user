@@ -1,10 +1,21 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=42ee7875_002D8abc_002D4db1_002D9d2b_002Dee6b9daa42a6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="LocationServiceTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=42ee7875_002D8abc_002D4db1_002D9d2b_002Dee6b9daa42a6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="LocationServiceTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.LocationServiceTest&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.StopServiceTest&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.AccountServiceTest&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.JourneyServiceTest.GetJourneyAccounts_ValidIdEntered_ReturnedAndMapped&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=672b9d78_002Dada6_002D4788_002Da72b_002Dcd20a65a9182/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAccountReviews_ValidIdEntered_ReturnedAndMapped" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.AccountServiceTest.GetAccountReviews_ValidIdEntered_ReturnedAndMapped&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.AccountServiceTest.UpdateAccount_AccountDoesNotExist_ThrowNotFoundException&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.AccountServiceTest.DeleteAccount_AccountDoesNotExist_ThrowNotFoundException&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.JourneyServiceTest.GetJourneyAccounts_ValidIdEntered_ReturnedAndMapped&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.JourneyServiceTest.GetJourneyReviews_ValidIdEntered_ReturnedAndMapped&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.LocationServiceTest.UpdateLocation_LocationDoesNotExist_ThrowNotFoundException&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::00E7BE6F-5766-4AA0-AA66-AE6B46DA75B6::net6.0::tripscribe.Services.Test.Services.LocationServiceTest.DeleteLocation_LocationDoesNotExist_ThrowNotFoundException&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	

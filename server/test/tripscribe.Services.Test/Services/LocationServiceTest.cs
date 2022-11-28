@@ -5,6 +5,7 @@ using NSubstitute;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Services.DTOs;
+using tripscribe.Services.Exceptions;
 using tripscribe.Services.Profiles;
 using tripscribe.Services.Services;
 
@@ -21,6 +22,10 @@ public class LocationServiceTest
         _database = Substitute.For<ITripscribeDatabase>();
         _mapper = GetMapper();
         _fixture = new Fixture();
+        
+        _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+            .ForEach(b => _fixture.Behaviors.Remove(b));
+        _fixture.Behaviors.Add(new OmitOnRecursionBehavior(1));
     }
 
     [Fact]
@@ -118,6 +123,27 @@ public class LocationServiceTest
     }
     
     [Fact]
+    public void UpdateLocation_LocationDoesNotExist_ThrowNotFoundException()
+    {
+        // Arrange 
+        const int correctId = 1;
+        const int incorrectId = 2;
+        
+        var location = _fixture.Build<Location>()
+            .With(x => x.Id, correctId)
+            .Create();
+
+        var updateDTO = _fixture.Build<LocationDTO>()
+            .Create();
+
+        var service = RetrieveService();
+        
+        // Act/Assert
+        Assert.Throws<NotFoundException>(() => service.UpdateLocation(incorrectId, updateDTO));
+
+    }
+    
+    [Fact]
     public void DeleteLocation_ValidIdEntered_MapperAndSaved()
     {
         // Arrange
@@ -135,6 +161,24 @@ public class LocationServiceTest
         // Assert
         _database.Received(1).Get<Location>();
         _database.Received(1).SaveChanges();
+    }
+    
+    [Fact]
+    public void DeleteLocation_LocationDoesNotExist_ThrowNotFoundException()
+    {
+        // Arrange 
+        const int correctId = 1;
+        const int incorrectId = 2;
+        
+        var location = _fixture.Build<Location>()
+            .With(x => x.Id, correctId)
+            .Create();
+
+        var service = RetrieveService();
+        
+        // Act/Assert
+        Assert.Throws<NotFoundException>(() => service.DeleteLocation(incorrectId));
+
     }
 
     [Fact]

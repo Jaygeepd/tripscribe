@@ -5,8 +5,10 @@ using NSubstitute;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Services.DTOs;
+using tripscribe.Services.Exceptions;
 using tripscribe.Services.Profiles;
 using tripscribe.Services.Services;
+using tripscribe.Services.Test.Extensions;
 
 namespace tripscribe.Services.Test.Services;
 
@@ -124,6 +126,27 @@ public class JourneyServiceTest
     }
     
     [Fact]
+    public void UpdateJourney_JourneyDoesNotExist_ThrowNotFoundException()
+    {
+        // Arrange 
+        const int correctId = 1;
+        const int incorrectId = 2;
+        
+        var account = _fixture.Build<Journey>()
+            .With(x => x.Id, correctId)
+            .Create();
+
+        var updateDTO = _fixture.Build<JourneyDTO>()
+            .Create();
+
+        var service = RetrieveService();
+        
+        // Act/Assert
+        Assert.Throws<NotFoundException>(() => service.UpdateJourney(incorrectId, updateDTO));
+
+    }
+    
+    [Fact]
     public void DeleteJourney_ValidIdEntered_MapperAndSaved()
     {
         // Arrange
@@ -143,6 +166,24 @@ public class JourneyServiceTest
         _database.Received(1).Get<Journey>();
         _database.Received(1).SaveChanges();
     }
+    
+    [Fact]
+    public void DeleteJourney_JourneyDoesNotExist_ThrowNotFoundException()
+    {
+        // Arrange 
+        const int correctId = 1;
+        const int incorrectId = 2;
+        
+        var journey = _fixture.Build<Journey>()
+            .With(x => x.Id, correctId)
+            .Create();
+
+        var service = RetrieveService();
+        
+        // Act/Assert
+        Assert.Throws<NotFoundException>(() => service.DeleteJourney(incorrectId));
+
+    }
 
     [Fact]
     public void GetJourneyAccounts_ValidIdEntered_ReturnedAndMapped()
@@ -151,18 +192,24 @@ public class JourneyServiceTest
         const int journeyId = 1;
         const int accountId = 1;
         
-        var journeyAccountList = _fixture.Build<AccountJourney>()
-            .With(x => x.AccountId, accountId)
-            .With(x => x.JourneyId, journeyId)
-            .CreateMany()
-            .ToList();
-
-        var accountList = _fixture.Build<Account>()
-            .Without(x => x.JourneyReviews)
+        var account = _fixture
+            .Build<Account>()
             .With(x => x.Id, accountId)
-            .With(x => x.AccountJourneys, journeyAccountList)
-            .CreateMany();
-        _database.Get<Account>().Returns(accountList.AsQueryable());
+            .Without(x => x.AccountJourneys)
+            .CreateMany(1)
+            .ToArray();
+
+        var  journeyIds = _fixture.MockWithOne(accountId);
+        
+        var accountJourneyList = _fixture
+            .Build<AccountJourney>()
+            .With(x => x.JourneyId, journeyIds.GetValue)
+            .With(x => x.AccountId, accountId)
+            .With(x => x.Account, account.First())
+            .CreateMany()
+            .AsQueryable();
+
+        _database.Get<AccountJourney>().Returns(accountJourneyList);
         
         var service = RetrieveService();
 
@@ -170,33 +217,43 @@ public class JourneyServiceTest
         var result = service.GetJourneyAccounts(journeyId);
 
         // Assert
-        result.Should().BeEquivalentTo(accountList, options => options.ExcludingMissingMembers());
+        result.Should().BeEquivalentTo(account, options => options.ExcludingMissingMembers());
     }
     
     [Fact]
     public void GetJourneyReviews_ValidIdEntered_ReturnedAndMapped()
     {
-        // Arrange 
-        var journeyList = _fixture.Build<Journey>()
-            .Without(x => x.AccountJourneys)
-            .Without(x => x.JourneyReviews)
-            .CreateMany();
-        _database.Get<Journey>().Returns(journeyList.AsQueryable());
+        // Arrange
+        const int reviewId = 1;
+        const int journeyId = 1;
         
-        var reviewList = _fixture.Build<Review>()
-            .Without(x => x.LocationReviews)
+        var review = _fixture.Build<Review>()
             .Without(x => x.JourneyReviews)
+            .Without(x => x.LocationReviews)
             .Without(x => x.StopReviews)
-            .CreateMany();
-        _database.Get<Review>().Returns(reviewList.AsQueryable());
+            .With(x => x.Id, reviewId)
+            .CreateMany(1)
+            .ToArray();
+        
+
+        var journeyIds = _fixture.MockWithOne(journeyId);
+        
+        var journeyReviewList = _fixture.Build<JourneyReview>()
+            .With(x => x.JourneyId, journeyIds.GetValue)
+            .With(x => x.ReviewId, reviewId)
+            .With(x => x.Review, review.First)
+            .CreateMany()
+            .AsQueryable();
+
+        _database.Get<JourneyReview>().Returns(journeyReviewList);
 
         var service = RetrieveService();
-        
-        // Act 
-        var result = service.GetJourneyReviews(journeyList.First().Id);
-        
+
+        // Act
+        var result = service.GetJourneyReviews(journeyId);
+
         // Assert
-        result.Should().BeEquivalentTo(reviewList, options => options.ExcludingMissingMembers());
+        result.Should().BeEquivalentTo(review, options => options.ExcludingMissingMembers());
     }
 
     private IJourneyService RetrieveService()

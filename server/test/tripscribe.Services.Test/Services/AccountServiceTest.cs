@@ -6,6 +6,7 @@ using NSubstitute;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Services.DTOs;
+using tripscribe.Services.Exceptions;
 using tripscribe.Services.Profiles;
 using tripscribe.Services.Services;
 using tripscribe.Services.Test.Extensions;
@@ -132,6 +133,27 @@ public class AccountServiceTest
         // Assert
         _database.Received(1).SaveChanges();
     }
+
+    [Fact]
+    public void UpdateAccount_AccountDoesNotExist_ThrowNotFoundException()
+    {
+        // Arrange 
+        const int correctId = 1;
+        const int incorrectId = 2;
+        
+        var account = _fixture.Build<Account>()
+            .With(x => x.Id, correctId)
+            .Create();
+
+        var updateDTO = _fixture.Build<AccountDTO>()
+            .Create();
+
+        var service = RetrieveService();
+        
+        // Act/Assert
+        Assert.Throws<NotFoundException>(() => service.UpdateAccount(incorrectId, updateDTO));
+
+    }
     
     [Fact]
     public void DeleteAccount_ValidIdEntered_MapperAndSaved()
@@ -155,6 +177,24 @@ public class AccountServiceTest
         _database.Received(1).Get<Account>();
         _database.Received(1).Delete(accountList.First());
         _database.Received(1).SaveChanges();
+    }
+    
+    [Fact]
+    public void DeleteAccount_AccountDoesNotExist_ThrowNotFoundException()
+    {
+        // Arrange 
+        const int correctId = 1;
+        const int incorrectId = 2;
+        
+        var account = _fixture.Build<Account>()
+            .With(x => x.Id, correctId)
+            .Create();
+
+        var service = RetrieveService();
+        
+        // Act/Assert
+        Assert.Throws<NotFoundException>(() => service.DeleteAccount(incorrectId));
+
     }
 
     [Fact]
@@ -181,8 +221,6 @@ public class AccountServiceTest
             .CreateMany()
             .AsQueryable();
 
-        // accountJourneyList.First().AccountId = accountId;
-
         _database.Get<AccountJourney>().Returns(accountJourneyList);
         
         var service = RetrieveService();
@@ -201,28 +239,33 @@ public class AccountServiceTest
         const int reviewId = 1;
         const int accountId = 1;
         
-        var accountReviewList = _fixture.Build<JourneyReview>()
-            .With(x => x.AccountId, accountId)
-            .With(x => x.ReviewId, reviewId)
-            .CreateMany()
-            .ToList();
-
-        var reviewList = _fixture.Build<Review>()
+        var review = _fixture.Build<Review>()
             .Without(x => x.JourneyReviews)
             .Without(x => x.LocationReviews)
             .Without(x => x.StopReviews)
             .With(x => x.Id, reviewId)
-            .With(x => x.JourneyReviews, accountReviewList)
-            .CreateMany();
-        _database.Get<Review>().Returns(reviewList.AsQueryable());
+            .CreateMany(1)
+            .ToArray();
         
+
+        var accountIds = _fixture.MockWithOne(accountId);
+        
+        var accountReviewList = _fixture.Build<JourneyReview>()
+            .With(x => x.AccountId, accountIds.GetValue)
+            .With(x => x.ReviewId, reviewId)
+            .With(x => x.Review, review.First)
+            .CreateMany()
+            .AsQueryable();
+
+        _database.Get<JourneyReview>().Returns(accountReviewList);
+
         var service = RetrieveService();
 
         // Act
         var result = service.GetAccountReviews(accountId);
 
         // Assert
-        result.Should().BeEquivalentTo(reviewList, options => options.ExcludingMissingMembers());
+        result.Should().BeEquivalentTo(review, options => options.ExcludingMissingMembers());
     }
 
     private IAccountService RetrieveService()
