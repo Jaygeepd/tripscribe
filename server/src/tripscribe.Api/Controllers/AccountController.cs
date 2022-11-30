@@ -70,9 +70,11 @@ public class AccountController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public ActionResult UpdateAccount(int id, [FromBody] UpdateAccountViewModel updateDetails)
     {
-        var account = _mapper.Map<AccountDTO>(updateDetails);
+        var existingAcc = _service.GetAccount(id);
 
-        _service.UpdateAccount(id, account);
+        _mapper.Map(updateDetails, existingAcc);
+
+        _service.UpdateAccount(id, existingAcc);
         
         return NoContent();
     }

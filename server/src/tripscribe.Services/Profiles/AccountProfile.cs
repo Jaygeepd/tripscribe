@@ -15,8 +15,7 @@ public class AccountProfile : Profile
 
     private void ConfigureDomainToDto()
     {
-        CreateMap<Account, AccountDTO>()
-            .ForMember(d => d.Id, o => o.Ignore());
+        CreateMap<Account, AccountDTO>();
     }
     
     private void ConfigureDtoToDomain()

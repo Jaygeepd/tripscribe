@@ -41,4 +41,10 @@ public static class JsonValidator
             }
         };
     }
+    
+    public static T VerifyDeSerialize<T>(this string @this)
+    {
+        return JsonConvert.DeserializeObject<T>(VerifyDeSerialization<T>(@this)) ??
+               throw new InvalidOperationException();
+    }
 }

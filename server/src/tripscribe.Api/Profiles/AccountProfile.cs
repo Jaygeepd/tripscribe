@@ -1,4 +1,5 @@
 using AutoMapper;
+using tripscribe.Api.Extensions;
 using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Dal.Models;
 using tripscribe.Services.DTOs;
@@ -21,7 +22,7 @@ public class AccountProfile : Profile
 
     private void ConfigureViewModelToDTO()
     {
-        CreateMap<UpdateAccountViewModel, AccountDTO>();
+        CreateMap<UpdateAccountViewModel, AccountDTO>().IgnoreAllNull();
         CreateMap<CreateAccountViewModel, AccountDTO>();
     }
 }

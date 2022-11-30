@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Tripscribe.Api.Integration.Test.Base;
+using tripscribe.Api.Integration.Test.Models;
 using tripscribe.Api.Integration.Test.TestUtilities;
 using Tripscribe.Api.Integration.Test.TestUtilities;
 using tripscribe.Api.ViewModels.Accounts;
@@ -102,6 +103,26 @@ public class AccountControllerTests
         var response = await _httpClient.PostAsJsonAsync($"/account/", newAccount);
         response.StatusCode.Should().Be(HttpStatusCode.Created);
     }
+    
+    [Fact]
+    public async Task CreateAnAccount_WhenAccountDetailsInvalid_ReturnsValidationError()
+    {
+        const string firstName = "";
+        const string lastName = "";
+        const string email = "";
+        const string password = "";
+        
+        CreateAccountViewModel newAccount = new CreateAccountViewModel
+        {
+            FirstName = firstName,
+            LastName = lastName,
+            Email = email,
+            Password = password
+        };
+        
+        var response = await _httpClient.PostAsJsonAsync("/account/", newAccount);
+        response.StatusCode.Should().Be(HttpStatusCode.Created);
+    }
 
     [Fact]
     public async Task UpdateAnAccount_WhenNewAccountDetails_ValidAndPresent_ReturnsOk()
@@ -112,7 +133,6 @@ public class AccountControllerTests
 
         UpdateAccountViewModel updateAccount = new UpdateAccountViewModel()
         {
-            Id = id,
             FirstName = newFirstName,
             LastName = newLastName
         };
@@ -125,18 +145,24 @@ public class AccountControllerTests
     public async Task UpdateAnAccount_WhenNewAccountDetailsInvalid_ReturnsError()
     {
         const int id = 2;
-        const string newFirstName = "";
-        const string newLastName = "";
+        const string newFirstName = null;
+        const string newLastName = null;
 
         UpdateAccountViewModel updateAccount = new UpdateAccountViewModel()
         {
-            Id = id,
             FirstName = newFirstName,
             LastName = newLastName
         };
 
         var response = await _httpClient.PatchAsJsonAsync($"/account/{id}", updateAccount);
-        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        Assert.Equals();
+        _testOutputHelper.WriteLine(value);
+        
     }
 
     [Fact]
