@@ -19,7 +19,7 @@ public class AccountController : ControllerBase
         (_mapper, _service) = (mapper, service);
     
     [HttpGet("{id}", Name = "GetAccountsById")]
-    public ActionResult<AccountViewModel> GetAccount([FromQuery] int id)
+    public ActionResult<AccountViewModel> GetAccount(int id)
     {
         var accounts = _service.GetAccount(id);
 
@@ -65,7 +65,7 @@ public class AccountController : ControllerBase
         return StatusCode((int)HttpStatusCode.Created);
     }
     
-    [HttpPut]
+    [HttpPatch]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public ActionResult UpdateAccount(int id, [FromBody] UpdateAccountViewModel updateDetails)

@@ -19,7 +19,7 @@ public class StopController : ControllerBase
     public StopController(IMapper mapper, IStopService service) =>
         (_mapper, _service) = (mapper, service);
     
-    [HttpGet("{id}", Name = "GetReviewById")]
+    [HttpGet("{id}", Name = "GetStopById")]
     public ActionResult<StopViewModel> GetStop(int id)
     {
         var stop = _service.GetStop(id);
@@ -27,7 +27,7 @@ public class StopController : ControllerBase
     }
     
     [HttpGet]
-    public ActionResult<IList<StopViewModel>> GetStops([FromQuery] string name, DateTime arrivedStartDate, DateTime arrivedEndDate, DateTime departedStartDate, DateTime departedEndDate, int journeyId)
+    public ActionResult<IList<StopViewModel>> GetStops([FromQuery] string? name, DateTime? arrivedStartDate, DateTime? arrivedEndDate, DateTime? departedStartDate, DateTime? departedEndDate, int? journeyId)
     {
         var stops = _service.GetStops(name, arrivedStartDate, arrivedEndDate, 
             departedStartDate, departedEndDate, journeyId);
@@ -63,7 +63,7 @@ public class StopController : ControllerBase
         return StatusCode((int)HttpStatusCode.Created);
     }
     
-    [HttpPut]
+    [HttpPatch]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public ActionResult UpdateStop(int id, [FromBody] UpdateStopViewModel stopDetails)

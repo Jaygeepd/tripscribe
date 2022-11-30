@@ -19,7 +19,6 @@ public class JourneyProfile : Profile
     
     private void ConfigureDtoToDomain()
     {
-        CreateMap<JourneyDTO, Journey>()
-            .ForMember(d => d.Id, o => o.Ignore());
+        CreateMap<JourneyDTO, Journey>();
     }
 }

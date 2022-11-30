@@ -61,7 +61,7 @@ public class LocationController : ControllerBase
         return StatusCode((int)HttpStatusCode.Created);
     }
     
-    [HttpPut]
+    [HttpPatch]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public ActionResult UpdateLocation(int id, [FromBody] UpdateLocationViewModel locationDetails)

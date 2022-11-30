@@ -22,7 +22,7 @@ public class JourneyController : ControllerBase
         (_mapper, _service) = (mapper, service);
     
     [HttpGet("{id}")]
-    public ActionResult<JourneyViewModel> GetJourney([FromQuery] int id)
+    public ActionResult<JourneyViewModel> GetJourney(int id)
     {
         var journey = _service.GetJourney(id);
         
@@ -66,7 +66,7 @@ public class JourneyController : ControllerBase
         return StatusCode((int)HttpStatusCode.Created);
     }
     
-    [HttpPut]
+    [HttpPatch]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public ActionResult UpdateJourney(int id, [FromBody] UpdateJourneyViewModel journeyDetails)

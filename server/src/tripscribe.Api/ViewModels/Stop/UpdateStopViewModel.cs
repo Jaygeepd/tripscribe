@@ -4,6 +4,7 @@ namespace tripscribe.Api.ViewModels.Stop;
 
 public class UpdateStopViewModel
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public DateTime DateArrived { get; set; }
     public DateTime DateDeparted { get; set; }

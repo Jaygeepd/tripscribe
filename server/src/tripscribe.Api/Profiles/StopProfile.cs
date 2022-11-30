@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using tripscribe.Api.ViewModels.Stop;
 using tripscribe.Dal.Models;
+using tripscribe.Services.DTOs;
 
 namespace tripscribe.Api.Profiles;
 
@@ -8,12 +9,19 @@ public class StopProfile : Profile
 {
     public StopProfile()
     {
-        ConfigureDomainToViewModel();
+        ConfigureDTOToViewModel();
+        ConfigureViewModelToDTO();
     }
 
-    private void ConfigureDomainToViewModel()
+    private void ConfigureDTOToViewModel()
     {
-        CreateMap<Stop, StopViewModel>()
+        CreateMap<StopDTO, StopViewModel>()
             .ForMember(d => d.Id, o => o.Ignore());
+    }
+
+    private void ConfigureViewModelToDTO()
+    {
+        CreateMap<CreateStopViewModel, StopDTO>();
+        CreateMap<UpdateStopViewModel, StopDTO>();
     }
 }

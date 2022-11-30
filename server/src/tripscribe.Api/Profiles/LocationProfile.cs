@@ -9,6 +9,7 @@ public class LocationProfile : Profile
     public LocationProfile()
     {
         ConfigureDtoToViewModel();
+        ConfigureViewModelToDto();
     }
 
     private void ConfigureDtoToViewModel()

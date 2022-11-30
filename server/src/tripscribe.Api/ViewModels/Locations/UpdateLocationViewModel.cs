@@ -4,6 +4,7 @@ namespace tripscribe.Api.ViewModels.Locations;
 
 public class UpdateLocationViewModel
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public DateTime DateArrived { get; set; }
     public string LocationType { get; set; }
