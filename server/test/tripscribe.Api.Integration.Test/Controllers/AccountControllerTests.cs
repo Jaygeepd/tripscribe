@@ -1,7 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using System.Reflection;
 using FluentAssertions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Tripscribe.Api.Integration.Test.Base;
 using tripscribe.Api.Integration.Test.Models;
 using tripscribe.Api.Integration.Test.TestUtilities;
@@ -121,13 +123,23 @@ public class AccountControllerTests
         };
         
         var response = await _httpClient.PostAsJsonAsync("/account/", newAccount);
-        response.StatusCode.Should().Be(HttpStatusCode.Created);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        ((string)result.Errors.Email[0]).Should().Be("'Email' is not a valid email address.");
+        ((string)result.Errors.LastName[0]).Should().Be("Last name must be entered, and under 100 characters in length");
+        ((string)result.Errors.Password[0]).Should().Be("Password must be between 8 and 30 characters");
+        ((string)result.Errors.FirstName[0]).Should().Be("First name must be entered, and under 100 characters in length");
+        
+        _testOutputHelper.WriteLine(value);
     }
 
     [Fact]
     public async Task UpdateAnAccount_WhenNewAccountDetails_ValidAndPresent_ReturnsOk()
     {
-        const int id = 1;
+        const int id = 4;
         const string newFirstName = "Chandler";
         const string newLastName = "Bing";
 
@@ -160,7 +172,8 @@ public class AccountControllerTests
         var value = await response.Content.ReadAsStringAsync();
         
         var result = value.VerifyDeSerialize<ValidationModel>();
-        Assert.Equals();
+        ((string)result.Errors.NoValue[0]).Should().Be("At least one value required");
+        
         _testOutputHelper.WriteLine(value);
         
     }
@@ -173,4 +186,14 @@ public class AccountControllerTests
         var response = await _httpClient.DeleteAsync($"/account/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
+
+    private void CheckIfErrorPresent(dynamic errors, string name, string message) 
+    {
+        var info = errors.GetType().GetProperty(name);
+        var value = info.GetValue(errors, null);
+        var errorMessage = (string)((JArray)value)[0];
+  
+        errorMessage.Should().Be(message);
+    }
+    
 }

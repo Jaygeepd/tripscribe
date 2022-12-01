@@ -1,10 +1,7 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\John Mahon\AppData\Local\JetBrains\Rider2022.2\resharper-host\temp\Rider\vAny\CoverageData\_server.1632035507\Snapshot\snapshot.utdcvr</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0d54e9b6_002Def65_002D4348_002Daf03_002Dd82a4a2aa250/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UpdateAnAccount_WhenNewAccountDetails_ValidAndPresent_ReturnsOk #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::9F21670C-5145-4F27-9F9C-F6E874280E31::net6.0::tripscribe.Api.Integration.Test.Controllers.AccountControllerTests.UpdateAnAccount_WhenNewAccountDetails_ValidAndPresent_ReturnsOk&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::9F21670C-5145-4F27-9F9C-F6E874280E31::net6.0::tripscribe.Api.Integration.Test.Controllers.AccountControllerTests.UpdateAnAccount_WhenNewAccountDetailsInvalid_ReturnsError&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+  &lt;Project Location="/Users/john.mahon/Documents/repos/tripscribe/server/test/tripscribe.Api.Integration.Test" Presentation="&amp;lt;Test&amp;gt;\&amp;lt;tripscribe.Api.Integration.Test&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=42ee7875_002D8abc_002D4db1_002D9d2b_002Dee6b9daa42a6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="LocationServiceTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
@@ -78,6 +75,11 @@
     &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.StopControllerTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::793DBD50-74A2-41D6-B9F7-78548B39CB43::net6.0::tripscribe.Api.Test.Controllers.JourneyControllerTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c556a19e_002D9faa_002D4a7f_002D8344_002D129025974e1e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateAnAccount_WhenAccountDetailsInvalid_ReturnsValidationError" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::9F21670C-5145-4F27-9F9C-F6E874280E31::net6.0::tripscribe.Api.Integration.Test.Controllers.AccountControllerTests.CreateAnAccount_WhenAccountDetailsInvalid_ReturnsValidationError&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c83aedcd_002Dc138_002D49e5_002D9f6c_002D88cf5e4dd835/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from AccountControllerTests.cs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Or&gt;&#xD;

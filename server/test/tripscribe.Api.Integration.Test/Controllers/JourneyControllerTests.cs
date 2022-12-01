@@ -48,6 +48,14 @@ public class JourneyControllerTests
         Assert.Contains("French Trip", value);
         Assert.Contains("Short adventure around Paris", value);
     }
+    
+    [Fact]
+    public async Task GetAJourneyById_JourneyDoesNotExist_ThrowsException()
+    {
+        const int id = 20;
+        var response = await _httpClient.GetAsync($"/journey/{id}");
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
 
     [Fact]
     public async Task GetAccountJourneysById_WhenAccountJourneysPresent_ReturnsOk()
@@ -84,7 +92,7 @@ public class JourneyControllerTests
     [Fact]
     public async Task UpdateAJourney_WhenNewJourneyDetailsValidAndPresent_ReturnsOk()
     {
-        const int id = 1;
+        const int id = 4;
         const string newTitle = "German Tour";
         const string newDescription = "Drowning in Bratwurst and Beer";
 

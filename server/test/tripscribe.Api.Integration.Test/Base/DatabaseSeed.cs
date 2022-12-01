@@ -34,6 +34,15 @@ public static class DatabaseSeed
             Password = "password3"
         };
 
+        Account account4 = new Account
+        {
+            Id = 4,
+            Email = "friends@outlook.com",
+            FirstName = "Joey",
+            LastName = "Tribiani",
+            Password = "fr13nds"
+        };
+
         Journey journey1 = new Journey
         {
             Id = 1,
@@ -56,6 +65,14 @@ public static class DatabaseSeed
             Title = "Scandinavian Sojourn",
             Description = "Travels in Sweden and Norway",
             Timestamp = DateTime.Now - TimeSpan.FromDays(3)
+        };
+
+        Journey journey4 = new Journey
+        {
+            Id = 4,
+            Title = "Road Trippin'",
+            Description = "Drives through the lower 48",
+            Timestamp = DateTime.Now
         };
 
         Stop stop1 = new Stop
@@ -132,18 +149,28 @@ public static class DatabaseSeed
             AccountId = 3,
             JourneyId = 1
         };
+        
+        AccountJourney accountJourney4 = new AccountJourney
+        {
+            Id = 4,
+            AccountId = 4,
+            JourneyId = 4
+        };
 
         database.Add(account1);
         database.Add(account2);
         database.Add(account3);
+        database.Add(account4);
 
         database.Add(journey1);
         database.Add(journey2);
         database.Add(journey3);
+        database.Add(journey4);
 
         database.Add(accountJourney1);
         database.Add(accountJourney2);
         database.Add(accountJourney3);
+        database.Add(accountJourney4);
 
         database.Add(stop1);
         database.Add(stop2);
