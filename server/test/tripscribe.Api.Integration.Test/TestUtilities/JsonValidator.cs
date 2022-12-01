@@ -47,4 +47,15 @@ public static class JsonValidator
         return JsonConvert.DeserializeObject<T>(VerifyDeSerialization<T>(@this)) ??
                throw new InvalidOperationException();
     }
+    
+    public static void CheckIfErrorPresent(this JObject @this, string name,  params string[] messages)
+    {
+        var errors = @this[name].Select(x => x.ToString()).ToList();
+
+        foreach (var message in messages)
+        {
+            errors.Should().Contain(message);
+        }
+        
+    }
 }

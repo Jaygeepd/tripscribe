@@ -128,10 +128,10 @@ public class AccountControllerTests
         var value = await response.Content.ReadAsStringAsync();
         
         var result = value.VerifyDeSerialize<ValidationModel>();
-        ((string)result.Errors.Email[0]).Should().Be("'Email' is not a valid email address.");
-        ((string)result.Errors.LastName[0]).Should().Be("Last name must be entered, and under 100 characters in length");
-        ((string)result.Errors.Password[0]).Should().Be("Password must be between 8 and 30 characters");
-        ((string)result.Errors.FirstName[0]).Should().Be("First name must be entered, and under 100 characters in length");
+        result.Errors.CheckIfErrorPresent("Email", "'Email' is not a valid email address.");
+        result.Errors.CheckIfErrorPresent("FirstName", "First name must be entered, and under 100 characters in length");
+        result.Errors.CheckIfErrorPresent("LastName", "Last name must be entered, and under 100 characters in length");
+        result.Errors.CheckIfErrorPresent("Password", "Password must be between 8 and 30 characters");
         
         _testOutputHelper.WriteLine(value);
     }
@@ -172,7 +172,7 @@ public class AccountControllerTests
         var value = await response.Content.ReadAsStringAsync();
         
         var result = value.VerifyDeSerialize<ValidationModel>();
-        ((string)result.Errors.NoValue[0]).Should().Be("At least one value required");
+        //  ((string)result.Errors.NoValue[0]).Should().Be("At least one value required");
         
         _testOutputHelper.WriteLine(value);
         
@@ -187,13 +187,4 @@ public class AccountControllerTests
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
-    private void CheckIfErrorPresent(dynamic errors, string name, string message) 
-    {
-        var info = errors.GetType().GetProperty(name);
-        var value = info.GetValue(errors, null);
-        var errorMessage = (string)((JArray)value)[0];
-  
-        errorMessage.Should().Be(message);
-    }
-    
 }
