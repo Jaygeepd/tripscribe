@@ -14,8 +14,17 @@ public class UpdateLocationValidator : AbstractValidator<CreateLocationViewModel
 {
     public UpdateLocationValidator()
     {
-        RuleFor(loc => loc.Name).NotNull().Length(1, 100).WithMessage("Name must be entered for this location");
-        RuleFor(loc => loc.DateArrived).NotNull().WithMessage("Date arrived must be chosen");
-        RuleFor(loc => loc.LocationType).NotNull().Length(1, 30).WithMessage("Location type chosen was invalid");
+        RuleFor(loc => loc).Must(loc => loc.Name != null  && loc.LocationType != null)
+            .WithMessage("At least one value required").WithName("NoValue");
+        
+        When(loc => loc.Name != null, () =>
+        {
+            RuleFor(loc => loc.Name).NotNull().Length(1, 100).WithMessage("Name must be entered for this location");
+        });
+        
+        When(loc => loc.LocationType != null, () =>
+        {
+            RuleFor(loc => loc.LocationType).NotNull().Length(1, 100).WithMessage("Location type chosen was invalid");
+        });
     }
 }

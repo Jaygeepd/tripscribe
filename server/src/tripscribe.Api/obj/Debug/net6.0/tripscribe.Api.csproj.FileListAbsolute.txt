@@ -154,3 +154,12 @@ C:/Users/John Mahon/Documents/GitHub/tripscribe/server/src/tripscribe.Api/obj/De
 /Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Api/obj/Debug/net6.0/tripscribe.Api.pdb
 /Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Api/obj/Debug/net6.0/tripscribe.Api.genruntimeconfig.cache
 /Users/john.mahon/Documents/repos/tripscribe/server/src/tripscribe.Api/obj/Debug/net6.0/ref/tripscribe.Api.dll
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Api\obj\Debug\net6.0\tripscribe.Api.csproj.AssemblyReference.cache
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Api\obj\Debug\net6.0\tripscribe.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Api\obj\Debug\net6.0\tripscribe.Api.AssemblyInfoInputs.cache
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Api\obj\Debug\net6.0\tripscribe.Api.AssemblyInfo.cs
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Api\obj\Debug\net6.0\tripscribe.Api.csproj.CoreCompileInputs.cache
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Api\obj\Debug\net6.0\tripscribe.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Api\obj\Debug\net6.0\tripscribe.Api.dll
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Api\obj\Debug\net6.0\refint\tripscribe.Api.dll
+C:\Users\John Mahon\Documents\GitHub\tripscribe\server\src\tripscribe.Api\obj\Debug\net6.0\tripscribe.Api.pdb

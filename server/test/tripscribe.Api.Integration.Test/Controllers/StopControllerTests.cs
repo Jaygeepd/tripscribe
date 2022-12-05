@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Tripscribe.Api.Integration.Test.Base;
+using tripscribe.Api.Integration.Test.Models;
 using tripscribe.Api.Integration.Test.TestUtilities;
 using Tripscribe.Api.Integration.Test.TestUtilities;
 using tripscribe.Api.ViewModels.Accounts;
@@ -68,6 +69,31 @@ public class StopControllerTests
     }
 
     [Fact]
+    public async Task CreateAStop_WhenStopDetailsInvalid_ReturnsErrorMessage()
+    {
+        const string name = "";
+        const int journeyId = 1;
+        
+        CreateStopViewModel newStop = new CreateStopViewModel()
+        {
+            Name = name,
+            JourneyId = journeyId,
+            DateArrived = DateTime.Now - TimeSpan.FromDays(5),
+            DateDeparted = DateTime.Now - TimeSpan.FromDays(4)
+        };
+        
+        var response = await _httpClient.PostAsJsonAsync($"/stop/", newStop);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("Name", "Stop name be entered, and between 4 and 100 characters in length");
+        
+        _testOutputHelper.WriteLine(value);
+    }
+
+    [Fact]
     public async Task UpdateAStop_WhenNewStopDetailsValidAndPresent_ReturnsOk()
     {
         const int id = 1;
@@ -83,6 +109,31 @@ public class StopControllerTests
 
         var response = await _httpClient.PatchAsJsonAsync($"/stop/{id}", updateStop);
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
+
+    [Fact]
+    public async Task UpdateAStop_WhenNewStopDetailsInvalidData_ReturnsErrorMessage()
+    {
+        const int id = 1;
+        const string newName = "";
+
+        UpdateStopViewModel updateStop = new UpdateStopViewModel()
+        {
+            Id = id,
+            Name = newName,
+            DateArrived = DateTime.Now - TimeSpan.FromDays(7),
+            DateDeparted = DateTime.Now - TimeSpan.FromDays(6)
+        };
+
+        var response = await _httpClient.PatchAsJsonAsync($"/stop/{id}", updateStop);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("Name", "Stop name be entered, and between 4 and 100 characters in length");
+        
+        _testOutputHelper.WriteLine(value);
     }
 
     [Fact]

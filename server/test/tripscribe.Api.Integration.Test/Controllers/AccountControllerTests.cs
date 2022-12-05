@@ -154,7 +154,7 @@ public class AccountControllerTests
     }
     
     [Fact]
-    public async Task UpdateAnAccount_WhenNewAccountDetailsInvalid_ReturnsError()
+    public async Task UpdateAnAccount_WhenNewAccountDetailsEmpty_ReturnsError()
     {
         const int id = 2;
         const string newFirstName = null;
@@ -172,7 +172,7 @@ public class AccountControllerTests
         var value = await response.Content.ReadAsStringAsync();
         
         var result = value.VerifyDeSerialize<ValidationModel>();
-        //  ((string)result.Errors.NoValue[0]).Should().Be("At least one value required");
+        result.Errors.CheckIfErrorPresent("NoValue", "Should be more than one value");
         
         _testOutputHelper.WriteLine(value);
         

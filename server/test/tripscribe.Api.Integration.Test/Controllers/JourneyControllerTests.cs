@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Tripscribe.Api.Integration.Test.Base;
+using tripscribe.Api.Integration.Test.Models;
 using tripscribe.Api.Integration.Test.TestUtilities;
 using Tripscribe.Api.Integration.Test.TestUtilities;
 using tripscribe.Api.ViewModels.Accounts;
@@ -90,6 +91,27 @@ public class JourneyControllerTests
     }
 
     [Fact]
+    public async Task CreateAJourney_WhenJourneyDetailsInvalid_ReturnErrorMessage()
+    {
+        const string title = "";
+        
+        CreateJourneyViewModel newJourney = new CreateJourneyViewModel
+        {
+            Title = title
+        };
+        
+        var response = await _httpClient.PostAsJsonAsync("/journey/", newJourney);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("Title", "Title must be entered, and between 5 and 100 characters in length");
+        
+        _testOutputHelper.WriteLine(value);
+    }
+
+    [Fact]
     public async Task UpdateAJourney_WhenNewJourneyDetailsValidAndPresent_ReturnsOk()
     {
         const int id = 4;
@@ -107,6 +129,29 @@ public class JourneyControllerTests
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
+    [Fact]
+    public async Task UpdateAJourney_WhenNewJourneyDetailsInvalidData_ReturnsErrorMessage()
+    {
+        const int id = 4;
+        const string newTitle = null;
+
+        UpdateJourneyViewModel updateJourney = new UpdateJourneyViewModel()
+        {
+            Id = id,
+            Title = newTitle
+        };
+
+        var response = await _httpClient.PatchAsJsonAsync($"/journey/{id}", updateJourney);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("Title", "Title must be entered, and between 5 and 100 characters in length");
+        
+        _testOutputHelper.WriteLine(value);
+    }
+    
     [Fact]
     public async Task DeleteAJourney_WhenJourneyFoundThenDeleted_ReturnsOk()
     {

@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Tripscribe.Api.Integration.Test.Base;
+using tripscribe.Api.Integration.Test.Models;
 using tripscribe.Api.Integration.Test.TestUtilities;
 using Tripscribe.Api.Integration.Test.TestUtilities;
 using tripscribe.Api.ViewModels.Accounts;
@@ -70,6 +71,60 @@ public class LocationControllerTests
     }
 
     [Fact]
+    public async Task CreateALocation_WhenLocationDetailsInvalidData_ReturnsErrorMessage()
+    {
+        const string name = "";
+        const string locationType = "";
+        const int stopId = 2;
+        
+        CreateLocationViewModel newLocation = new CreateLocationViewModel()
+        {
+            Name = name,
+            StopId = stopId,
+            DateArrived = DateTime.Now - TimeSpan.FromDays(5),
+            LocationType = locationType
+        };
+        
+        var response = await _httpClient.PostAsJsonAsync("/location/", newLocation);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("Name", "Name must be entered for this location");
+        result.Errors.CheckIfErrorPresent("LocationType", "Location type chosen was invalid");
+        
+        _testOutputHelper.WriteLine(value);
+    }
+    
+    [Fact]
+    public async Task CreateALocation_WhenLocationDetailsInvalidStopId_ReturnsErrorMessage()
+    {
+        const string name = "Louvre";
+        const string locationType = "Museum";
+        const int stopId = 2;
+        
+        CreateLocationViewModel newLocation = new CreateLocationViewModel()
+        {
+            Name = name,
+            StopId = stopId,
+            DateArrived = DateTime.Now - TimeSpan.FromDays(5),
+            LocationType = locationType
+        };
+        
+        var response = await _httpClient.PostAsJsonAsync("/location/", newLocation);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("Name", "Name must be entered for this location");
+        result.Errors.CheckIfErrorPresent("LocationType", "Location type chosen was invalid");
+        
+        _testOutputHelper.WriteLine(value);
+    }
+
+    [Fact]
     public async Task UpdateALocation_WhenNewLocationDetailsValidAndPresent_ReturnsOk()
     {
         const int id = 1;
@@ -86,6 +141,33 @@ public class LocationControllerTests
 
         var response = await _httpClient.PatchAsJsonAsync($"/location/{id}", updateLocation);
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
+
+    [Fact]
+    public async Task UpdateALocation_WhenNewLocationDetailsInvalid_ReturnsErrorMessage()
+    {
+        const int id = 1;
+        const string newName = "";
+        const string newType = "";
+
+        UpdateLocationViewModel updateLocation = new UpdateLocationViewModel()
+        {
+            Id = id,
+            Name = newName,
+            LocationType = newType,
+            DateArrived = DateTime.Now - TimeSpan.FromDays(6)
+        };
+
+        var response = await _httpClient.PatchAsJsonAsync($"/location/{id}", updateLocation);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("Name", "Name must be entered for this location");
+        result.Errors.CheckIfErrorPresent("LocationType", "Location type chosen was invalid");
+        
+        _testOutputHelper.WriteLine(value);
     }
 
     [Fact]
