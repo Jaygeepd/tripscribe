@@ -172,7 +172,7 @@ public class AccountControllerTests
         var value = await response.Content.ReadAsStringAsync();
         
         var result = value.VerifyDeSerialize<ValidationModel>();
-        result.Errors.CheckIfErrorPresent("NoValue", "Should be more than one value");
+        result.Errors.CheckIfErrorPresent("NoValue", "At least one value required");
         
         _testOutputHelper.WriteLine(value);
         
