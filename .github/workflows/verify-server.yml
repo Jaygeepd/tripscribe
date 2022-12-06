@@ -6,6 +6,7 @@ on:
       paths:
         - "database/**"
         - "server/**"
+  workflow_dispatch:
 
 default:
   run:
