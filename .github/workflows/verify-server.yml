@@ -3,9 +3,7 @@ name: Verify Server
 on:
   pull_request:
     branches: [ develop, main ]
-    paths:
-      - "migrations/**"
-      - "server/**"
+    
   workflow_dispatch:
 
 defaults:
