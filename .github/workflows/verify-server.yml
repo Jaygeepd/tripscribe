@@ -1,9 +1,9 @@
 name: Verify Server
 
 on:
-  pull_request:
+  push:
     branches: [ develop, main ]
-    
+
   workflow_dispatch:
 
 defaults:
