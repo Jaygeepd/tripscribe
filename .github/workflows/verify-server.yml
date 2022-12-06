@@ -25,4 +25,4 @@ jobs:
         run: dotnet restore && dotnet build
       - name: Test with dotnet
         run: |
-          dotnet test --no-restore -c Release
+   dotnet test --no-restore -c Release

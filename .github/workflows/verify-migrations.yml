@@ -5,7 +5,9 @@ on:
     branches: [ develop, main ]
     paths:
       - "migrations/**"
-  dispatch_workflow:
+      - "database/**"
+  workflow_dispatch:
+    
 
 jobs:
   verify:
