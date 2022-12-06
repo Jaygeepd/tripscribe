@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripscribe.Services.Test", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{4FACD54A-2142-4D1E-9F7D-F988D7E18CFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tripscribe.Api.Integration.Test", "test\tripscribe.Api.Integration.Test\tripscribe.Api.Integration.Test.csproj", "{9F21670C-5145-4F27-9F9C-F6E874280E31}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
