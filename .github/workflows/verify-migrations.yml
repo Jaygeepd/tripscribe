@@ -1,16 +1,18 @@
 name: Verify Migrations
 
-on: 
+on:
   pull_request:
-    branches: [ develop, main]
+    branches: [ develop, main ]
     paths:
+      - "migrations/**"
       - "database/**"
   workflow_dispatch:
     
+
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: execute flyway in docker compose
-      run: docker-compose up --abort-on-container-exit
+      - uses: actions/checkout@v2
+      - name: execute flyway in docker compose 🐳
+        run: docker-compose up --abort-on-container-exit
