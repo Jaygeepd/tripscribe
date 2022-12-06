@@ -1,11 +1,9 @@
 name: Verify Migrations
 
 on:
-  pull_request:
+  push:
     branches: [ develop, main ]
-    paths:
-      - "migrations/**"
-      - "database/**"
+    
   workflow_dispatch:
     
 
