@@ -13,7 +13,7 @@ services:
       - db:/var/lib/postgresql/data
   flyway:
     image: flyway/flyway
-    command: -url=jdbc:postgresql://db/tripscribe -schemas=public -user=postgres
+    command: -url=jdbc:postgresql://db/tripscribe -schemas=public -user=admin
       -password=password -connectRetries=5 migrate
     volumes:
       - ./migrations:/flyway/sql
