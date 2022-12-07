@@ -46,7 +46,7 @@ builder.Services.AddScoped<IJourneyService, JourneyService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IStopService, StopService>();
 builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly, typeof(AccountService).Assembly);
-
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -57,11 +57,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("/health");
 
 app.Run();
 
