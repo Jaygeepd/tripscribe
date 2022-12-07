@@ -231,8 +231,8 @@ public class StopControllerTests
         _mapper.Received(1).Map<IList<ReviewViewModel>>(reviewList);
     }
     
-    private StopController RetrieveController()
+    private StopsController RetrieveController()
     {
-        return new StopController(_mapper, _service);
+        return new StopsController(_mapper, _service);
     }
 }

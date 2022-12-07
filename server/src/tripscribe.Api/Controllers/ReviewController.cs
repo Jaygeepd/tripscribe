@@ -5,9 +5,9 @@ using tripscribe.Api.ViewModels.Reviews;
 namespace tripscribe.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 
-public class ReviewController : ControllerBase
+public class ReviewsController : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.Created)]

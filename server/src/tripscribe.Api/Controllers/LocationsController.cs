@@ -10,12 +10,12 @@ using Unosquare.EntityFramework.Specification.Common.Extensions;
 namespace tripscribe.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class LocationController : ControllerBase
+[Route("api/[controller]")]
+public class LocationsController : ControllerBase
 {
     private readonly ILocationService _service;
     private readonly IMapper _mapper;
-    public LocationController(IMapper mapper, ILocationService service) => 
+    public LocationsController(IMapper mapper, ILocationService service) => 
         (_mapper, _service) = (mapper, service);
     
     [HttpGet]

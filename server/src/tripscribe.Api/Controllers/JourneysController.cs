@@ -12,13 +12,13 @@ using Unosquare.EntityFramework.Specification.Common.Extensions;
 namespace tripscribe.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class JourneyController : ControllerBase
+[Route("api/[controller]")]
+public class JourneysController : ControllerBase
 {
     private readonly IJourneyService _service;
     private readonly IMapper _mapper;
     
-    public JourneyController(IMapper mapper, IJourneyService service) => 
+    public JourneysController(IMapper mapper, IJourneyService service) => 
         (_mapper, _service) = (mapper, service);
     
     [HttpGet("{id}")]

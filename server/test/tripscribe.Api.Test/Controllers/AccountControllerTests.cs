@@ -267,8 +267,8 @@ public class AccountControllerTests
         _mapper.Received(1).Map<IList<JourneyViewModel>>(journeyList);
     }
 
-    private AccountController RetrieveController()
+    private AccountsController RetrieveController()
     {
-        return new AccountController(_mapper, _service);
+        return new AccountsController(_mapper, _service);
     }
 }

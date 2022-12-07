@@ -10,12 +10,12 @@ using tripscribe.Services.Services;
 namespace tripscribe.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class AccountController : ControllerBase
+[Route("api/[controller]")]
+public class AccountsController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IAccountService _service;
-    public AccountController(IMapper mapper, IAccountService service) => 
+    public AccountsController(IMapper mapper, IAccountService service) => 
         (_mapper, _service) = (mapper, service);
     
     [HttpGet("{id}", Name = "GetAccountsById")]

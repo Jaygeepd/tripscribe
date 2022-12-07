@@ -224,8 +224,8 @@ public class LocationControllerTests
         _mapper.Received(1).Map<IList<ReviewViewModel>>(reviewList);
     }
 
-    private LocationController RetrieveController()
+    private LocationsController RetrieveController()
     {
-        return new LocationController(_mapper, _service);
+        return new LocationsController(_mapper, _service);
     }
 }

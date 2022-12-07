@@ -11,12 +11,12 @@ using Unosquare.EntityFramework.Specification.Common.Extensions;
 namespace tripscribe.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class StopController : ControllerBase
+[Route("api/[controller]")]
+public class StopsController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IStopService _service;
-    public StopController(IMapper mapper, IStopService service) =>
+    public StopsController(IMapper mapper, IStopService service) =>
         (_mapper, _service) = (mapper, service);
     
     [HttpGet("{id}", Name = "GetStopById")]
