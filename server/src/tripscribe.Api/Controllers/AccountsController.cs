@@ -1,5 +1,6 @@
 using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Api.ViewModels.Journeys;
@@ -19,6 +20,7 @@ public class AccountsController : ControllerBase
         (_mapper, _service) = (mapper, service);
     
     [HttpGet("{id}", Name = "GetAccountsById")]
+    [AllowAnonymous]
     public ActionResult<AccountViewModel> GetAccount(int id)
     {
         var accounts = _service.GetAccount(id);
@@ -68,6 +70,7 @@ public class AccountsController : ControllerBase
     [HttpPatch]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [AllowAnonymous]
     public ActionResult UpdateAccount(int id, [FromBody] UpdateAccountViewModel updateDetails)
     {
         var existingAcc = _service.GetAccount(id);

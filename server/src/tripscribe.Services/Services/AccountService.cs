@@ -43,6 +43,9 @@ public class AccountService : IAccountService
     public void CreateAccount(AccountDTO account)
     {
         var newAccount = _mapper.Map<Account>(account);
+
+        newAccount.Password = BCrypt.Net.BCrypt.HashPassword(newAccount.Password);
+        
         _database.Add(newAccount);
         _database.SaveChanges();
     }
@@ -56,6 +59,11 @@ public class AccountService : IAccountService
 
         if (currentAcc == null) throw new NotFoundException("Account Not Found");
 
+        if (account.Password is not null)
+        {
+            account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
+        } 
+        
         _mapper.Map(account, currentAcc);
 
         _database.SaveChanges();
