@@ -133,37 +133,7 @@ public class AccountControllerTests
         _service.Received(1).CreateAccount(account);
         _mapper.Received(1).Map<AccountDTO>(createAccountViewModel);
     }
-    
-    [Theory]
-    [InlineData("firstname", "lastname")]
-    [InlineData(null, null)]
-    public void UpdateAccount_WhenCalledWithValidViewModel_MappedAndSaved(string firstName, string lastName)
-    {
-        // Arrange
-        const int id = 1;
-        var account = new AccountDTO
-        {
-            Id = id,
-            FirstName = firstName,
-            LastName = lastName,
-        };
 
-        var updateAccountViewModel = new UpdateAccountViewModel();
-
-        _mapper.Map<AccountDTO>(updateAccountViewModel).Returns(account);
-
-        var controller = RetrieveController();
-
-        // Act
-        var actionResult = controller.UpdateAccount(id, updateAccountViewModel);
-
-        // Assert
-        actionResult.AssertResult<NoContentResult>();
-
-        _service.Received(1).UpdateAccount(id, account);
-        _mapper.Received(1).Map<AccountDTO>(updateAccountViewModel);
-    }
-    
     [Fact]
     public void DeleteAccount_WhenCalledWithValidId_DeletedAndSaved()
     {

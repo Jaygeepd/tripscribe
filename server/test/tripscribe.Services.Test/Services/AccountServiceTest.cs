@@ -231,42 +231,6 @@ public class AccountServiceTest
         // Assert
         result.Should().BeEquivalentTo(journey, options => options.ExcludingMissingMembers());
     }
-    
-    [Fact]
-    public void GetAccountReviews_ValidIdEntered_ReturnedAndMapped()
-    {
-        // Arrange
-        const int reviewId = 1;
-        const int accountId = 1;
-        
-        var review = _fixture.Build<Review>()
-            .Without(x => x.JourneyReviews)
-            .Without(x => x.LocationReviews)
-            .Without(x => x.StopReviews)
-            .With(x => x.Id, reviewId)
-            .CreateMany(1)
-            .ToArray();
-        
-
-        var accountIds = _fixture.MockWithOne(accountId);
-        
-        var accountReviewList = _fixture.Build<JourneyReview>()
-            .With(x => x.AccountId, accountIds.GetValue)
-            .With(x => x.ReviewId, reviewId)
-            .With(x => x.Review, review.First)
-            .CreateMany()
-            .AsQueryable();
-
-        _database.Get<JourneyReview>().Returns(accountReviewList);
-
-        var service = RetrieveService();
-
-        // Act
-        var result = service.GetAccountReviews(accountId);
-
-        // Assert
-        result.Should().BeEquivalentTo(review, options => options.ExcludingMissingMembers());
-    }
 
     private IAccountService RetrieveService()
     {

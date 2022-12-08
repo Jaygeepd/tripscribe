@@ -43,6 +43,15 @@ public static class DatabaseSeed
             Password = "fr13nds"
         };
 
+        Account account5 = new Account
+        {
+            Id = 5,
+            Email = "lbrown@gmail.com",
+            FirstName = "Leah",
+            LastName = "Brown",
+            Password = "p455word"
+        };
+
         Journey journey1 = new Journey
         {
             Id = 1,
@@ -179,6 +188,7 @@ public static class DatabaseSeed
         database.Add(account2);
         database.Add(account3);
         database.Add(account4);
+        database.Add(account5);
 
         database.Add(journey1);
         database.Add(journey2);

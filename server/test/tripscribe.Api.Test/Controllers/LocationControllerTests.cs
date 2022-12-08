@@ -103,36 +103,7 @@ public class LocationControllerTests
         _mapper.Received(1).Map<IList<LocationViewModel>>(locationList);
 
     }
-    
-    [Theory]
-    [InlineData("name", "2017-7-10", "locationtype", 1)]
-    public void CreateLocation_WhenValidDataEntered_MappedAndSaved(string name, DateTime dateArrived, string locationType, int stopId)
-    {
-        // Arrange
-        var location = new LocationDTO
-        {
-            Name = name,
-            DateVisited = dateArrived,
-            LocationType = locationType,
-            StopId = stopId
-        };
 
-        var createLocationViewModel = new CreateLocationViewModel();
-
-        _mapper.Map<LocationDTO>(createLocationViewModel).Returns(location);
-
-        var controller = RetrieveController();
-
-        // Act
-        var actionResult = controller.CreateLocation(createLocationViewModel);
-
-        // Assert
-        actionResult.AssertResult<StatusCodeResult>(HttpStatusCode.Created);
-
-        _service.Received(1).CreateLocation(location);
-        _mapper.Received(1).Map<LocationDTO>(createLocationViewModel);
-    }
-    
     [Theory]
     [InlineData("name", "2017-7-10", "locationtype")]
     [InlineData(null, null, null)]

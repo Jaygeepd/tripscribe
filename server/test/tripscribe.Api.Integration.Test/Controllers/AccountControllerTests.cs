@@ -237,7 +237,7 @@ public class AccountControllerTests
     [Fact]
     public async Task DeleteAnAccount_WhenAccountFound_ThenDeleted_ReturnsOk()
     {
-        const int id = 3;
+        const int id = 5;
 
         var response = await _httpClient.DeleteAsync($"/api/accounts/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);

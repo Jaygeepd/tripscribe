@@ -98,32 +98,6 @@ public class JourneyServiceTest
         _database.Received(1).Add(Arg.Is<Journey>(x => x.Title == newJourney.Title));
     }
     
-    [Theory]
-    [InlineData("title", "description")]
-    [InlineData(null, null)]
-    public void UpdateJourney_ValidDataEntered_MapperAndSaved(string title, string description)
-    {
-        // Arrange
-        var journeyList = _fixture.Build<Journey>()
-        .Without(x => x.AccountJourneys)
-        .Without(x => x.JourneyReviews)
-        .CreateMany();
-        var journeyDTO = _mapper.Map<JourneyDTO>(journeyList.First());
-        
-        _database.Get<Journey>().Returns(journeyList.AsQueryable());
-        
-        var service = RetrieveService();
-
-        var updateJourney = journeyList.First(); 
-        
-        // Act
-        service.UpdateJourney(updateJourney.Id, journeyDTO);
-
-        // Assert
-        _database.Received(1).Get<Account>();
-        _database.Received(1).SaveChanges();
-        _database.Received(1).Add(Arg.Is<Journey>(x => x.Title == updateJourney.Title));
-    }
     
     [Fact]
     public void UpdateJourney_JourneyDoesNotExist_ThrowNotFoundException()
@@ -218,42 +192,6 @@ public class JourneyServiceTest
 
         // Assert
         result.Should().BeEquivalentTo(account, options => options.ExcludingMissingMembers());
-    }
-    
-    [Fact]
-    public void GetJourneyReviews_ValidIdEntered_ReturnedAndMapped()
-    {
-        // Arrange
-        const int reviewId = 1;
-        const int journeyId = 1;
-        
-        var review = _fixture.Build<Review>()
-            .Without(x => x.JourneyReviews)
-            .Without(x => x.LocationReviews)
-            .Without(x => x.StopReviews)
-            .With(x => x.Id, reviewId)
-            .CreateMany(1)
-            .ToArray();
-        
-
-        var journeyIds = _fixture.MockWithOne(journeyId);
-        
-        var journeyReviewList = _fixture.Build<JourneyReview>()
-            .With(x => x.JourneyId, journeyIds.GetValue)
-            .With(x => x.ReviewId, reviewId)
-            .With(x => x.Review, review.First)
-            .CreateMany()
-            .AsQueryable();
-
-        _database.Get<JourneyReview>().Returns(journeyReviewList);
-
-        var service = RetrieveService();
-
-        // Act
-        var result = service.GetJourneyReviews(journeyId);
-
-        // Assert
-        result.Should().BeEquivalentTo(review, options => options.ExcludingMissingMembers());
     }
 
     private IJourneyService RetrieveService()

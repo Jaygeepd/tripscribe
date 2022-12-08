@@ -111,36 +111,7 @@ public class StopControllerTests
         _mapper.Received(1).Map<IList<StopViewModel>>(stopList);
 
     }
-    
-    [Theory]
-    [InlineData("name", "2017-7-10", "2017-7-10", 1)]
-    public void CreateStop_WhenValidDataEntered_MappedAndSaved(string name, DateTime dateArrived, DateTime dateDeparted, int journeyId)
-    {
-        // Arrange
-        var stop = new StopDTO
-        {
-            Name = name,
-            DateArrived = dateArrived,
-            DateDeparted = dateDeparted,
-            JourneyId = journeyId
-        };
 
-        var createStopViewModel = new CreateStopViewModel();
-
-        _mapper.Map<StopDTO>(createStopViewModel).Returns(stop);
-
-        var controller = RetrieveController();
-
-        // Act
-        var actionResult = controller.CreateStop(createStopViewModel);
-
-        // Assert
-        actionResult.AssertResult<StatusCodeResult>(HttpStatusCode.Created);
-
-        _service.Received(1).CreateStop(stop);
-        _mapper.Received(1).Map<StopDTO>(createStopViewModel);
-    }
-    
     [Theory]
     [InlineData("name", "2017-7-10", "2017-7-10")]
     [InlineData(null, null, null)]
