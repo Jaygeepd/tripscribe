@@ -1,6 +1,9 @@
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Tripscribe.Api;
+using Tripscribe.Api.Authentication;
 using tripscribe.Api.Filters;
 using tripscribe.Dal.Contexts;
 using tripscribe.Dal.Interfaces;
@@ -41,6 +44,17 @@ builder.Services.AddFluentValidation(s =>
     s.RegisterValidatorsFromAssemblyContaining<Program>()
 );
 
+builder.Services.AddAuthentication(string.Empty).AddScheme<AuthenticationSchemeOptions, AccessAuthenticationFilter>(string.Empty, options => {});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(string.Empty, policy =>
+    {
+        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireAuthenticatedUser();
+    });
+});
+
 builder.Services.AddScoped<ITripscribeDatabase, TripscribeContext>(_ => new TripscribeContext(EnvironmentVariables.DbConnectionString));
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJourneyService, JourneyService>();
@@ -58,9 +72,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllers().RequireAuthorization();
 
 app.MapHealthChecks("/health");
 

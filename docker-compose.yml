@@ -26,7 +26,7 @@ services:
       dockerfile: Dockerfile.local
     environment:
       ASPNETCORE_URLS: "https://+:7121;http://+:5126"
-      DbConnectionString: "Server=db,1433;Database=tripscribe;User Id=admin;Password=password;"
+      DbConnectionString: "Server=db,5432;Database=tripscribe;User Id=admin;Password=password;"
     volumes:
       - ./server:/app
     ports:
