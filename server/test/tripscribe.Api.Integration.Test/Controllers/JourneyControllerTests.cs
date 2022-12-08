@@ -28,7 +28,7 @@ public class JourneyControllerTests
     [Fact]
     public async Task GetAllJourneys_WhenJourneysPresent_ReturnsOk()
     {
-        var response = await _httpClient.GetAsync("/journey/");
+        var response = await _httpClient.GetAsync("/api/journeys/");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -39,7 +39,7 @@ public class JourneyControllerTests
     public async Task GetAJourneyById_WhenJourneyPresent_ReturnsOk()
     {
         const int id = 1;
-        var response = await _httpClient.GetAsync($"/journey/{id}");
+        var response = await _httpClient.GetAsync($"/api/journeys/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -54,7 +54,7 @@ public class JourneyControllerTests
     public async Task GetAJourneyById_JourneyDoesNotExist_ThrowsException()
     {
         const int id = 20;
-        var response = await _httpClient.GetAsync($"/journey/{id}");
+        var response = await _httpClient.GetAsync($"/api/journeys/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
@@ -62,7 +62,7 @@ public class JourneyControllerTests
     public async Task GetAccountJourneysById_WhenAccountJourneysPresent_ReturnsOk()
     {
         const int id = 1;
-        var response = await _httpClient.GetAsync($"/journey/{id}/accounts/");
+        var response = await _httpClient.GetAsync($"/api/journeys/{id}/accounts/");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -86,8 +86,29 @@ public class JourneyControllerTests
             Description = description
         };
         
-        var response = await _httpClient.PostAsJsonAsync("/journey/", newJourney);
+        var response = await _httpClient.PostAsJsonAsync("/api/journeys/", newJourney);
         response.StatusCode.Should().Be(HttpStatusCode.Created);
+    }
+    
+    [Fact]
+    public async Task CreateAJourney_WhenJourneyDetailsNull_ReturnErrorMessage()
+    {
+        const string title = null;
+        
+        CreateJourneyViewModel newJourney = new CreateJourneyViewModel
+        {
+            Title = title
+        };
+        
+        var response = await _httpClient.PostAsJsonAsync("/api/journeys/", newJourney);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("Title", "Title must be not null");
+        
+        _testOutputHelper.WriteLine(value);
     }
 
     [Fact]
@@ -100,13 +121,13 @@ public class JourneyControllerTests
             Title = title
         };
         
-        var response = await _httpClient.PostAsJsonAsync("/journey/", newJourney);
+        var response = await _httpClient.PostAsJsonAsync("/api/journeys/", newJourney);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
         
         var result = value.VerifyDeSerialize<ValidationModel>();
-        result.Errors.CheckIfErrorPresent("Title", "Title must be entered, and between 5 and 100 characters in length");
+        result.Errors.CheckIfErrorPresent("Title", "Title must be between 5 and 100 characters in length");
         
         _testOutputHelper.WriteLine(value);
     }
@@ -125,12 +146,12 @@ public class JourneyControllerTests
             Description = newDescription
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/journey/{id}", updateJourney);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/journeys/{id}", updateJourney);
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
     [Fact]
-    public async Task UpdateAJourney_WhenNewJourneyDetailsInvalidData_ReturnsErrorMessage()
+    public async Task UpdateAJourney_WhenNewJourneyDetailsNull_ReturnsErrorMessage()
     {
         const int id = 4;
         const string newTitle = null;
@@ -141,13 +162,36 @@ public class JourneyControllerTests
             Title = newTitle
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/journey/{id}", updateJourney);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/journeys/{id}", updateJourney);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
         
         var result = value.VerifyDeSerialize<ValidationModel>();
-        result.Errors.CheckIfErrorPresent("Title", "Title must be entered, and between 5 and 100 characters in length");
+        result.Errors.CheckIfErrorPresent("Title", "Title must be not null");
+        
+        _testOutputHelper.WriteLine(value);
+    }
+    
+    [Fact]
+    public async Task UpdateAJourney_WhenNewJourneyDetailsInvalid_ReturnsErrorMessage()
+    {
+        const int id = 4;
+        const string newTitle = "Hell";
+
+        UpdateJourneyViewModel updateJourney = new UpdateJourneyViewModel()
+        {
+            Id = id,
+            Title = newTitle
+        };
+
+        var response = await _httpClient.PatchAsJsonAsync($"/api/journeys/{id}", updateJourney);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("Title", "Title must be between 5 and 100 characters in length");
         
         _testOutputHelper.WriteLine(value);
     }
@@ -157,7 +201,7 @@ public class JourneyControllerTests
     {
         const int id = 3;
 
-        var response = await _httpClient.DeleteAsync($"/journey/{id}");
+        var response = await _httpClient.DeleteAsync($"/api/journeys/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 }

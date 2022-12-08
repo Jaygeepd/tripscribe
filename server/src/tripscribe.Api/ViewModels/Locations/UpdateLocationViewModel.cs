@@ -10,21 +10,22 @@ public class UpdateLocationViewModel
     public string LocationType { get; set; }
 }
 
-public class UpdateLocationValidator : AbstractValidator<CreateLocationViewModel>
+public class UpdateLocationValidator : AbstractValidator<UpdateLocationViewModel>
 {
     public UpdateLocationValidator()
     {
         RuleFor(loc => loc).Must(loc => loc.Name != null  && loc.LocationType != null)
             .WithMessage("At least one value required").WithName("NoValue");
+
+        When(loc => loc.Name != null, () => 
+                RuleFor(loc => loc.Name).Length(4, 100).WithMessage("Name must be between 4 and 100 characters in length")
+            );
+
+        When(loc => loc.LocationType != null, () => 
+                RuleFor(loc => loc.LocationType).Length(4, 100).WithMessage("Location type must be between 4 and 100 characters in length")
+            );
         
-        When(loc => loc.Name != null, () =>
-        {
-            RuleFor(loc => loc.Name).NotNull().Length(1, 100).WithMessage("Name must be entered for this location");
-        });
         
-        When(loc => loc.LocationType != null, () =>
-        {
-            RuleFor(loc => loc.LocationType).NotNull().Length(1, 100).WithMessage("Location type chosen was invalid");
-        });
+       
     }
 }

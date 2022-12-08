@@ -17,12 +17,12 @@ public class UpdateAccountValidator : AbstractValidator<UpdateAccountViewModel>
         
         When(acc => acc.FirstName != null, () =>
         {
-            RuleFor(acc => acc.FirstName).NotNull().Length(1, 100).WithMessage("First name must be entered, and under 100 characters in length");
+            RuleFor(acc => acc.FirstName).Length(2, 100).WithMessage("First name must be between 2 and 100 characters in length");
         });
         
         When(acc => acc.LastName != null, () =>
         {
-            RuleFor(acc => acc.LastName).NotNull().Length(1, 100).WithMessage("Last name must be entered, and under 100 characters in length");
+            RuleFor(acc => acc.LastName).Length(2, 100).WithMessage("Last name must be between 2 and 100 characters in length");
         });
         
     }

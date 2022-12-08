@@ -29,7 +29,7 @@ public class StopControllerTests
     [Fact]
     public async Task GetAllStops_WhenStopsPresent_ReturnsOk()
     {
-        var response = await _httpClient.GetAsync("/stop/");
+        var response = await _httpClient.GetAsync("/api/stops/");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -40,7 +40,7 @@ public class StopControllerTests
     public async Task GetAStopById_WhenStopPresent_ReturnsOk()
     {
         const int id = 1;
-        var response = await _httpClient.GetAsync($"/stop/{id}");
+        var response = await _httpClient.GetAsync($"/api/stops/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -64,7 +64,7 @@ public class StopControllerTests
             DateDeparted = DateTime.Now - TimeSpan.FromDays(4)
         };
         
-        var response = await _httpClient.PostAsJsonAsync($"/stop/", newStop);
+        var response = await _httpClient.PostAsJsonAsync($"/api/stops/", newStop);
         response.StatusCode.Should().Be(HttpStatusCode.Created);
     }
 
@@ -82,7 +82,7 @@ public class StopControllerTests
             DateDeparted = DateTime.Now - TimeSpan.FromDays(4)
         };
         
-        var response = await _httpClient.PostAsJsonAsync($"/stop/", newStop);
+        var response = await _httpClient.PostAsJsonAsync($"/api/stops/", newStop);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
@@ -96,7 +96,7 @@ public class StopControllerTests
     [Fact]
     public async Task UpdateAStop_WhenNewStopDetailsValidAndPresent_ReturnsOk()
     {
-        const int id = 1;
+        const int id = 4;
         const string newName = "Bordeaux";
 
         UpdateStopViewModel updateStop = new UpdateStopViewModel()
@@ -107,7 +107,7 @@ public class StopControllerTests
             DateDeparted = DateTime.Now - TimeSpan.FromDays(6)
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/stop/{id}", updateStop);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/stops/{id}", updateStop);
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
@@ -125,7 +125,7 @@ public class StopControllerTests
             DateDeparted = DateTime.Now - TimeSpan.FromDays(6)
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/stop/{id}", updateStop);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/stops/{id}", updateStop);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
@@ -141,7 +141,7 @@ public class StopControllerTests
     {
         const int id = 3;
 
-        var response = await _httpClient.DeleteAsync($"/stop/{id}");
+        var response = await _httpClient.DeleteAsync($"/api/stops/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 }

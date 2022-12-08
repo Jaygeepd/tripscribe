@@ -102,6 +102,15 @@ public static class DatabaseSeed
             JourneyId = 3
         };
 
+        Stop stop4 = new Stop
+        {
+            Id = 4,
+            Name = "Chicago",
+            DateArrived = DateTime.Now - TimeSpan.FromDays(14),
+            DateDeparted = DateTime.Now - TimeSpan.FromDays(10),
+            JourneyId = 4
+        };
+
         Location location1 = new Location
         {
             Id = 1,
@@ -127,6 +136,15 @@ public static class DatabaseSeed
             DateVisited = DateTime.Now - TimeSpan.FromDays(2),
             LocationType = "Guided Tour",
             StopId = 3
+        };
+
+        Location location4 = new Location
+        {
+            Id = 4,
+            Name = "Soldier Field Tour",
+            DateVisited = DateTime.Now - TimeSpan.FromDays(12),
+            LocationType = "Guided Tour",
+            StopId = 4
         };
 
         AccountJourney accountJourney1 = new AccountJourney
@@ -175,11 +193,13 @@ public static class DatabaseSeed
         database.Add(stop1);
         database.Add(stop2);
         database.Add(stop3);
+        database.Add(stop4);
 
         database.Add(location1);
         database.Add(location2);
         database.Add(location3);
-
+        database.Add(location4);
+        
         database.SaveChanges();
     }
 }

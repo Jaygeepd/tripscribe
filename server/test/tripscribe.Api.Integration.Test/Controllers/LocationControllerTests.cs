@@ -30,7 +30,7 @@ public class LocationControllerTests
     [Fact]
     public async Task GetAllLocations_WhenLocationsPresent_ReturnsOk()
     {
-        var response = await _httpClient.GetAsync("/location/");
+        var response = await _httpClient.GetAsync("/api/locations/");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -41,7 +41,7 @@ public class LocationControllerTests
     public async Task GetALocationById_WhenLocationPresent_ReturnsOk()
     {
         const int id = 1;
-        var response = await _httpClient.GetAsync($"/location/{id}");
+        var response = await _httpClient.GetAsync($"/api/locations/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -66,7 +66,7 @@ public class LocationControllerTests
             LocationType = locationType
         };
         
-        var response = await _httpClient.PostAsJsonAsync("/location/", newLocation);
+        var response = await _httpClient.PostAsJsonAsync("/api/locations/", newLocation);
         response.StatusCode.Should().Be(HttpStatusCode.Created);
     }
 
@@ -85,34 +85,7 @@ public class LocationControllerTests
             LocationType = locationType
         };
         
-        var response = await _httpClient.PostAsJsonAsync("/location/", newLocation);
-        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        
-        var value = await response.Content.ReadAsStringAsync();
-        
-        var result = value.VerifyDeSerialize<ValidationModel>();
-        result.Errors.CheckIfErrorPresent("Name", "Name must be entered for this location");
-        result.Errors.CheckIfErrorPresent("LocationType", "Location type chosen was invalid");
-        
-        _testOutputHelper.WriteLine(value);
-    }
-    
-    [Fact]
-    public async Task CreateALocation_WhenLocationDetailsInvalidStopId_ReturnsErrorMessage()
-    {
-        const string name = "Louvre";
-        const string locationType = "Museum";
-        const int stopId = 2;
-        
-        CreateLocationViewModel newLocation = new CreateLocationViewModel()
-        {
-            Name = name,
-            StopId = stopId,
-            DateArrived = DateTime.Now - TimeSpan.FromDays(5),
-            LocationType = locationType
-        };
-        
-        var response = await _httpClient.PostAsJsonAsync("/location/", newLocation);
+        var response = await _httpClient.PostAsJsonAsync("/api/locations/", newLocation);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
@@ -127,8 +100,8 @@ public class LocationControllerTests
     [Fact]
     public async Task UpdateALocation_WhenNewLocationDetailsValidAndPresent_ReturnsOk()
     {
-        const int id = 1;
-        const string newName = "Notre Dame";
+        const int id = 4;
+        const string newName = "Grand Canyon";
         const string newType = "Tourist Spot";
 
         UpdateLocationViewModel updateLocation = new UpdateLocationViewModel()
@@ -139,14 +112,14 @@ public class LocationControllerTests
             DateArrived = DateTime.Now - TimeSpan.FromDays(6)
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/location/{id}", updateLocation);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/locations/{id}", updateLocation);
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
     [Fact]
     public async Task UpdateALocation_WhenNewLocationDetailsInvalid_ReturnsErrorMessage()
     {
-        const int id = 1;
+        const int id = 4;
         const string newName = "";
         const string newType = "";
 
@@ -158,14 +131,40 @@ public class LocationControllerTests
             DateArrived = DateTime.Now - TimeSpan.FromDays(6)
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/location/{id}", updateLocation);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/locations/{id}", updateLocation);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
         
         var result = value.VerifyDeSerialize<ValidationModel>();
-        result.Errors.CheckIfErrorPresent("Name", "Name must be entered for this location");
-        result.Errors.CheckIfErrorPresent("LocationType", "Location type chosen was invalid");
+        result.Errors.CheckIfErrorPresent("Name", "Name must be between 4 and 100 characters in length");
+        result.Errors.CheckIfErrorPresent("LocationType", "Location type must be between 4 and 100 characters in length");
+        
+        _testOutputHelper.WriteLine(value);
+    }
+    
+    [Fact]
+    public async Task UpdateALocation_WhenNewLocationDetailsNull_ReturnsErrorMessage()
+    {
+        const int id = 4;
+        const string newName = null;
+        const string newType = null;
+
+        UpdateLocationViewModel updateLocation = new UpdateLocationViewModel()
+        {
+            Id = id,
+            Name = newName,
+            LocationType = newType,
+            DateArrived = DateTime.Now - TimeSpan.FromDays(6)
+        };
+
+        var response = await _httpClient.PatchAsJsonAsync($"/api/locations/{id}", updateLocation);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("NoValue", "At least one value required");
         
         _testOutputHelper.WriteLine(value);
     }
@@ -175,7 +174,7 @@ public class LocationControllerTests
     {
         const int id = 3;
 
-        var response = await _httpClient.DeleteAsync($"/location/{id}");
+        var response = await _httpClient.DeleteAsync($"/api/locations/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 }

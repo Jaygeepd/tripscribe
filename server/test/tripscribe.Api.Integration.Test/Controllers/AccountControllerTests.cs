@@ -30,7 +30,7 @@ public class AccountControllerTests
     [Fact]
     public async Task GetAllAccounts_WhenAccountsPresent_ReturnsOk()
     {
-        var response = await _httpClient.GetAsync("/account/");
+        var response = await _httpClient.GetAsync("/api/accounts/");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -41,7 +41,7 @@ public class AccountControllerTests
     public async Task GetAnAccountById_WhenAccountPresent_ReturnsOk()
     {
         const int id = 1;
-        var response = await _httpClient.GetAsync($"/account/{id}");
+        var response = await _httpClient.GetAsync($"/api/accounts/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -57,7 +57,7 @@ public class AccountControllerTests
     public async Task GetAnAccountById_AccountDoesNotExist_ThrowException()
     {
         const int id = 20;
-        var response = await _httpClient.GetAsync($"/account/{id}");
+        var response = await _httpClient.GetAsync($"/api/accounts/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
     }
@@ -66,7 +66,7 @@ public class AccountControllerTests
     public async Task GetAccountJourneysById_WhenAccountJourneysPresent_ReturnsOk()
     {
         const int id = 1;
-        var response = await _httpClient.GetAsync($"/account/{id}/journeys/");
+        var response = await _httpClient.GetAsync($"/api/accounts/{id}/journeys/");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -81,7 +81,7 @@ public class AccountControllerTests
     public async Task GetAnAccountJourneysById_AccountDoesNotExist_ThrowException()
     {
         const int id = 20;
-        var response = await _httpClient.GetAsync($"/account/{id}");
+        var response = await _httpClient.GetAsync($"/api/accounts/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
     }
@@ -102,7 +102,7 @@ public class AccountControllerTests
             Password = password
         };
         
-        var response = await _httpClient.PostAsJsonAsync($"/account/", newAccount);
+        var response = await _httpClient.PostAsJsonAsync($"/api/accounts/", newAccount);
         response.StatusCode.Should().Be(HttpStatusCode.Created);
     }
     
@@ -122,20 +122,50 @@ public class AccountControllerTests
             Password = password
         };
         
-        var response = await _httpClient.PostAsJsonAsync("/account/", newAccount);
+        var response = await _httpClient.PostAsJsonAsync("/api/accounts/", newAccount);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
         
         var result = value.VerifyDeSerialize<ValidationModel>();
-        result.Errors.CheckIfErrorPresent("Email", "'Email' is not a valid email address.");
-        result.Errors.CheckIfErrorPresent("FirstName", "First name must be entered, and under 100 characters in length");
-        result.Errors.CheckIfErrorPresent("LastName", "Last name must be entered, and under 100 characters in length");
+        result.Errors.CheckIfErrorPresent("Email", "Invalid email address");
+        result.Errors.CheckIfErrorPresent("FirstName", "First name must be between 2 and 100 characters in length");
+        result.Errors.CheckIfErrorPresent("LastName", "Last name must be between 2 and 100 characters in length");
         result.Errors.CheckIfErrorPresent("Password", "Password must be between 8 and 30 characters");
         
         _testOutputHelper.WriteLine(value);
     }
 
+    [Fact]
+    public async Task CreateAnAccount_WhenAccountDetailsNull_ReturnsValidationError()
+    {
+        const string firstName = null;
+        const string lastName = null;
+        const string email = null;
+        const string password = null;
+        
+        CreateAccountViewModel newAccount = new CreateAccountViewModel
+        {
+            FirstName = firstName,
+            LastName = lastName,
+            Email = email,
+            Password = password
+        };
+        
+        var response = await _httpClient.PostAsJsonAsync("/api/accounts/", newAccount);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("Email", "Email must be entered");
+        result.Errors.CheckIfErrorPresent("FirstName", "First name must be entered");
+        result.Errors.CheckIfErrorPresent("LastName", "Last name must be entered");
+        result.Errors.CheckIfErrorPresent("Password", "Password must be entered");
+        
+        _testOutputHelper.WriteLine(value);
+    }
+    
     [Fact]
     public async Task UpdateAnAccount_WhenNewAccountDetails_ValidAndPresent_ReturnsOk()
     {
@@ -149,7 +179,7 @@ public class AccountControllerTests
             LastName = newLastName
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/account/{id}", updateAccount);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/accounts/{id}", updateAccount);
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
     
@@ -166,7 +196,7 @@ public class AccountControllerTests
             LastName = newLastName
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/account/{id}", updateAccount);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/accounts/{id}", updateAccount);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
@@ -179,11 +209,37 @@ public class AccountControllerTests
     }
 
     [Fact]
+    public async Task UpdateAnAccount_WhenNewAccountDetailsInvalid_ReturnsError()
+    {
+        const int id = 2;
+        const string newFirstName = "a";
+        const string newLastName = "z";
+
+        UpdateAccountViewModel updateAccount = new UpdateAccountViewModel()
+        {
+            FirstName = newFirstName,
+            LastName = newLastName
+        };
+
+        var response = await _httpClient.PatchAsJsonAsync($"/api/accounts/{id}", updateAccount);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        
+        var value = await response.Content.ReadAsStringAsync();
+        
+        var result = value.VerifyDeSerialize<ValidationModel>();
+        result.Errors.CheckIfErrorPresent("FirstName", "First name must be between 2 and 100 characters in length");
+        result.Errors.CheckIfErrorPresent("LastName", "Last name must be between 2 and 100 characters in length");
+        
+        _testOutputHelper.WriteLine(value);
+        
+    }
+    
+    [Fact]
     public async Task DeleteAnAccount_WhenAccountFound_ThenDeleted_ReturnsOk()
     {
         const int id = 3;
 
-        var response = await _httpClient.DeleteAsync($"/account/{id}");
+        var response = await _httpClient.DeleteAsync($"/api/accounts/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 

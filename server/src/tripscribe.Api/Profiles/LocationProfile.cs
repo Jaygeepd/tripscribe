@@ -14,8 +14,7 @@ public class LocationProfile : Profile
 
     private void ConfigureDtoToViewModel()
     {
-        CreateMap<LocationDTO, LocationViewModel>()
-            .ForMember(d => d.Id, o => o.Ignore());
+        CreateMap<LocationDTO, LocationViewModel>();
     }
 
     private void ConfigureViewModelToDto()
