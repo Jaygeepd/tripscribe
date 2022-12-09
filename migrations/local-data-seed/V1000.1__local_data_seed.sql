@@ -1,13 +1,13 @@
 INSERT INTO accounts(first_name, last_name, email, password) 
-    VALUES('John', 'Doe', 'jdoe2002@example.com', 'Passc0de');
+    VALUES('John', 'Doe', 'jdoe2002@example.com', '$2a$11$aI7b3zWnfwqoOHKl6xU8i.L0X7hxcqZYaGeJlWIz1xkjSdWoEmUYa');
 INSERT INTO accounts(first_name, last_name, email, password) 
-    VALUES('Dariusz', 'Halasa', 'darek_halasa@example.com', 'Passw0rd');
+    VALUES('Dariusz', 'Halasa', 'darek_halasa@example.com', '$2a$11$aI7b3zWnfwqoOHKl6xU8i.L0X7hxcqZYaGeJlWIz1xkjSdWoEmUYa');
 INSERT INTO accounts(first_name, last_name, email, password)
-    VALUES('Emma', 'Howard', 'emhowradami@example.com', 'speakfr!end');
+    VALUES('Emma', 'Howard', 'emhowradami@example.com', '$2a$11$aI7b3zWnfwqoOHKl6xU8i.L0X7hxcqZYaGeJlWIz1xkjSdWoEmUYa');
 INSERT INTO accounts(first_name, last_name, email, password)
-    VALUES('Kodie', 'Tessler', 'tesslermachine@example.com', 'op3ns3same');
+    VALUES('Kodie', 'Tessler', 'tesslermachine@example.com', '$2a$11$aI7b3zWnfwqoOHKl6xU8i.L0X7hxcqZYaGeJlWIz1xkjSdWoEmUYa');
 INSERT INTO accounts(first_name, last_name, email, password)
-    VALUES('Ritchard', 'Waterson', 'richhawk@example.com', 'recruit3r');
+    VALUES('Ritchard', 'Waterson', 'richhawk@example.com', '$2a$11$aI7b3zWnfwqoOHKl6xU8i.L0X7hxcqZYaGeJlWIz1xkjSdWoEmUYa');
 
 INSERT INTO journeys(title, description, timestamp)
     VALUES('My French Trip', 'Days in Paris', '2022-01-05 08:00:00');

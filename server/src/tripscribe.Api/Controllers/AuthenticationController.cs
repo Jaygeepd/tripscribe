@@ -21,6 +21,7 @@ public class AuthenticationController: TripscribeBaseController
         (_mapper, _service) = (mapper, service);
     
     [HttpPost]
+    [AllowAnonymous]
     public ActionResult<AuthenticationResultViewModel> Authenticate([FromBody] AuthenticationRequestViewModel authenticationRequestViewModel)
     {
         var account =
@@ -36,7 +37,7 @@ public class AuthenticationController: TripscribeBaseController
     
     private string GenerateToken(AccountDTO account, int expirationTimeInMinutes)
     {
-        var secretKey = Encoding.UTF8.GetBytes("JWT:Key");
+        var secretKey = Encoding.UTF8.GetBytes("JWTMySonTheDayYouWereBorn");
         var securityKey = new SymmetricSecurityKey(secretKey);
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
         var expiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes);

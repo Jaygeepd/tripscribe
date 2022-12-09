@@ -7,8 +7,8 @@ using Tripscribe.Api.Authentication;
 using tripscribe.Api.Filters;
 using tripscribe.Dal.Contexts;
 using tripscribe.Dal.Interfaces;
-using tripscribe.Dal.Models;
 using tripscribe.Services.Services;
+using AuthenticationService = tripscribe.Services.Services.AuthenticationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,6 +60,7 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJourneyService, JourneyService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IStopService, StopService>();
+builder.Services.AddScoped<IAuthenticateService, AuthenticationService>();
 builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly, typeof(AccountService).Assembly);
 builder.Services.AddHealthChecks();
 

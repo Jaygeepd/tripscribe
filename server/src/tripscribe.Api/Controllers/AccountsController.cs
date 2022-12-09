@@ -69,8 +69,8 @@ public class AccountsController : ControllerBase
     
     [HttpPatch]
     [Route("{id}")]
-    [ProducesResponseType((int)HttpStatusCode.NoContent)]
     [AllowAnonymous]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public ActionResult UpdateAccount(int id, [FromBody] UpdateAccountViewModel updateDetails)
     {
         var existingAcc = _service.GetAccount(id);

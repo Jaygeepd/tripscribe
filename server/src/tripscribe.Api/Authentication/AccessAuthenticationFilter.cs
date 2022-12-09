@@ -1,7 +1,11 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Tripscribe.Api.Authentication;
 
@@ -17,14 +21,32 @@ public class AccessAuthenticationFilter: AuthenticationHandler<AuthenticationSch
 
     protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-        var header = _contextAccessor.HttpContext?.Request.Headers["accessToken"].ToString();
+        var header = _contextAccessor.HttpContext?.Request.Headers["authorization"].ToString().Replace("Bearer ", string.Empty);
+        var handler = new JwtSecurityTokenHandler();
+        var secretKey = Encoding.UTF8.GetBytes("JWTMySonTheDayYouWereBorn");
         
-        var claims = new[] { new Claim(ClaimTypes.Upn, "john.mahon@unosquare.com"), new Claim(ClaimTypes.Name, "John Mahon")};
-        var identity = new ClaimsIdentity(claims, "AccessToken");
-        var principal = new ClaimsPrincipal(identity);
-        var ticket = new AuthenticationTicket(principal, "AccessToken");
+        var validation = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(secretKey),
+            ValidateAudience = false,
+            ValidateIssuer = false
+        };
 
-        // return Task.FromResult(AuthenticateResult.Success(ticket));
-        return Task.FromResult(AuthenticateResult.Fail("Failed"));
+        try
+        {
+            var principal = handler.ValidateToken(header, validation, out var validatedToken);
+            
+            var ticket = new AuthenticationTicket(principal, string.Empty);
+
+            return Task.FromResult(AuthenticateResult.Success(ticket));
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return Task.FromResult(AuthenticateResult.Fail("Authentication Failed"));
+            
+        }
+
     }
 }

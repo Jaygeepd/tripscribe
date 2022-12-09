@@ -23,7 +23,7 @@ public class AuthenticationService: IAuthenticateService
     {
         var account = _database.Get<Account>().Where(new AccountByEmailSpec(email)).SingleOrDefault();
         
-        if (account is null || BC.Verify(password, account.Password)) return null;
+        if (account is null || !BC.Verify(password, account.Password)) return null;
 
         return _mapper.Map<AccountDTO>(account);
     }
