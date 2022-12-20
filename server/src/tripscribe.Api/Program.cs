@@ -61,6 +61,7 @@ builder.Services.AddScoped<IJourneyService, JourneyService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IStopService, StopService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticationService>();
+builder.Services.AddScoped<IAuthorizedAccountProvider, AuthorizedAccountProvider>();
 builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly, typeof(AccountService).Assembly);
 builder.Services.AddHealthChecks();
 

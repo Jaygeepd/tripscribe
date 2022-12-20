@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Tripscribe.Api.Authentication;
 using Tripscribe.Api.ViewModels.AuthenticationRequest;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Services;
@@ -27,6 +28,20 @@ public class AuthenticationController: TripscribeBaseController
         var account =
             _service.Authenticate(authenticationRequestViewModel.Email, authenticationRequestViewModel.Password);
 
+        if (account is null) return Unauthorized();
+        
+        return new AuthenticationResultViewModel
+        {
+            AccessToken = GenerateToken(account, 600)
+        };
+    }
+    
+    [HttpGet]
+    public ActionResult<AuthenticationResultViewModel> Refresh([FromServices] IAuthorizedAccountProvider authorizedAccountProvider)
+    {
+
+        var account = authorizedAccountProvider.GetLoggedInAccount();
+        
         if (account is null) return Unauthorized();
         
         return new AuthenticationResultViewModel
