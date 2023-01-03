@@ -4,13 +4,13 @@ using Unosquare.EntityFramework.Specification.Common.Primitive;
 
 namespace tripscribe.Dal.Specifications.Journeys;
 
-public class JourneyByEndTimeSpec : Specification<Journey>
+public class TripByEndDateSpec : Specification<Trip>
 {
     private readonly DateTime? _endDate;
 
-    public JourneyByEndTimeSpec(DateTime? endDate) => _endDate = endDate;
+    public TripByEndDateSpec(DateTime? endDate) => _endDate = endDate;
 
-    public override Expression<Func<Journey, bool>> BuildExpression()
+    public override Expression<Func<Trip, bool>> BuildExpression()
     {
         if (_endDate == null) return ShowAll;
 

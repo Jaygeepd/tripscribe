@@ -17,8 +17,8 @@ public class ReviewsByAccountIdSpec : Specification<Review>
     public override Expression<Func<Review, bool>> BuildExpression()
     {
         return x => 
-            x.JourneyReviews
-                .Any(y => new JourneyReviewsByAccountIdSpec(_id)
+            x.TripReviews
+                .Any(y => new TripReviewsByAccountIdSpec(_id)
                 .Embed()(y)) || 
             x.StopReviews
                 .Any(y => new StopReviewsByAccountIdSpec(_id)

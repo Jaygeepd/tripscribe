@@ -15,57 +15,57 @@ using tripscribe.Services.Services;
 namespace tripscribe.Api.Test.Controllers;
 
 [ExcludeFromCodeCoverage]
-public class JourneyControllerTests
+public class TripControllerTests
 {
     private readonly IMapper _mapper;
-    private readonly IJourneyService _service;
+    private readonly ITripService _service;
 
-    public JourneyControllerTests()
+    public TripControllerTests()
     {
         _mapper = Substitute.For<IMapper>();
-        _service = Substitute.For<IJourneyService>();
+        _service = Substitute.For<ITripService>();
     }
 
     [Fact]
-    public void GetJourney_WhenJourneyFound_MapsAndReturned()
+    public void GetTrip_WhenTripFound_MapsAndReturned()
     {
         // Arrange
         const int id = 1;
-        var journey = new JourneyDTO
+        var trip = new TripDTO
         {
             Id = id
         };
 
-        var journeyViewModel = new JourneyViewModel();
+        var tripViewModel = new TripViewModel();
 
-        _service.GetJourney(id).Returns(journey);
-        _mapper.Map<JourneyViewModel>(journey).Returns(journeyViewModel);
+        _service.GetTrip(id).Returns(trip);
+        _mapper.Map<TripViewModel>(trip).Returns(tripViewModel);
 
         var controller = RetrieveController();
         
         // Act
-        var actionResult = controller.GetJourney(id);
+        var actionResult = controller.GetTrip(id);
         
         // Assert
-        var result = actionResult.AssertObjectResult<JourneyViewModel, OkObjectResult>();
+        var result = actionResult.AssertObjectResult<TripViewModel, OkObjectResult>();
 
-        result.Should().BeSameAs(journeyViewModel);
+        result.Should().BeSameAs(tripViewModel);
 
-        _service.Received(1).GetJourney(id);
-        _mapper.Received(1).Map<JourneyViewModel>(journey);
+        _service.Received(1).GetTrip(id);
+        _mapper.Received(1).Map<TripViewModel>(trip);
     }
     
     [Theory]
     [InlineData("title", "description", "2017-7-10", "2017-7-10", "2017-7-10")]
     [InlineData(null, null, null, null, null)]
-    public void GetJourneys_WhenJourneysFound_MappedAndReturned(string title, string description, DateTime timestamp, 
+    public void GetTrips_WhenTripsFound_MappedAndReturned(string title, string description, DateTime timestamp, 
         DateTime startTime, DateTime endTime)
     {
         // Arrange
         const int id1 = 1;
         const int id2 = 2;
         
-        var journey1 = new JourneyDTO()
+        var trip1 = new TripDTO()
         {
             Id = id1,
             Title = title,
@@ -73,7 +73,7 @@ public class JourneyControllerTests
             Timestamp = timestamp
         };
         
-        var journey2 = new JourneyDTO()
+        var trip2 = new TripDTO()
         {
             Id = id2,
             Title = title,
@@ -81,86 +81,86 @@ public class JourneyControllerTests
             Timestamp = timestamp
         };
 
-        var journeyList = new List<JourneyDTO>
+        var tripList = new List<TripDTO>
         {
-            journey1, journey2
+            trip1, trip2
         };
 
-        var journeyViewModels = new List<JourneyViewModel>();
+        var tripViewModels = new List<TripViewModel>();
 
-        _service.GetJourneys(title, startTime, endTime).Returns(journeyList);
-        _mapper.Map<IList<JourneyViewModel>>(journeyList).Returns(journeyViewModels);
+        _service.GetTrips(title, startTime, endTime).Returns(tripList);
+        _mapper.Map<IList<TripViewModel>>(tripList).Returns(tripViewModels);
 
         var controller = RetrieveController();
         
         // Act
-        var actionResult = controller.GetJourneys(title, startTime, endTime);
+        var actionResult = controller.GetTrips(title, startTime, endTime);
         
         // Assert
-        var result = actionResult.AssertObjectResult<IList<JourneyViewModel>, OkObjectResult>();
+        var result = actionResult.AssertObjectResult<IList<TripViewModel>, OkObjectResult>();
 
-        result.Should().BeSameAs(journeyViewModels);
+        result.Should().BeSameAs(tripViewModels);
 
-        _service.Received(1).GetJourneys(title, startTime, endTime);
-        _mapper.Received(1).Map<IList<JourneyViewModel>>(journeyList);
+        _service.Received(1).GetTrips(title, startTime, endTime);
+        _mapper.Received(1).Map<IList<TripViewModel>>(tripList);
 
     }
     
     [Theory]
     [InlineData("title", "description")]
-    public void CreateJourney_WhenValidDataEntered_MappedAndSaved(string title, string description)
+    public void CreateTrip_WhenValidDataEntered_MappedAndSaved(string title, string description)
     {
         // Arrange
-        var journey = new JourneyDTO
+        var trip = new TripDTO
         {
             Title = title,
             Description = description
         };
 
-        var createJourneyViewModel = new CreateJourneyViewModel();
+        var createTripViewModel = new CreateTripViewModel();
 
-        _mapper.Map<JourneyDTO>(createJourneyViewModel).Returns(journey);
+        _mapper.Map<TripDTO>(createTripViewModel).Returns(trip);
 
         var controller = RetrieveController();
 
         // Act
-        var actionResult = controller.CreateJourney(createJourneyViewModel);
+        var actionResult = controller.CreateTrip(createTripViewModel);
 
         // Assert
         actionResult.AssertResult<StatusCodeResult>(HttpStatusCode.Created);
 
-        _service.Received(1).CreateJourney(journey);
-        _mapper.Received(1).Map<JourneyDTO>(createJourneyViewModel);
+        _service.Received(1).CreateTrip(trip);
+        _mapper.Received(1).Map<TripDTO>(createTripViewModel);
     }
     
     [Theory]
     [InlineData("title", "description")]
     [InlineData(null, null)]
-    public void UpdateJourney_WhenCalledWithValidViewModel_MappedAndSaved(string title, string description)
+    public void UpdateTrip_WhenCalledWithValidViewModel_MappedAndSaved(string title, string description)
     {
         // Arrange
         const int id = 1;
-        var journey = new JourneyDTO()
+        var trip = new TripDTO()
         {
             Id = id,
             Title = title,
             Description = description,
         };
 
-        var updateJourneyViewModel = new UpdateJourneyViewModel();
+        var updateTripViewModel = new UpdateTripViewModel();
 
-        _mapper.Map<JourneyDTO>(updateJourneyViewModel).Returns(journey);
+        _mapper.Map<TripDTO>(updateTripViewModel).Returns(trip);
 
         var controller = RetrieveController();
 
         // Act
-        var actionResult = controller.UpdateJourney(id, updateJourneyViewModel);
+        var actionResult = controller.UpdateTrip(id, updateTripViewModel);
 
         // Assert
         actionResult.AssertResult<NoContentResult>();
 
-        _service.Received(1).UpdateJourney(id, journey);
-        _mapper.Received(1).Map<JourneyDTO>(updateJourneyViewModel);
+        _service.Received(1).UpdateTrip(id, trip);
+        _mapper.Received(1).Map<TripDTO>(updateTripViewModel);
     }
     
     [Fact]
@@ -172,12 +172,12 @@ public class JourneyControllerTests
         var controller = RetrieveController();
 
         // Act
-        var actionResult = controller.DeleteJourney(id);
+        var actionResult = controller.DeleteTrip(id);
 
         // Assert
         actionResult.AssertResult<NoContentResult>();
 
-        _service.Received(1).DeleteJourney(id);
+        _service.Received(1).DeleteTrip(id);
     }
     
     [Fact]
@@ -206,20 +206,20 @@ public class JourneyControllerTests
         
         var reviewViewModels = new List<ReviewViewModel>();
 
-        _service.GetJourneyReviews(searchId).Returns(reviewList);
+        _service.GetTripReviews(searchId).Returns(reviewList);
         _mapper.Map<IList<ReviewViewModel>>(reviewList).Returns(reviewViewModels);
 
         var controller = RetrieveController();
         
         // Act
-        var actionResult = controller.GetJourneyReviews(searchId);
+        var actionResult = controller.GetTripReviews(searchId);
         
         // Assert
         var result = actionResult.AssertObjectResult<IList<ReviewViewModel>, OkObjectResult>();
 
         result.Should().BeSameAs(reviewViewModels);
 
-        _service.Received(1).GetJourneyReviews(searchId);
+        _service.Received(1).GetTripReviews(searchId);
         _mapper.Received(1).Map<IList<ReviewViewModel>>(reviewList);
     }
     
@@ -249,25 +249,25 @@ public class JourneyControllerTests
         
         var accountViewModels = new List<AccountViewModel>();
 
-        _service.GetJourneyAccounts(searchId).Returns(accountList);
+        _service.GetTripAccounts(searchId).Returns(accountList);
         _mapper.Map<IList<AccountViewModel>>(accountList).Returns(accountViewModels);
 
         var controller = RetrieveController();
         
         // Act
-        var actionResult = controller.GetJourneyAccounts(searchId);
+        var actionResult = controller.GetTripAccounts(searchId);
         
         // Assert
         var result = actionResult.AssertObjectResult<IList<AccountViewModel>, OkObjectResult>();
 
         result.Should().BeSameAs(accountViewModels);
 
-        _service.Received(1).GetJourneyAccounts(searchId);
+        _service.Received(1).GetTripAccounts(searchId);
         _mapper.Received(1).Map<IList<AccountViewModel>>(accountList);
     }
     
-    private JourneysController RetrieveController()
+    private TripsController RetrieveController()
     {
-        return new JourneysController(_mapper, _service);
+        return new TripsController(_mapper, _service);
     }
 }

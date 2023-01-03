@@ -14,36 +14,36 @@ using Xunit.Abstractions;
 namespace tripscribe.Api.Integration.Test.Controllers;
 
 [Collection("Integration")]
-public class JourneyControllerTests
+public class TripControllerTests
 {
     private readonly HttpClient _httpClient;
     private readonly ITestOutputHelper _testOutputHelper;
 
-    public JourneyControllerTests(ITestOutputHelper testOutputHelper, IntegrationClassFixture integrationFixture)
+    public TripControllerTests(ITestOutputHelper testOutputHelper, IntegrationClassFixture integrationFixture)
     {
         _testOutputHelper = testOutputHelper;
         _httpClient = integrationFixture.Host.CreateClient();
     }
 
     [Fact]
-    public async Task GetAllJourneys_WhenJourneysPresent_ReturnsOk()
+    public async Task GetAllTrips_WhenTripsPresent_ReturnsOk()
     {
-        var response = await _httpClient.GetAsync("/api/journeys/");
+        var response = await _httpClient.GetAsync("/api/trips/");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
-        _testOutputHelper.WriteLine(value.VerifyDeSerialization<JourneyViewModel[]>());
+        _testOutputHelper.WriteLine(value.VerifyDeSerialization<TripViewModel[]>());
     }
 
     [Fact]
-    public async Task GetAJourneyById_WhenJourneyPresent_ReturnsOk()
+    public async Task GetATripById_WhenTripPresent_ReturnsOk()
     {
         const int id = 1;
-        var response = await _httpClient.GetAsync($"/api/journeys/{id}");
+        var response = await _httpClient.GetAsync($"/api/trips/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
-        _testOutputHelper.WriteLine(value.VerifyDeSerialization<JourneyDetailViewModel>());
+        _testOutputHelper.WriteLine(value.VerifyDeSerialization<TripDetailViewModel>());
 
         Assert.Contains("1", value);
         Assert.Contains("French Trip", value);
@@ -51,18 +51,18 @@ public class JourneyControllerTests
     }
     
     [Fact]
-    public async Task GetAJourneyById_JourneyDoesNotExist_ThrowsException()
+    public async Task GetATripById_TripDoesNotExist_ThrowsException()
     {
         const int id = 20;
-        var response = await _httpClient.GetAsync($"/api/journeys/{id}");
+        var response = await _httpClient.GetAsync($"/api/trips/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
     [Fact]
-    public async Task GetAccountJourneysById_WhenAccountJourneysPresent_ReturnsOk()
+    public async Task GetAccountTripsById_WhenAccountTripsPresent_ReturnsOk()
     {
         const int id = 1;
-        var response = await _httpClient.GetAsync($"/api/journeys/{id}/accounts/");
+        var response = await _httpClient.GetAsync($"/api/trips/{id}/accounts/");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
@@ -75,32 +75,32 @@ public class JourneyControllerTests
     }
 
     [Fact]
-    public async Task CreateAJourney_WhenJourneyDetailsValidAndPresent_ReturnsOk()
+    public async Task CreateATrip_WhenTripDetailsValidAndPresent_ReturnsOk()
     {
         const string title = "Cork Campaign";
         const string description = "Escape to Munster";
         
-        CreateJourneyViewModel newJourney = new CreateJourneyViewModel
+        CreateTripViewModel newTrip = new CreateTripViewModel
         {
             Title = title,
             Description = description
         };
         
-        var response = await _httpClient.PostAsJsonAsync("/api/journeys/", newJourney);
+        var response = await _httpClient.PostAsJsonAsync("/api/trips/", newTrip);
         response.StatusCode.Should().Be(HttpStatusCode.Created);
     }
     
     [Fact]
-    public async Task CreateAJourney_WhenJourneyDetailsNull_ReturnErrorMessage()
+    public async Task CreateATrip_WhenTripDetailsNull_ReturnErrorMessage()
     {
         const string title = null;
         
-        CreateJourneyViewModel newJourney = new CreateJourneyViewModel
+        CreateTripViewModel newTrip = new CreateTripViewModel
         {
             Title = title
         };
         
-        var response = await _httpClient.PostAsJsonAsync("/api/journeys/", newJourney);
+        var response = await _httpClient.PostAsJsonAsync("/api/trips/", newTrip);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
@@ -112,16 +112,16 @@ public class JourneyControllerTests
     }
 
     [Fact]
-    public async Task CreateAJourney_WhenJourneyDetailsInvalid_ReturnErrorMessage()
+    public async Task CreateATrip_WhenTripDetailsInvalid_ReturnErrorMessage()
     {
         const string title = "";
         
-        CreateJourneyViewModel newJourney = new CreateJourneyViewModel
+        CreateTripViewModel newTrip = new CreateTripViewModel
         {
             Title = title
         };
         
-        var response = await _httpClient.PostAsJsonAsync("/api/journeys/", newJourney);
+        var response = await _httpClient.PostAsJsonAsync("/api/trips/", newTrip);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
@@ -133,36 +133,36 @@ public class JourneyControllerTests
     }
 
     [Fact]
-    public async Task UpdateAJourney_WhenNewJourneyDetailsValidAndPresent_ReturnsOk()
+    public async Task UpdateATrip_WhenNewTripDetailsValidAndPresent_ReturnsOk()
     {
         const int id = 4;
         const string newTitle = "German Tour";
         const string newDescription = "Drowning in Bratwurst and Beer";
 
-        UpdateJourneyViewModel updateJourney = new UpdateJourneyViewModel()
+        UpdateTripDetailModel updateTrip = new UpdateTripDetailModel()
         {
             Id = id,
             Title = newTitle,
             Description = newDescription
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/api/journeys/{id}", updateJourney);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/trips/{id}", updateTrip);
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
     [Fact]
-    public async Task UpdateAJourney_WhenNewJourneyDetailsNull_ReturnsErrorMessage()
+    public async Task UpdateATrip_WhenNewTripDetailsNull_ReturnsErrorMessage()
     {
         const int id = 4;
         const string newTitle = null;
 
-        UpdateJourneyViewModel updateJourney = new UpdateJourneyViewModel()
+        UpdateTripViewModel updateTrip = new UpdateTripViewModel()
         {
             Id = id,
             Title = newTitle
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/api/journeys/{id}", updateJourney);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/trips/{id}", updateTrip);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
@@ -174,18 +174,18 @@ public class JourneyControllerTests
     }
     
     [Fact]
-    public async Task UpdateAJourney_WhenNewJourneyDetailsInvalid_ReturnsErrorMessage()
+    public async Task UpdateATrip_WhenNewTripDetailsInvalid_ReturnsErrorMessage()
     {
         const int id = 4;
         const string newTitle = "Hell";
 
-        UpdateJourneyViewModel updateJourney = new UpdateJourneyViewModel()
+        UpdateTripViewModel updateTrip = new UpdateTripViewModel()
         {
             Id = id,
             Title = newTitle
         };
 
-        var response = await _httpClient.PatchAsJsonAsync($"/api/journeys/{id}", updateJourney);
+        var response = await _httpClient.PatchAsJsonAsync($"/api/trips/{id}", updateTrip);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         
         var value = await response.Content.ReadAsStringAsync();
@@ -197,11 +197,11 @@ public class JourneyControllerTests
     }
     
     [Fact]
-    public async Task DeleteAJourney_WhenJourneyFoundThenDeleted_ReturnsOk()
+    public async Task DeleteATrip_WhenTripFoundThenDeleted_ReturnsOk()
     {
         const int id = 3;
 
-        var response = await _httpClient.DeleteAsync($"/api/journeys/{id}");
+        var response = await _httpClient.DeleteAsync($"/api/trips/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 }

@@ -1,6 +1,6 @@
 namespace tripscribe.Api.ViewModels.Journeys;
 
-public class JourneyViewModel
+public class TripViewModel
 {
     public int Id { get; set; }
     public string Title { get; set; }

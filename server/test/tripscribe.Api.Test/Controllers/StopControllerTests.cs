@@ -60,7 +60,7 @@ public class StopControllerTests
     [InlineData(null, null, null, null, null, null, null, null)]
     public void GetStops_WhenStopsFound_MappedAndReturned(string name, DateTime dateArrived, DateTime dateDeparted, 
         DateTime arrivedStartDate, DateTime arrivedEndDate, 
-        DateTime departedStartDate, DateTime departedEndDate, int journeyId)
+        DateTime departedStartDate, DateTime departedEndDate, int tripId)
     {
         // Arrange
         const int id1 = 1;
@@ -72,7 +72,7 @@ public class StopControllerTests
             Name = name,
             DateArrived = dateArrived,
             DateDeparted = dateDeparted,
-            JourneyId = journeyId
+            TripId = tripId
         };
         
         var stop2 = new StopDTO()
@@ -81,7 +81,7 @@ public class StopControllerTests
             Name = name,
             DateArrived = dateArrived,
             DateDeparted = dateDeparted,
-            JourneyId = journeyId
+            TripId = tripId
         };
 
         var stopList = new List<StopDTO>
@@ -92,14 +92,14 @@ public class StopControllerTests
         var stopViewModels = new List<StopViewModel>();
 
         _service.GetStops(name, arrivedStartDate, arrivedEndDate, departedStartDate, 
-            departedEndDate, journeyId).Returns(stopList);
+            departedEndDate, tripId).Returns(stopList);
         _mapper.Map<IList<StopViewModel>>(stopList).Returns(stopViewModels);
 
         var controller = RetrieveController();
         
         // Act
         var actionResult = controller.GetStops(name, arrivedStartDate, arrivedEndDate, departedStartDate, 
-            departedEndDate, journeyId);
+            departedEndDate, tripId);
         
         // Assert
         var result = actionResult.AssertObjectResult<IList<StopViewModel>, OkObjectResult>();
@@ -107,7 +107,7 @@ public class StopControllerTests
         result.Should().BeSameAs(stopViewModels);
 
         _service.Received(1).GetStops(name, arrivedStartDate, arrivedEndDate, departedStartDate, 
-            departedEndDate, journeyId);
+            departedEndDate, tripId);
         _mapper.Received(1).Map<IList<StopViewModel>>(stopList);
 
     }

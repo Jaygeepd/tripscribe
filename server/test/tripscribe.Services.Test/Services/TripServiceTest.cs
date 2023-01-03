@@ -12,13 +12,13 @@ using tripscribe.Services.Test.Extensions;
 
 namespace tripscribe.Services.Test.Services;
 
-public class JourneyServiceTest
+public class TripServiceTest
 {
     private readonly ITripscribeDatabase _database;
     private readonly IMapper _mapper;
     private readonly IFixture _fixture;
 
-    public JourneyServiceTest()
+    public TripServiceTest()
     {
         _database = Substitute.For<ITripscribeDatabase>();
         _mapper = GetMapper();
@@ -31,48 +31,48 @@ public class JourneyServiceTest
     }
 
     [Fact]
-    public void GetJourney_WhenJourneyExist_ReturnsJourney()
+    public void GetTrip_WhenTripExist_ReturnsTrip()
     {
         // Arrange
         const int id = 1;
 
-        var journey = new Journey { Id = id };
+        var trip = new Trip { Id = id };
         
-        var journeys = new List<Journey> { journey };
+        var trips = new List<Trip> { trip };
         
-        _database.Get<Journey>().Returns(journeys.AsQueryable());
+        _database.Get<Trip>().Returns(trips.AsQueryable());
 
         var service = RetrieveService();
 
         // Act
-        var result = service.GetJourney(id);
+        var result = service.GetTrip(id);
         
         // Assert
-        result.Should().BeEquivalentTo(journey, options => options.ExcludingMissingMembers());
+        result.Should().BeEquivalentTo(trip, options => options.ExcludingMissingMembers());
 
     }
     
     [Fact]
-    public void GetJourneys_WhenJourneysExist_ReturnsJourneyList()
+    public void GetTrip_WhenTripExist_ReturnsTripList()
     {
         // Arrange 
-        var journeyList = _fixture.Build<Journey>()
-            .Without(x => x.AccountJourneys)
-            .Without(x => x.JourneyReviews)
+        var tripList = _fixture.Build<Trip>()
+            .Without(x => x.AccountTrips)
+            .Without(x => x.TripReviews)
             .CreateMany();
-        _database.Get<Journey>().Returns(journeyList.AsQueryable());
+        _database.Get<Trip>().Returns(tripList.AsQueryable());
 
         var service = RetrieveService();
         
         // Act 
-        var result = service.GetJourneys();
+        var result = service.GetTrips();
         
         // Assert
-        result.Should().BeEquivalentTo(journeyList, options => options.ExcludingMissingMembers());
+        result.Should().BeEquivalentTo(tripList, options => options.ExcludingMissingMembers());
     }
 
     [Fact]
-    public void CreateJourney_ValidDataEntered_MapperAndSaved()
+    public void CreateTrip_ValidDataEntered_MapperAndSaved()
     {
         // Arrange 
         const int id = 1;
@@ -80,7 +80,7 @@ public class JourneyServiceTest
         const string description = "Test Description";
         DateTime timestamp = DateTime.Now;
 
-        var newJourney = new JourneyDTO
+        var newTrip = new TripDTO
         {
             Id = id,
             Title = title,
@@ -91,118 +91,118 @@ public class JourneyServiceTest
         var service = RetrieveService();
 
         // Act
-        service.CreateJourney(newJourney);
+        service.CreateTrip(newTrip);
         
         // Assert
         _database.Received(1).SaveChanges();
-        _database.Received(1).Add(Arg.Is<Journey>(x => x.Title == newJourney.Title));
+        _database.Received(1).Add(Arg.Is<Trip>(x => x.Title == newTrip.Title));
     }
     
     
     [Fact]
-    public void UpdateJourney_JourneyDoesNotExist_ThrowNotFoundException()
+    public void UpdateTrip_TripDoesNotExist_ThrowNotFoundException()
     {
         // Arrange 
         const int correctId = 1;
         const int incorrectId = 2;
         
-        var account = _fixture.Build<Journey>()
+        var account = _fixture.Build<Trip>()
             .With(x => x.Id, correctId)
             .Create();
 
-        var updateDTO = _fixture.Build<JourneyDTO>()
+        var updateDTO = _fixture.Build<TripDTO>()
             .Create();
 
         var service = RetrieveService();
         
         // Act/Assert
-        Assert.Throws<NotFoundException>(() => service.UpdateJourney(incorrectId, updateDTO));
+        Assert.Throws<NotFoundException>(() => service.UpdateTrip(incorrectId, updateDTO));
 
     }
     
     [Fact]
-    public void DeleteJourney_ValidIdEntered_MapperAndSaved()
+    public void DeleteTrip_ValidIdEntered_MapperAndSaved()
     {
         // Arrange
-        var journeyList = _fixture.Build<Journey>()
-            .Without(x => x.AccountJourneys)
-            .Without(x => x.JourneyReviews)
+        var tripList = _fixture.Build<Trip>()
+            .Without(x => x.AccountTrips)
+            .Without(x => x.TripReviews)
             .CreateMany();
 
-        _database.Get<Journey>().Returns(journeyList.AsQueryable());
+        _database.Get<Trip>().Returns(tripList.AsQueryable());
         
         var service = RetrieveService();
 
         // Act
-        service.DeleteJourney(journeyList.First().Id);
+        service.DeleteTrip(tripList.First().Id);
 
         // Assert
-        _database.Received(1).Get<Journey>();
+        _database.Received(1).Get<Trip>();
         _database.Received(1).SaveChanges();
     }
     
     [Fact]
-    public void DeleteJourney_JourneyDoesNotExist_ThrowNotFoundException()
+    public void DeleteTrip_TripDoesNotExist_ThrowNotFoundException()
     {
         // Arrange 
         const int correctId = 1;
         const int incorrectId = 2;
         
-        var journey = _fixture.Build<Journey>()
+        var journey = _fixture.Build<Trip>()
             .With(x => x.Id, correctId)
             .Create();
 
         var service = RetrieveService();
         
         // Act/Assert
-        Assert.Throws<NotFoundException>(() => service.DeleteJourney(incorrectId));
+        Assert.Throws<NotFoundException>(() => service.DeleteTrip(incorrectId));
 
     }
 
     [Fact]
-    public void GetJourneyAccounts_ValidIdEntered_ReturnedAndMapped()
+    public void GetTripAccounts_ValidIdEntered_ReturnedAndMapped()
     {
         // Arrange
-        const int journeyId = 1;
+        const int tripId = 1;
         const int accountId = 1;
         
         var account = _fixture
             .Build<Account>()
             .With(x => x.Id, accountId)
-            .Without(x => x.AccountJourneys)
+            .Without(x => x.AccountTrips)
             .CreateMany(1)
             .ToArray();
 
-        var  journeyIds = _fixture.MockWithOne(accountId);
+        var  tripIds = _fixture.MockWithOne(accountId);
         
         var accountJourneyList = _fixture
-            .Build<AccountJourney>()
-            .With(x => x.JourneyId, journeyIds.GetValue)
+            .Build<AccountTrip>()
+            .With(x => x.TripId, tripIds.GetValue)
             .With(x => x.AccountId, accountId)
             .With(x => x.Account, account.First())
             .CreateMany()
             .AsQueryable();
 
-        _database.Get<AccountJourney>().Returns(accountJourneyList);
+        _database.Get<AccountTrip>().Returns(accountJourneyList);
         
         var service = RetrieveService();
 
         // Act
-        var result = service.GetJourneyAccounts(journeyId);
+        var result = service.GetTripAccounts(tripId);
 
         // Assert
         result.Should().BeEquivalentTo(account, options => options.ExcludingMissingMembers());
     }
 
-    private IJourneyService RetrieveService()
+    private ITripService RetrieveService()
     {
-        return new JourneyService(_database, _mapper);
+        return new TripService(_database, _mapper);
     }
     
     private static IMapper GetMapper()
     {
         var config = new MapperConfiguration(cfg => {
-            cfg.AddProfile<JourneyProfile>();
+            cfg.AddProfile<TripProfile>();
             cfg.AddProfile<AccountProfile>();
             cfg.AddProfile<ReviewProfile>();
         });

@@ -203,38 +203,38 @@ public class AccountControllerTests
         const int id1 = 1;
         const int id2 = 2;
         
-        var journey1 = new JourneyDTO
+        var trip1 = new TripDTO
         {
             Id = id1
         };
 
-        var journey2 = new JourneyDTO()
+        var trip2 = new TripDTO()
         {
             Id = id2
         };
 
-        var journeyList = new List<JourneyDTO>
+        var tripList = new List<TripDTO>
         {
-            journey1, journey2
+            trip1, trip2
         };
         
-        var journeyViewModels = new List<JourneyViewModel>();
+        var tripViewModels = new List<TripViewModel>();
 
-        _service.GetAccountJourneys(searchId).Returns(journeyList);
-        _mapper.Map<IList<JourneyViewModel>>(journeyList).Returns(journeyViewModels);
+        _service.GetAccountTrips(searchId).Returns(tripList);
+        _mapper.Map<IList<TripViewModel>>(tripList).Returns(tripViewModels);
 
         var controller = RetrieveController();
         
         // Act
-        var actionResult = controller.GetAccountJourneys(searchId);
+        var actionResult = controller.GetAccountTrips(searchId);
         
         // Assert
-        var result = actionResult.AssertObjectResult<IList<JourneyViewModel>, OkObjectResult>();
+        var result = actionResult.AssertObjectResult<IList<TripViewModel>, OkObjectResult>();
 
-        result.Should().BeSameAs(journeyViewModels);
+        result.Should().BeSameAs(tripViewModels);
 
-        _service.Received(1).GetAccountJourneys(searchId);
-        _mapper.Received(1).Map<IList<JourneyViewModel>>(journeyList);
+        _service.Received(1).GetAccountTrips(searchId);
+        _mapper.Received(1).Map<IList<TripViewModel>>(tripList);
     }
 
     private AccountsController RetrieveController()

@@ -4,8 +4,8 @@ using Npgsql.Replication.PgOutput.Messages;
 
 namespace tripscribe.Dal.Models;
 
-[Table("journeys")]
-public class Journey
+[Table("trips")]
+public class Trip
 {
     [Key] [Column("id")] public int Id { get; set; }
 
@@ -15,7 +15,7 @@ public class Journey
 
     [Column("timestamp")] public DateTime Timestamp { get; set; }
     
-    public ICollection<AccountJourney> AccountJourneys { get; set; }
+    public ICollection<AccountTrip> AccountTrips { get; set; }
     
-    public ICollection<JourneyReview> JourneyReviews { get; set; }
+    public ICollection<TripReview> TripReviews { get; set; }
 }

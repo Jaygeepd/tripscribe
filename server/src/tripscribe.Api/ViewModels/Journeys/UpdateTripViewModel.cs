@@ -2,15 +2,16 @@ using FluentValidation;
 
 namespace tripscribe.Api.ViewModels.Journeys;
 
-public class CreateJourneyViewModel
+public class UpdateTripViewModel
 {
+    public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
 }
 
-public class CreateJourneyValidator : AbstractValidator<CreateJourneyViewModel>
+public class UpdateTripValidator : AbstractValidator<UpdateTripViewModel>
 {
-    public CreateJourneyValidator()
+    public UpdateTripValidator()
     {
         RuleFor(jour => jour.Title)
             .NotNull().WithMessage("Title must be not null")

@@ -4,13 +4,13 @@ using Unosquare.EntityFramework.Specification.Common.Primitive;
 
 namespace tripscribe.Dal.Specifications.Journeys;
 
-public class JourneyByTitleSpec: Specification<Journey>
+public class TripByTitleSpec: Specification<Trip>
 {
     private readonly string? _title;
     
-    public JourneyByTitleSpec(string? title) => _title = title;
+    public TripByTitleSpec(string? title) => _title = title;
 
-    public override Expression<Func<Journey, bool>> BuildExpression()
+    public override Expression<Func<Trip, bool>> BuildExpression()
     {
         if (string.IsNullOrWhiteSpace(_title)) return ShowAll;
         

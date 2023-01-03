@@ -53,7 +53,7 @@ public class StopsController : ControllerBase
             Name = stopDetails.Name,
             DateArrived = stopDetails.DateArrived,
             DateDeparted = stopDetails.DateDeparted,
-            JourneyId = stopDetails.JourneyId
+            TripId = stopDetails.TripId
         };
 
         var stop = _mapper.Map<StopDTO>(newStop);
