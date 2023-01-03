@@ -6,21 +6,21 @@ CREATE TABLE accounts (
 	password VARCHAR (100) NOT NULL
 );
 
-CREATE TABLE journeys (
+CREATE TABLE trips (
 	id serial PRIMARY KEY,
 	title VARCHAR (100) NOT NULL,
 	description TEXT NOT NULL,
 	timestamp TIMESTAMP NOT NULL
 );
 
-CREATE TABLE account_journeys (
+CREATE TABLE account_trips (
 	id serial PRIMARY KEY, 
 	account_id INTEGER NOT NULL, 
-	journey_id INTEGER NOT NULL,
+	trip_id INTEGER NOT NULL,
 	CONSTRAINT fk_account FOREIGN KEY (account_id)
 		REFERENCES accounts (id),
-	CONSTRAINT fk_journey FOREIGN KEY (journey_id)
-		REFERENCES journeys (id) 
+	CONSTRAINT fk_trip FOREIGN KEY (trip_id)
+		REFERENCES trips (id) 
 );
 
 CREATE TABLE stops (
@@ -28,9 +28,9 @@ CREATE TABLE stops (
 	name VARCHAR (100) NOT NULL,
 	date_arrived TIMESTAMP NOT NULL,
 	date_departed TIMESTAMP NOT NULL,
-	journey_id INTEGER NOT NULL,
-	CONSTRAINT fk_journey FOREIGN KEY (journey_id)
-		REFERENCES journeys (id) 
+	trip_id INTEGER NOT NULL,
+	CONSTRAINT fk_trip FOREIGN KEY (trip_id)
+		REFERENCES trips (id) 
 );
 
 CREATE TABLE locations (
@@ -50,13 +50,13 @@ CREATE TABLE reviews (
 	timestamp TIMESTAMP NOT NULL
 );
 
-CREATE TABLE journey_reviews (
+CREATE TABLE trip_reviews (
 	id serial PRIMARY KEY,
-	journey_id INTEGER NOT NULL,
+	trip_id INTEGER NOT NULL,
 	review_id INTEGER NOT NULL,
 	account_id INTEGER NOT NULL,
-	CONSTRAINT fk_journey FOREIGN KEY (journey_id)
-		REFERENCES journeys (id),
+	CONSTRAINT fk_trip FOREIGN KEY (trip_id)
+		REFERENCES trips (id),
 	CONSTRAINT fk_review FOREIGN KEY (review_id)
 		REFERENCES reviews (id),
 	CONSTRAINT fk_account FOREIGN KEY (account_id)
