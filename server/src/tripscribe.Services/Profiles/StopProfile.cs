@@ -21,6 +21,6 @@ public class StopProfile : Profile
     {
         CreateMap<StopDTO, Stop>()
             .ForMember(d => d.Id, o => o.Ignore())
-            .ForMember(d => d.JourneyId, o => o.Ignore());
+            .ForMember(d => d.TripId, o => o.Ignore());
     }
 }

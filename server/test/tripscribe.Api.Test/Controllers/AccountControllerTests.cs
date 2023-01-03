@@ -7,8 +7,8 @@ using NSubstitute;
 using tripscribe.Api.Controllers;
 using tripscribe.Api.Test.Extensions;
 using tripscribe.Api.ViewModels.Accounts;
-using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
+using tripscribe.Api.ViewModels.Trips;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Services;
 

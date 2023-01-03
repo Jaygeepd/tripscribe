@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using tripscribe.Dal.Models;
-using tripscribe.Dal.Specifications.Journeys;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 using Unosquare.EntityFramework.Specification.Common.Primitive;
 

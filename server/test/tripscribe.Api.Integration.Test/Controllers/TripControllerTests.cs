@@ -7,7 +7,7 @@ using tripscribe.Api.Integration.Test.Models;
 using tripscribe.Api.Integration.Test.TestUtilities;
 using Tripscribe.Api.Integration.Test.TestUtilities;
 using tripscribe.Api.ViewModels.Accounts;
-using tripscribe.Api.ViewModels.Journeys;
+using tripscribe.Api.ViewModels.Trips;
 using tripscribe.Dal.Models;
 using Xunit.Abstractions;
 
@@ -139,7 +139,7 @@ public class TripControllerTests
         const string newTitle = "German Tour";
         const string newDescription = "Drowning in Bratwurst and Beer";
 
-        UpdateTripDetailModel updateTrip = new UpdateTripDetailModel()
+        UpdateTripViewModel updateTrip = new UpdateTripViewModel()
         {
             Id = id,
             Title = newTitle,

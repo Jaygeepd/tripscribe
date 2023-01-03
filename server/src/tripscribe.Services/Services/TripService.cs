@@ -2,8 +2,8 @@
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Dal.Specifications.AccountJourneys;
-using tripscribe.Dal.Specifications.Journeys;
 using tripscribe.Dal.Specifications.Reviews;
+using tripscribe.Dal.Specifications.Trips;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Exceptions;
 using Unosquare.EntityFramework.Specification.Common.Extensions;

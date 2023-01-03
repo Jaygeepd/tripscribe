@@ -3,8 +3,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.ViewModels.Accounts;
-using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
+using tripscribe.Api.ViewModels.Trips;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Services;
 

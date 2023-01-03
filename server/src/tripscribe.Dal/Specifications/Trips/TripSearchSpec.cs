@@ -1,10 +1,9 @@
 ﻿using System.Linq.Expressions;
 using tripscribe.Dal.Models;
-using tripscribe.Dal.Specifications.Accounts;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 using Unosquare.EntityFramework.Specification.Common.Primitive;
 
-namespace tripscribe.Dal.Specifications.Journeys;
+namespace tripscribe.Dal.Specifications.Trips;
 
 public class TripSearchSpec : Specification<Trip>
 {

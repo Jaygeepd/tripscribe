@@ -15,7 +15,7 @@ public class Stop
 
     [Column("date_departed")] public DateTime DateDeparted { get; set; }
     
-    [Column("journey_id")] public int JourneyId { get; set; }
+    [Column("trip_id")] public int TripId { get; set; }
 
     public ICollection<Location> Locations { get; set; }
 

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace tripscribe.Api.ViewModels.Journeys;
+namespace tripscribe.Api.ViewModels.Trips;
 
 public class UpdateTripViewModel
 {

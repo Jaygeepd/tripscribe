@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using tripscribe.Api.ViewModels.Journeys;
+using tripscribe.Api.ViewModels.Trips;
 using tripscribe.Services.DTOs;
 
 namespace tripscribe.Api.Profiles;

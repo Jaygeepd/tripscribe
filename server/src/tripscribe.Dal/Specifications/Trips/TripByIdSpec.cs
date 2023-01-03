@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using tripscribe.Dal.Models;
 using Unosquare.EntityFramework.Specification.Common.Primitive;
 
-namespace tripscribe.Dal.Specifications.Journeys;
+namespace tripscribe.Dal.Specifications.Trips;
 
 public class TripByIdSpec : Specification<Trip>
 {

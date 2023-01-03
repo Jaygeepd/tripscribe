@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
-using tripscribe.Dal.Specifications.Journeys;
 using tripscribe.Dal.Specifications.Locations;
 using tripscribe.Dal.Specifications.Reviews;
 using tripscribe.Services.DTOs;
