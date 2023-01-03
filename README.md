@@ -2,44 +2,44 @@
 Repository for the travel app Tripscribe
 
 ## Introduction
-TripScribe is a website designed to allow users to create, document and share journeys they have been on in their life. Users are able to create "Journeys" in their profile, attach dates to the cities they visit, add in places they visited while there, then attach photos and reviews. These journeys can then be shared with friends, who can see these journeys. 
+TripScribe is a website designed to allow users to create, document and share journeys they have been on in their life. Users are able to create "Trips" in their profile, attach dates to the cities they visit, add in places they visited while there, then attach photos and reviews. These trips can then be shared with friends, who can see these journeys. 
 
 ## Who is this for?
 The goal of this website is for people who are interested in traveling and documenting where they have been, both to share their experiences and keep a journal about their journeys. This idea came about originally as a replacement for a physical travel log - something I had used during a trip across America.
 
 ## How will this be used?
-The user will create an account on the website and gain access to a dashboard from which they can create new journeys and edit already created journeys. Within a journey they can detail the major stops they visited and attractions/restaurants they went to while there, creating a review for each as well as attaching pictures. Journeys will be collected in a dashboard for easy viewing/editing. Account creation should only require basic information about the user.
+The user will create an account on the website and gain access to a dashboard from which they can create new trips and edit already created trips. Within a trip they can detail the major stops they visited and attractions/restaurants they went to while there, creating a review for each as well as attaching pictures. Trips will be collected in a dashboard for easy viewing/editing. Account creation should only require basic information about the user.
 
-### Create Journey
-- User clicks "Create Journey" in the dashboard
-- User enteres a name for the journey
-- User redirected to the Journey edit page
+### Create Trip
+- User clicks "Create Trip" in the dashboard
+- User enteres a name for the trip
+- User redirected to the Trip edit page
 
-### View/Edit Journey
-- From dashboard, user selects one of their created journeys to be redirected to it
-- User is shown information attached to that journey (Stops, Places Visited, Photos, etc.)
-- User can click an "Edit Journey" button which allows them to add new details or edit existing one (When first redirected here, editing will be enabled)
+### View/Edit Trip
+- From dashboard, user selects one of their created trips to be redirected to it
+- User is shown information attached to that trip (Stops, Places Visited, Photos, etc.)
+- User can click an "Edit Trip" button which allows them to add new details or edit existing one (When first redirected here, editing will be enabled)
 
 ### Add Stop 
-- Once a journey is in edit mode, the user can add stops that they have visited, with a stop being a city, national park, event, etc.
+- Once a trip is in edit mode, the user can add stops that they have visited, with a stop being a city, national park, event, etc.
 - User enters the name of the stop, the date arrived, and the date of departure
 
 ### Add Location
 - With a stop created, the user can add a location they visited within that stop, including name and brief description (Restaurant, Museum, etc.) 
 
-### Add Photographies and Reviews
+### Add Photographs and Reviews
 - Both the stop in general as well as individual locations can be given a review or attached photographs
-- For a review, the user writes what they want posted and when complete it will appear in that journey along the attached stop
+- For a review, the user writes what they want posted and when complete it will appear in that trip along the attached stop
 - For photographs, the other uploads photographs from their local file storage/drag and drop function 
 
-These are the basic functions that the user should be able to accomplish. Once a journey has been created, the details of it should be able to be seen in the dashboard - for example showing the number of visited stops and range of dates that the journey took place on. When the user goes from the dashboard into a journey, they will find the stops listed in chronological order with attached reviews and photos in a "gallery". 
+These are the basic functions that the user should be able to accomplish. Once a trip has been created, the details of it should be able to be seen in the dashboard - for example showing the number of visited stops and range of dates that the trip took place on. When the user goes from the dashboard into a trip, they will find the stops listed in chronological order with attached reviews and photos in a "gallery". 
 
-Furthermore once a user has created a journey, they should be able to share it using a link to their friends. With this link, the user should be able to see the same page but without the ability to edit the page.
+Furthermore once a user has created a trip, they should be able to share it using a link to their friends. With this link, the user should be able to see the same page but without the ability to edit the page.
 
 ```mermaid
    erDiagram
-          USER ||--|| JOURNEY : creates
-          JOURNEY ||--|| STOP : contains
+          USER ||--|| TRIP : creates
+          TRIP ||--|| STOP : contains
           STOP ||--|| LOCATION : contains
           REVIEW ||--|| STOP : "attached to"
           REVIEW ||--|| LOCATION : "attached to"
@@ -49,8 +49,8 @@ Furthermore once a user has created a journey, they should be able to share it u
 
 ## Dictionary 
 - **User**, a person who is interacting with the website, they have to own an account on the website to access the features
-- **Journey**, a journey is created from a user's dashboard and represents a vacation of any length, from one major city to a tour of a few difference places
-- **Stop**, a stop represents a city or a major destination within the journey and has the dates of when the user arrived and departed
+- **Trip**, a trip is created from a user's dashboard and represents a vacation of any length, from one major city to a tour of a few difference places
+- **Stop**, a stop represents a city or a major destination within the trip and has the dates of when the user arrived and departed
 - **Location**, a location is used to break up the major stop into smaller pieces, for examples restaurants and museums within a city or viewpoints in a national park
 - **Review**, a text review of the user's thoughts which can be attached to both a stop or location
 - **Gallery**, a collection of photos that are attached to a stop or location
@@ -59,12 +59,11 @@ Furthermore once a user has created a journey, they should be able to share it u
 
 ## MVP
 - User account Creation
-- Journey Creation
-- Adding City to the Journey
+- Trip Creation
+- Adding City to the Trip
 - Adding Locations to City
 - Attach review to city and location
-- Add photos to city and location
-- User can share a journey with someone else (Being a user not required maybe)
+- User can share a trip with someone else (Being a user not required maybe)
 
 ## Stretch Goals 1 - Basic Social Media
 - Social media aspect allowing users to add others to a friend's list from where they can see all their trips
@@ -125,7 +124,7 @@ Response
 
 ```
 
-`GET /accounts/{accountId}/journeys` Return a list of journeys tied to the given account
+`GET /accounts/{accountId}/trips` Return a list of trips tied to the given account
 
 Response
 
@@ -197,9 +196,9 @@ Request
 
 Response - `204 Updated`
 
-#### JOURNEYS
+#### TRIPS
 
-`GET /journeys` Return a list of journeys
+`GET /trips` Return a list of trips
 
 Response
 
@@ -220,7 +219,7 @@ Response
 ]
 ```
 
-`GET /journeys/{journeyId}` Return the journey matching the id
+`GET /trips/{tripId}` Return the trip matching the id
 
 Response
 
@@ -233,7 +232,7 @@ Response
 }
 ```
 
-`GET /journeys/{journeyId}/accounts` Return a list of accounts tied to the given journey
+`GET /trips/{tripId}/accounts` Return a list of accounts tied to the given trip
 
 Response
 
@@ -256,7 +255,7 @@ Response
 ]
 ```
 
-`GET /journeys/{journeyId}/reviews` Return a list of reviews tied to the given journey
+`GET /trips/{tripId}/reviews` Return a list of reviews tied to the given trip
 
 Response
 
@@ -277,7 +276,7 @@ Response
 ]
 ```
 
-`POST /journeys` Create a new journey
+`POST /trips` Create a new trip
 
 Request
 
@@ -290,7 +289,7 @@ Request
 
 Response - `201 Created`
 
-`PUT /journeys/{journeyId}` Update a journey based on a given id
+`PUT /trips/{tripId}` Update a trip based on a given id
 
 Request
 
@@ -315,11 +314,11 @@ Response
    "name": "Toronto",
    "date_arrived": "2021-06-15 06:00:00",
    "date_departed": "2021-06-22 18:30:00",
-   "journey_id": 1
+   "trip_id": 1
 }
 ```
 
-`GET /stops/{journeyId}` Return a list of stops matching the given journey
+`GET /stops/{tripId}` Return a list of stops matching the given trip
 
 Response
 
@@ -330,14 +329,14 @@ Response
       "name": "Toronto",
       "date_arrived": "2021-06-15 06:00:00",
       "date_departed": "2021-06-22 18:30:00",
-      "journey_id": 1
+      "trip_id": 1
    },
    {
       "id": 3,
       "name": "Montreal",
       "date_arrived": "2021-06-22 22:00:00",
       "date_departed": "2021-06-26 10:00:00",
-      "journey_id": 1
+      "trip_id": 1
    }
 ]
 ```
