@@ -9,7 +9,7 @@ interface hookProps {
 
 function SignUp(props: hookProps){
     const theme = useTheme();
-    const fullScreen:any = useMediaQuery(theme.breakpoints.down('md'));
+    const fullScreen:any = useMediaQuery(theme.breakpoints.down('sm'));
 
     return(
         <>
