@@ -4,9 +4,9 @@ using tripscribe.Services.DTOs;
 
 namespace tripscribe.Services.Profiles;
 
-public class JourneyProfile : Profile
+public class TripProfile : Profile
 {
-    public JourneyProfile()
+    public TripProfile()
     {
         ConfigureDomainToDto();
         ConfigureDtoToDomain();
@@ -14,11 +14,11 @@ public class JourneyProfile : Profile
 
     private void ConfigureDomainToDto()
     {
-        CreateMap<Journey, JourneyDTO>();
+        CreateMap<Trip, TripDTO>();
     }
     
     private void ConfigureDtoToDomain()
     {
-        CreateMap<JourneyDTO, Journey>();
+        CreateMap<TripDTO, Trip>();
     }
 }

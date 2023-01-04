@@ -3,8 +3,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.ViewModels.Accounts;
-using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Reviews;
+using tripscribe.Api.ViewModels.Trips;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Services;
 
@@ -45,14 +45,14 @@ public class AccountsController : ControllerBase
         return Ok(_mapper.Map<IList<ReviewViewModel>>(reviews));
     }
     
-    [HttpGet("{id}/journeys", Name = "GetAccountJourneys")]
-    public ActionResult<IList<JourneyViewModel>> GetAccountJourneys(int id)
+    [HttpGet("{id}/trips", Name = "GetAccountTrips")]
+    public ActionResult<IList<TripViewModel>> GetAccountTrips(int id)
     {
 
-        var journeys = _service
-            .GetAccountJourneys(id);
+        var trips = _service
+            .GetAccountTrips(id);
         
-        return Ok(_mapper.Map<IList<JourneyViewModel>>(journeys));
+        return Ok(_mapper.Map<IList<TripViewModel>>(trips));
     }
     
     [HttpPost]

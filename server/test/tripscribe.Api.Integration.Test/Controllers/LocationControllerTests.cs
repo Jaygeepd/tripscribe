@@ -7,7 +7,6 @@ using tripscribe.Api.Integration.Test.Models;
 using tripscribe.Api.Integration.Test.TestUtilities;
 using Tripscribe.Api.Integration.Test.TestUtilities;
 using tripscribe.Api.ViewModels.Accounts;
-using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Locations;
 using tripscribe.Api.ViewModels.Stop;
 using tripscribe.Dal.Models;

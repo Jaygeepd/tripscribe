@@ -10,5 +10,5 @@ public class StopDTO
     
     public DateTime DateDeparted { get; set; }
     
-    public int JourneyId { get; set; }
+    public int TripId { get; set; }
 }

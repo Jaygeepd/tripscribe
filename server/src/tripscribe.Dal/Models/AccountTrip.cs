@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace tripscribe.Dal.Models;
 
-[Table("account_journeys")]
-public class AccountJourney
+[Table("account_trip")]
+public class AccountTrip
 {
     [Key] [Column("id")] public int Id { get; set; }
     
@@ -12,7 +12,7 @@ public class AccountJourney
     
     [ForeignKey(nameof(AccountId))] public Account Account { get; set; }
     
-    [Column("journey_id")] public int JourneyId { get; set; }
+    [Column("trip_id")] public int TripId { get; set; }
     
-    [ForeignKey(nameof(JourneyId))]  public Journey Journey { get; set; }
+    [ForeignKey(nameof(TripId))]  public Trip Trip { get; set; }
 }

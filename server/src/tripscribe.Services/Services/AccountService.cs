@@ -91,15 +91,15 @@ public class AccountService : IAccountService
 
     }
 
-    public IList<JourneyDTO> GetAccountJourneys(int id)
+    public IList<TripDTO> GetAccountTrips(int id)
     {
         var journeyQuery = _database
-            .Get<AccountJourney>()
+            .Get<AccountTrip>()
             .Where(new AccountJourneysByAccountIdSpec(id))
-            .Select(x => x.Journey);
+            .Select(x => x.Trip);
 
         return _mapper
-            .ProjectTo<JourneyDTO>(journeyQuery)
+            .ProjectTo<TripDTO>(journeyQuery)
             .ToList();
     }
 }

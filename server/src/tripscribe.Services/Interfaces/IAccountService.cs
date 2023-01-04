@@ -16,5 +16,5 @@ public interface IAccountService
 
     IList<ReviewDTO> GetAccountReviews(int id);
 
-    IList<JourneyDTO> GetAccountJourneys(int id);
+    IList<TripDTO> GetAccountTrips(int id);
 }

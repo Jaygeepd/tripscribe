@@ -4,12 +4,12 @@ using Unosquare.EntityFramework.Specification.Common.Primitive;
 
 namespace tripscribe.Dal.Specifications.AccountJourneys;
 
-public class AccountJourneysByAccountIdSpec : Specification<AccountTrip>
+public class AccountTripsByTripIdSpec : Specification<AccountTrip>
 {
     private readonly int _id;
     
-    public AccountJourneysByAccountIdSpec(int id) => _id = id;
+    public AccountTripsByTripIdSpec(int id) => _id = id;
     
     public override Expression<Func<AccountTrip, bool>> BuildExpression() =>
-        x => x.AccountId == _id;
+        x => x.TripId == _id;
 }

@@ -15,7 +15,7 @@ public class Review
 
     [Column("timestamp")] public DateTime Timestamp { get; set; }
 
-    public ICollection<JourneyReview> JourneyReviews { get; set; }
+    public ICollection<TripReview> TripReviews { get; set; }
     public ICollection<StopReview> StopReviews { get; set; }
     public ICollection<LocationReview> LocationReviews { get; set; }
 }

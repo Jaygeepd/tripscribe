@@ -7,7 +7,7 @@ public class CreateStopViewModel
     public string Name { get; set; }
     public DateTime DateArrived { get; set; }
     public DateTime DateDeparted { get; set; }
-    public int JourneyId { get; set; }
+    public int TripId { get; set; }
 }
 
 public class CreateStopValidator : AbstractValidator<CreateStopViewModel>
@@ -18,6 +18,6 @@ public class CreateStopValidator : AbstractValidator<CreateStopViewModel>
             .WithMessage("Stop name be entered, and between 4 and 100 characters in length");
         RuleFor(stop => stop.DateArrived).NotNull();
         RuleFor(stop => stop.DateDeparted).NotNull();
-        RuleFor(stop => stop.JourneyId).NotNull();
+        RuleFor(stop => stop.TripId).NotNull();
     }
 }

@@ -9,7 +9,7 @@ using tripscribe.Api.Integration.Test.Models;
 using tripscribe.Api.Integration.Test.TestUtilities;
 using Tripscribe.Api.Integration.Test.TestUtilities;
 using tripscribe.Api.ViewModels.Accounts;
-using tripscribe.Api.ViewModels.Journeys;
+using tripscribe.Api.ViewModels.Trips;
 using tripscribe.Dal.Models;
 using Xunit.Abstractions;
 
@@ -63,14 +63,14 @@ public class AccountControllerTests
     }
 
     [Fact]
-    public async Task GetAccountJourneysById_WhenAccountJourneysPresent_ReturnsOk()
+    public async Task GetAccountTripsById_WhenAccountTripsPresent_ReturnsOk()
     {
         const int id = 1;
-        var response = await _httpClient.GetAsync($"/api/accounts/{id}/journeys/");
+        var response = await _httpClient.GetAsync($"/api/accounts/{id}/trips/");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var value = await response.Content.ReadAsStringAsync();
-        _testOutputHelper.WriteLine(value.VerifyDeSerialization<JourneyViewModel[]>());
+        _testOutputHelper.WriteLine(value.VerifyDeSerialization<TripViewModel[]>());
 
         Assert.Contains("1", value);
         Assert.Contains("Biking Across Japan", value);
@@ -78,7 +78,7 @@ public class AccountControllerTests
     }
     
     [Fact]
-    public async Task GetAnAccountJourneysById_AccountDoesNotExist_ThrowException()
+    public async Task GetAnAccountTripsById_AccountDoesNotExist_ThrowException()
     {
         const int id = 20;
         var response = await _httpClient.GetAsync($"/api/accounts/{id}");

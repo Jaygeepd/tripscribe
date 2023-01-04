@@ -7,7 +7,6 @@ using tripscribe.Api.Integration.Test.Models;
 using tripscribe.Api.Integration.Test.TestUtilities;
 using Tripscribe.Api.Integration.Test.TestUtilities;
 using tripscribe.Api.ViewModels.Accounts;
-using tripscribe.Api.ViewModels.Journeys;
 using tripscribe.Api.ViewModels.Stop;
 using tripscribe.Dal.Models;
 using Xunit.Abstractions;
@@ -54,12 +53,12 @@ public class StopControllerTests
     public async Task CreateAStop_WhenStopDetailsValidAndPresent_ReturnsOk()
     {
         const string name = "Nice";
-        const int journeyId = 1;
+        const int tripId = 1;
         
         CreateStopViewModel newStop = new CreateStopViewModel()
         {
             Name = name,
-            JourneyId = journeyId,
+            TripId = tripId,
             DateArrived = DateTime.Now - TimeSpan.FromDays(5),
             DateDeparted = DateTime.Now - TimeSpan.FromDays(4)
         };
@@ -72,12 +71,12 @@ public class StopControllerTests
     public async Task CreateAStop_WhenStopDetailsInvalid_ReturnsErrorMessage()
     {
         const string name = "";
-        const int journeyId = 1;
+        const int tripId = 1;
         
         CreateStopViewModel newStop = new CreateStopViewModel()
         {
             Name = name,
-            JourneyId = journeyId,
+            TripId = tripId,
             DateArrived = DateTime.Now - TimeSpan.FromDays(5),
             DateDeparted = DateTime.Now - TimeSpan.FromDays(4)
         };

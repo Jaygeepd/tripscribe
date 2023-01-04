@@ -57,7 +57,7 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddScoped<ITripscribeDatabase, TripscribeContext>(_ => new TripscribeContext(EnvironmentVariables.DbConnectionString));
 builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IJourneyService, JourneyService>();
+builder.Services.AddScoped<ITripService, TripService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IStopService, StopService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticationService>();

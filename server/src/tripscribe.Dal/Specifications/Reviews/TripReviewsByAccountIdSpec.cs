@@ -4,13 +4,13 @@ using Unosquare.EntityFramework.Specification.Common.Primitive;
 
 namespace tripscribe.Dal.Specifications.Reviews;
 
-public class JourneyReviewsByAccountIdSpec : Specification<JourneyReview>
+public class TripReviewsByAccountIdSpec : Specification<TripReview>
 {
     private readonly int _accountId;
     
-    public JourneyReviewsByAccountIdSpec(int id) => _accountId = id;
+    public TripReviewsByAccountIdSpec(int id) => _accountId = id;
 
-    public override Expression<Func<JourneyReview, bool>> BuildExpression()
+    public override Expression<Func<TripReview, bool>> BuildExpression()
     {
         if (_accountId <= 0) return ShowNone;
 

@@ -57,8 +57,8 @@ public class AccountServiceTest
     {
         // Arrange 
         var accountList = _fixture.Build<Account>()
-            .Without(x => x.AccountJourneys)
-            .Without(x => x.JourneyReviews)
+            .Without(x => x.AccountTrips)
+            .Without(x => x.TripReviews)
             .Without(x => x.LocationReviews)
             .Without(x => x.StopReviews)
             .CreateMany();
@@ -109,8 +109,8 @@ public class AccountServiceTest
     {
         // Arrange
         var accountList = _fixture.Build<Account>()
-        .Without(x => x.AccountJourneys)
-        .Without(x => x.JourneyReviews)
+        .Without(x => x.AccountTrips)
+        .Without(x => x.TripReviews)
         .Without(x => x.LocationReviews)
         .Without(x => x.StopReviews)
         .CreateMany();
@@ -160,8 +160,8 @@ public class AccountServiceTest
     {
         // Arrange
         var accountList = _fixture.Build<Account>()
-            .Without(x => x.AccountJourneys)
-            .Without(x => x.JourneyReviews)
+            .Without(x => x.AccountTrips)
+            .Without(x => x.TripReviews)
             .Without(x => x.LocationReviews)
             .Without(x => x.StopReviews)
             .CreateMany();
@@ -198,38 +198,38 @@ public class AccountServiceTest
     }
 
     [Fact]
-    public void GetAccountJourneys_ValidIdEntered_ReturnedAndMapped()
+    public void GetAccountTrips_ValidIdEntered_ReturnedAndMapped()
     {
         // Arrange
-        const int journeyId = 1;
+        const int tripid = 1;
         const int accountId = 1;
         
-        var journey = _fixture
-            .Build<Journey>()
-            .With(x => x.Id, journeyId)
-            .Without(x => x.AccountJourneys)
+        var trip = _fixture
+            .Build<Trip>()
+            .With(x => x.Id, tripid)
+            .Without(x => x.AccountTrips)
             .CreateMany(1)
             .ToArray();
 
         var  accountIds = _fixture.MockWithOne(accountId);
         
-        var accountJourneyList = _fixture
-            .Build<AccountJourney>()
+        var accountTripList = _fixture
+            .Build<AccountTrip>()
             .With(x => x.AccountId, accountIds.GetValue)
-            .With(x => x.JourneyId, journeyId)
-            .With(x => x.Journey, journey.First())
+            .With(x => x.AccountId, tripid)
+            .With(x => x.Trip, trip.First())
             .CreateMany()
             .AsQueryable();
 
-        _database.Get<AccountJourney>().Returns(accountJourneyList);
+        _database.Get<AccountTrip>().Returns(accountTripList);
         
         var service = RetrieveService();
 
         // Act
-        var result = service.GetAccountJourneys(accountId);
+        var result = service.GetAccountTrips(accountId);
 
         // Assert
-        result.Should().BeEquivalentTo(journey, options => options.ExcludingMissingMembers());
+        result.Should().BeEquivalentTo(trip, options => options.ExcludingMissingMembers());
     }
 
     private IAccountService RetrieveService()
@@ -241,7 +241,7 @@ public class AccountServiceTest
     {
         var config = new MapperConfiguration(cfg => {
             cfg.AddProfile<AccountProfile>();
-            cfg.AddProfile<JourneyProfile>();
+            cfg.AddProfile<TripProfile>();
             cfg.AddProfile<StopProfile>();
             cfg.AddProfile<ReviewProfile>();
         });

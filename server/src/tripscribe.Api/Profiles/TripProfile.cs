@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using tripscribe.Api.ViewModels.Journeys;
+using tripscribe.Api.ViewModels.Trips;
 using tripscribe.Services.DTOs;
 
 namespace tripscribe.Api.Profiles;
 
-public class JourneyProfile : Profile
+public class TripProfile : Profile
 {
-    public JourneyProfile()
+    public TripProfile()
     {
         ConfigureDtoToViewModel();
         ConfigureViewModelToDto();
@@ -14,14 +14,14 @@ public class JourneyProfile : Profile
 
     private void ConfigureDtoToViewModel()
     {
-        CreateMap<JourneyDTO, JourneyViewModel>();
+        CreateMap<TripDTO, TripViewModel>();
     }
 
     private void ConfigureViewModelToDto()
     {
-        CreateMap<CreateJourneyViewModel, JourneyDTO>()
+        CreateMap<CreateTripViewModel, TripDTO>()
             .ForMember(d => d.Timestamp, 
                 o => o.MapFrom(x => DateTime.UtcNow));
-        CreateMap<UpdateJourneyViewModel, JourneyDTO>();
+        CreateMap<UpdateTripViewModel, TripDTO>();
     }
 }
