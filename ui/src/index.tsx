@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import {
   BrowserRouter as Router
 } from "react-router-dom";
-import { Root } from "./Pages";
+import App from "./App";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <Router>
     <React.StrictMode>
-      <Root />
+      <App />
     </React.StrictMode>
   </Router>
   
