@@ -1,6 +1,8 @@
 import React from "react";
 import { Grid, Box } from "@mui/material";
 import LeftPanel from "./Components/leftPanel";
+import { Route, Routes } from "react-router-dom";
+import { HomePage } from "./Pages"
 
 function App() {
     return(
@@ -14,9 +16,9 @@ function App() {
                 alignItems="center"
                 justifyContent="center"
             >
-                <Box>
-                    <h1>Content Goes Here</h1>
-                </Box>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                </Routes>
             </Grid>
             </Grid>
         </>
