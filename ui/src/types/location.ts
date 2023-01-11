@@ -1,5 +1,7 @@
 export type Location = {
-    address: string,
+    locName: string,
     latitude: number,
-    longitude: number
+    longitude: number,
+    dateVisited: Date, 
+    locationType: string
 };
