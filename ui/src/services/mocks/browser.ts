@@ -1,6 +1,4 @@
-import { rest } from "msw";
-import { setupServer } from "msw/node";
+import { setupWorker } from "msw";
 import { handlers } from "./handlers";
 
-const server = setupServer(...handlers);
-export {server, rest};
+export const worker = setupWorker(...handlers);

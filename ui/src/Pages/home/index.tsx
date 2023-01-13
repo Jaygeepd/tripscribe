@@ -8,7 +8,7 @@ import { Trip } from "../../types/trip";
 import { Stop } from "../../types/stop";
 
 function getTrips(){
-  return fetch("/trips").then((response) => response.json)
+  return fetch("/trips").then((response) => response.json())
 }
 
 const tempLoc: Location = {
@@ -23,11 +23,9 @@ function Home() {
   
   const { data, error } = useSWR("trips", getTrips);
 
-
-
-  // const tripDisplays = trips.map((singleTrip) => (
-  //   <TripDetails key={singleTrip.title} trip={singleTrip} />
-  // ));
+  const tripDisplays = data.map((singleTrip:Trip) => (
+    <TripDetails key={singleTrip.title} trip={singleTrip} />
+  ));
 
   return (
     <>
@@ -37,7 +35,7 @@ function Home() {
           <Divider />
           <h1>Trips</h1>
           <Divider />
-          {/* {tripDisplays} */}
+          {tripDisplays}
         </Stack>
       </Paper>
     </>

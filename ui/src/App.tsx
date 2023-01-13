@@ -4,6 +4,11 @@ import { LeftPanel } from "./components";
 import { Route, Routes } from "react-router-dom";
 import { HomePage, TripViewPage } from "./pages";
 
+if (process.env.NODE_ENV === "development"){
+  const { worker } = require('./services/mocks/browser');
+  worker.start();
+}
+
 function App() {
   return (
     <>

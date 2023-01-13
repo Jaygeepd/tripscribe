@@ -1,4 +1,3 @@
-import { NestCamWiredStandTwoTone } from "@mui/icons-material";
 import { rest } from "msw";
 
 const trips = {
@@ -21,7 +20,6 @@ export const handlers = [
     rest.get("/trips", async (req, res, ctx) => {
         return res(
             ctx.status(200),
-            ctx.delay(500),
             ctx.json(
                 Object.entries(trips).map(([id, data]) => {
                     return { id, ...data };
