@@ -10,9 +10,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Router>
-    <React.StrictMode>
       <App />
-    </React.StrictMode>
   </Router>
   
 );
