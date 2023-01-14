@@ -4,15 +4,22 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import { Map } from "../../components";
+import { Trip } from "../../types/trip";
 
-function getTrip() {
-  return fetch("/trips/").then((response) => response.json());
+function getTripById() {
+  return fetch("/trips/${id}").then((response) => response.json());
 }
 
 function TripViewPage() {
   const { tripId } = useParams();
 
-  const { data, error } = useSWR("trips", getTrip);
+  const { data, error, isLoading } = useSWR(["trips", tripId], getTripById);
+
+  const currTrip:Trip = data
+
+  console.log(data);
+
+  if (isLoading) return (<div>Loading</div>)
 
   return (
     <>
@@ -22,7 +29,7 @@ function TripViewPage() {
       >
         <Grid container>
           <Grid item xs={4}>
-            <h1>Bleh</h1>
+            <h1>{currTrip.title}</h1>
           </Grid>
           <Grid item xs={8} justifyContent="flex-end">
             <IconButton>

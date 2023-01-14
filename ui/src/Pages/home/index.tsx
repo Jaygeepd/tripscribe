@@ -21,15 +21,17 @@ const tempLoc: Location = {
 
 function Home() {
   
-  const { data, error } = useSWR("trips", getTrips);
+  const { data, error, isLoading } = useSWR("trips", getTrips);
+
+  if (isLoading) return (<div>Loading</div>)
 
   const tripDisplays = data.map((singleTrip:Trip) => (
-    <TripDetails key={singleTrip.title} trip={singleTrip} />
+    <TripDetails key={singleTrip.id} trip={singleTrip} />
   ));
 
   return (
     <>
-      <Paper sx={{ padding: "5vw", height: "79vh", overflow: "auto" }}>
+      <Paper sx={{ paddingLeft: "2.5vw", paddingRight: "2.5vw", paddingTop: "2.5vw", height: "79vh", overflow: "auto" }}>
         <Stack>
           <Map location={tempLoc} zoomLevel={13} />
           <Divider />
