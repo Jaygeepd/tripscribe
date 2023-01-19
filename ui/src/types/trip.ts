@@ -7,7 +7,7 @@ export type Trip = {
   tripDesc: string;
   tripTimestamp: Date;
   public: boolean;
-  attachedAccounts: Account[];
+  attachedAccounts?: Account[];
   tripStartDate?: Date;
   tripEndDate?: Date;
   tripStops?: Stop[];

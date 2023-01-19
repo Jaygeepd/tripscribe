@@ -30,7 +30,8 @@ function Login(props: hookProps){
                 type: "authentication",
                 ...loginResult,
             })
-            props.setState;
+            toast.success("Successfully Logged In");
+            props.setState(false);
             ;
         } else {
             toast.error("Invalid authentication details");

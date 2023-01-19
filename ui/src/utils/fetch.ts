@@ -4,7 +4,7 @@ import LoginUtils from "./login";
 import {StorageTypes} from "../constants";
 import toast from "react-hot-toast";
 
-const baseUrl = process.env.REACT_APP_API_URL ?? "http://localhost:4040";
+const baseUrl = process.env.REACT_APP_API_URL ?? "http://localhost:5126/api";
 const configureUrl = (url: string) => `${baseUrl}/${url}`;
 const refreshUrl = "/authentication/refresh";
 

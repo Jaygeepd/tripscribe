@@ -76,7 +76,7 @@ function SignUp(props: hookProps) {
     const response = await AccountService.createAccount(newAccount);
     if (response.status === 201) {
       const newAccount = await response.json();
-      props.setState;
+      props.setState(false);
       toast.success("New acccount created successfully!");
     } else {
       toast.error(
