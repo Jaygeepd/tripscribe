@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { ReactDOM } from "react";
+import { Link } from "react-router-dom";
 import { Stack, Divider, Button, Box, Grid } from "@mui/material";
 import { FlightTakeoff } from "@mui/icons-material";
-import Login from "../login";
-import SignUp from "../signup";
+import { Login, SignUp } from "../index";
 
 function LeftPanel() {
   const [loginOpen, setLoginOpen] = useState(false);
@@ -38,7 +38,9 @@ function LeftPanel() {
           fontSize="large"
         />
 
-        <Button sx={navButtonStyle} variant="outlined" size="medium">
+        <Button sx={navButtonStyle} variant="outlined" size="medium"
+        component={ Link } to={`/`}
+        >
           Home
         </Button>
         <Button sx={navButtonStyle} variant="outlined" size="medium">

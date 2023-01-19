@@ -31,7 +31,7 @@ function Home() {
 
   return (
     <>
-      <Paper sx={{ paddingLeft: "2.5vw", paddingRight: "2.5vw", paddingTop: "2.5vw", height: "79vh", overflow: "auto" }}>
+      <Paper sx={{ paddingLeft: "2.5vw", paddingRight: "2.5vw", paddingTop: "2.5vw", height: "92vh", overflow: "auto" }}>
         <Stack>
           <Map location={tempLoc} zoomLevel={13} />
           <Divider />

@@ -2,24 +2,33 @@ import { Edit } from "@mui/icons-material";
 import { Grid, IconButton, Paper, Stack } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
-import useSWR from "swr";
+import useSWR, { Key, Fetcher } from "swr";
 import { Map } from "../../components";
 import { Trip } from "../../types/trip";
 
-function getTripById() {
-  return fetch("/trips/${id}").then((response) => response.json());
+function getTripById(url?:string) {
+
+  const errorURL = `/trips/1`
+
+  if(url === undefined || url === null){
+    console.log(url);
+    return fetch(errorURL).then((response) => response.json());
+  }
+
+  return fetch(url).then((response) => response.json());
 }
 
 function TripViewPage() {
   const { tripId } = useParams();
 
-  const { data, error, isLoading } = useSWR(["trips", tripId], getTripById);
+  const { data, error, isLoading } = useTrip(tripId);
 
-  const currTrip:Trip = data
+  const currTrip: any = data
 
   console.log(data);
 
-  if (isLoading) return (<div>Loading</div>)
+  if (isLoading) return <div>Loading</div>;
+  if (error) return <div>{error.toString()}</div>;
 
   return (
     <>
@@ -41,6 +50,20 @@ function TripViewPage() {
       </Paper>
     </>
   );
+}
+
+function useTrip(id?: string) {
+
+  const tripId: Key = id
+  const fetcher: Fetcher<Trip, string> = (tripId) => getTripById(tripId);
+
+  const { data, error, isLoading } = useSWR(`/trips/${id}`, fetcher);
+
+  return {
+    data,
+    isLoading,
+    error,
+  };
 }
 
 export default TripViewPage;
