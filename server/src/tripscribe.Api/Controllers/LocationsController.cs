@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,9 @@ public class LocationsController : ControllerBase
     
     [HttpGet]
     public ActionResult<IList<LocationViewModel>> GetLocations([FromQuery] string? name, [FromQuery] string? locationType, 
-        [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] int? stopId)
+        [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] Point? geoLocation, [FromQuery] int? stopId)
     {
-        var locations = _service.GetLocations(name, locationType, startDate, endDate, stopId);
+        var locations = _service.GetLocations(name, locationType, startDate, endDate, geoLocation, stopId);
         return Ok(_mapper.Map<IList<LocationViewModel>>(locations));
     }
     
@@ -51,6 +52,7 @@ public class LocationsController : ControllerBase
             Name = locationDetails.Name,
             DateArrived = locationDetails.DateArrived, 
             LocationType = locationDetails.LocationType,
+            GeoLocation = locationDetails.GeoLocation,
             StopId = locationDetails.StopId
         };
 

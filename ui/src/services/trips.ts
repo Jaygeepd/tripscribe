@@ -2,8 +2,8 @@ import userEvent from "@testing-library/user-event";
 import { Trip } from "../types/trip";
 import { FetchUtils } from "../utils";
 
-const updateTrip = async (updateAccount: Trip) => {
-  return await FetchUtils.fetchInstance(`trips/${updateAccount.id}`, {
+const updateTrip = async (updateTrip: Trip) => {
+  return await FetchUtils.fetchInstance(`trips/${updateTrip.id}`, {
     method: "PATCH",
   });
 };
@@ -20,7 +20,7 @@ const getTrip = async (tripId: string) => {
   });
 };
 
-const getAllTrips =async () => {
+const getAllTrips = async () => {
     return await FetchUtils.fetchInstance(`trips`, {
         method: "GET",
     })

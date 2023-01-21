@@ -1,4 +1,6 @@
-﻿namespace tripscribe.Services.DTOs;
+﻿using System.Drawing;
+
+namespace tripscribe.Services.DTOs;
 
 public class LocationDTO
 {
@@ -13,6 +15,8 @@ public class LocationDTO
     public DateTime StartDate { get; set; }
     
     public DateTime EndDate { get; set; }
+    
+    public Point GeoLocation { get; set; }
     
     public int StopId { get; set; }
 }
