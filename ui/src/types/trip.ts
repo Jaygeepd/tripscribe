@@ -1,11 +1,14 @@
 import { Stop } from "./stop";
+import { Account } from "./account";
 
 export type Trip = {
-    title: string,
-    tripDesc: string,
-    tripTimestamp: Date,
-    public: boolean,
-    tripStartDate?: Date,
-    tripEndDate?: Date, 
-    tripStops?: Stop[]
+  id?: string;
+  title: string;
+  tripDesc: string;
+  tripTimestamp: Date;
+  public: boolean;
+  attachedAccounts?: Account[];
+  tripStartDate?: Date;
+  tripEndDate?: Date;
+  tripStops?: Stop[];
 };

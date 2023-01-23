@@ -44,7 +44,7 @@ INSERT INTO stops(name, date_arrived, date_departed, trip_id)
 INSERT INTO stops(name, date_arrived, date_departed, trip_id)
     VALUES('Tokyo', '2022-05-05 09:00:00', '2022-05-26 12:00:00', 5);
 
-INSERT INTO locations(name, date_visited, location_type, geoLocation, stop_id)
+INSERT INTO locations(name, date_visited, location_type, geo_location, stop_id)
     VALUES('Eiffel Tower', '2022-01-02 15:00:00', 'Attraction', '43.58, 1.34', 1);
 INSERT INTO locations(name, date_visited, location_type, geoLocation, stop_id)
     VALUES('CN Tower', '2021-06-19 08:00:00', 'Attraction', '43.64, -79.38', 2);

@@ -82,6 +82,13 @@ app.MapControllers().RequireAuthorization();
 
 app.MapHealthChecks("/health");
 
+app.UseCors(
+            o => o
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowAnyOrigin()
+        );
+
 app.Run();
 
 public partial class Program { };

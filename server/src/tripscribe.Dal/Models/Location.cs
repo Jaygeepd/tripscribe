@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 using Npgsql.Replication.PgOutput.Messages;
 
 namespace tripscribe.Dal.Models;
@@ -14,6 +15,8 @@ public class Location
     [Column("date_visited")] public DateTime DateVisited { get; set; }
 
     [Column("location_type")] public string LocationType { get; set; }
+    
+    // [Column("geo_location")] public Point GeoLocation { get; set; }
     
     [Column("stop_id")] public int StopId { get; set; }
     [ForeignKey(nameof(StopId))] public Stop Stop { get; set; }

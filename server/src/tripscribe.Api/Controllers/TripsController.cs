@@ -1,9 +1,11 @@
 using System.Net;
 using AutoMapper;
 using FluentAssertions.Equivalency.Tracing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Api.ViewModels.Reviews;
+using tripscribe.Api.ViewModels.Stop;
 using tripscribe.Api.ViewModels.Trips;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Services;
@@ -30,6 +32,7 @@ public class TripsController : ControllerBase
     }
     
     [HttpGet]
+    [AllowAnonymous]
     public ActionResult<IList<TripViewModel>> GetTrips([FromQuery] string? title, [FromQuery] DateTime? startTime, [FromQuery] DateTime? endTime)
     {
         var trips = _service.GetTrips(title, startTime, endTime);
@@ -44,6 +47,15 @@ public class TripsController : ControllerBase
         var accounts = _service
             .GetTripAccounts(id);
         return Ok(_mapper.Map<IList<AccountViewModel>>(accounts));
+    }
+    
+    [HttpGet(template:"{id}/stops", Name = "GetTripStops")]
+    public ActionResult<IList<StopViewModel>> GetTripStops(int id)
+    {
+
+        var stops = _service
+            .GetTripStops(id);
+        return Ok(_mapper.Map<IList<StopViewModel>>(stops));
     }
     
     [HttpGet("{id}/reviews", Name = "GetTripReviews")]

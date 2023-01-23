@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace tripscribe.Api.ViewModels.Locations;
 
 public class LocationViewModel
@@ -6,5 +8,6 @@ public class LocationViewModel
     public string Name { get; set; }
     public DateTime DateArrived { get; set; }
     public string LocationType { get; set; }
+    public Point GeoLocation { get; set; }
     public int StopId { get; set; }
 }

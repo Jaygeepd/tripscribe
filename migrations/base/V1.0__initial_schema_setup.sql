@@ -39,7 +39,7 @@ CREATE TABLE locations (
 	name VARCHAR (100) NOT NULL,
 	date_visited TIMESTAMP NOT NULL,
 	location_type VARCHAR (30) NOT NULL,
-	geoLocation POINT NOT NULL,
+	geo_location POINT NOT NULL,
 	stop_id INTEGER NOT NULL,
 	CONSTRAINT fk_stop FOREIGN KEY (stop_id)
 		REFERENCES stops (id)

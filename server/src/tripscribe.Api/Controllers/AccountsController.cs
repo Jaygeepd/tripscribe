@@ -56,6 +56,7 @@ public class AccountsController : ControllerBase
     }
     
     [HttpPost]
+    [AllowAnonymous]
     [ProducesResponseType((int)HttpStatusCode.Created)]
     public ActionResult CreateAccount( [FromBody] CreateAccountViewModel accountDetails)
     {
@@ -69,7 +70,6 @@ public class AccountsController : ControllerBase
     
     [HttpPatch]
     [Route("{id}")]
-    [AllowAnonymous]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public ActionResult UpdateAccount(int id, [FromBody] UpdateAccountViewModel updateDetails)
     {
