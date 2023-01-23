@@ -17,4 +17,6 @@ public interface ITripService
     IList<AccountDTO> GetTripAccounts(int id);
 
     IList<ReviewDTO> GetTripReviews(int id);
+
+    IList<StopDTO> GetTripStops(int id);
 }

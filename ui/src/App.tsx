@@ -39,7 +39,7 @@ function App() {
     <>
       <Grid container>
         <Grid item xs={1.5} sx={{ paddingLeft: "2vw" }}>
-          <LeftPanel />
+          <LeftPanel userLoggedIn={loggedIn}/>
         </Grid>
 
         <Grid item xs={9} alignItems="center" justifyContent="center">

@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { ReactDOM } from "react";
 import { Link } from "react-router-dom";
-import { Stack, Divider, Button, Box, Grid } from "@mui/material";
+import { Stack, Button, } from "@mui/material";
 import { FlightTakeoff } from "@mui/icons-material";
 import { Login, SignUp } from "../index";
 
-function LeftPanel() {
+interface panelProps{
+  userLoggedIn?: boolean | string
+}
+
+function LeftPanel({userLoggedIn}: panelProps) {
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
+
+  if(typeof(userLoggedIn) == "string"){
+    userLoggedIn = false;
+  };
 
   const handleLoginOpen = () => {
     setLoginOpen(true);
@@ -30,6 +38,10 @@ function LeftPanel() {
     marginBottom: 1,
   } as const;
 
+  const handleClickLogOut = () => {
+    setSignupOpen(true);
+  }
+
   return (
     <>
       <Stack alignItems="center" justifyContent="center" sx={{position: "fixed"}}>
@@ -47,6 +59,7 @@ function LeftPanel() {
           Trips
         </Button>
 
+        {!userLoggedIn && 
         <Button
           variant="outlined"
           size="medium"
@@ -55,7 +68,9 @@ function LeftPanel() {
         >
           Log In
         </Button>
+        }
 
+        {!userLoggedIn && 
         <Button
           variant="outlined"
           size="medium"
@@ -64,6 +79,18 @@ function LeftPanel() {
         >
           Sign Up
         </Button>
+        }
+
+        {userLoggedIn && 
+        <Button
+          variant="outlined"
+          size="medium"
+          sx={navButtonStyle}
+          onClick={handleClickLogOut}
+        > 
+          Log Out
+        </Button>
+        }
       </Stack>
 
       <Login dialogState={loginOpen} setState={handleLoginClose} />

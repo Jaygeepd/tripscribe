@@ -2,7 +2,7 @@ import { Stop } from "./stop";
 import { Account } from "./account";
 
 export type Trip = {
-  id: number;
+  id?: string;
   title: string;
   tripDesc: string;
   tripTimestamp: Date;

@@ -16,13 +16,6 @@ const isTokenExpired = (token: any) => {
     return true;
 };
 
-const hasRole = (accessToken: string, ...roles: Roles[]) => {
-    if (!accessToken) return false;
-    const {claims: {role_id}} = jwtDecode(accessToken) as any;
-
-    return roles.includes(role_id);
-}
-
 const getEmail = (accessToken: any) => {
     if (!accessToken) return false;
 
@@ -49,7 +42,6 @@ const getUserId = (accessToken: string) => {
 
 const LoginUtils = {
     isTokenExpired,
-    hasRole,
     getEmail,
     getUserShortDisplay,
     getUserId,

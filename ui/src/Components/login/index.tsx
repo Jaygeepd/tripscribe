@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { ReactDOM } from "react";
-import { useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button } from "@mui/material";
+import { useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, InputAdornment, IconButton } from "@mui/material";
 import { AuthenticationService, StorageService } from "../../services";
 import { StorageTypes } from "../../constants";
 import { AuthContext } from "../../contexts";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 interface hookProps {
     dialogState: boolean;
@@ -15,6 +16,11 @@ interface hookProps {
 function Login(props: hookProps){
     const theme = useTheme();
     const fullScreen:any = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () =>  setShowPassword((show) => !show)
+    const handleMouseDownPassword = () =>  setShowPassword((show) => !show)
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -62,7 +68,7 @@ function Login(props: hookProps){
                 label="Email Address"
                 type="email"
                 fullWidth
-                variant="standard"
+                variant="filled"
                 onChange={(_) => setEmail(_.target.value)}
             />
 
@@ -71,10 +77,23 @@ function Login(props: hookProps){
                 margin="dense"
                 id="passwordField"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 fullWidth
-                variant="standard"
+                variant="filled"
                 onChange={(_) => setPassword(_.target.value)}
+                InputProps={{ 
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
             />
         </DialogContent>
 

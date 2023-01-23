@@ -32,7 +32,7 @@ public class AuthenticationController: TripscribeBaseController
         
         return new AuthenticationResultViewModel
         {
-            AccessToken = GenerateToken(account, 600)
+            AccessToken = GenerateToken(account, 600), RefreshToken = GenerateToken(account, 18000)
         };
     }
     
@@ -46,7 +46,7 @@ public class AuthenticationController: TripscribeBaseController
         
         return new AuthenticationResultViewModel
         {
-            AccessToken = GenerateToken(account, 600)
+            AccessToken = GenerateToken(account, 600), RefreshToken = GenerateToken(account, 18000)
         };
     }
     
@@ -62,7 +62,7 @@ public class AuthenticationController: TripscribeBaseController
              
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, account.Id.ToString()),
                 new Claim(ClaimTypes.Email, account.Email),
                 new Claim(ClaimTypes.Role, "User")
             }),

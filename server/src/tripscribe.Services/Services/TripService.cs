@@ -3,6 +3,7 @@ using tripscribe.Dal.Interfaces;
 using tripscribe.Dal.Models;
 using tripscribe.Dal.Specifications.AccountJourneys;
 using tripscribe.Dal.Specifications.Reviews;
+using tripscribe.Dal.Specifications.Stops;
 using tripscribe.Dal.Specifications.Trips;
 using tripscribe.Services.DTOs;
 using tripscribe.Services.Exceptions;
@@ -87,6 +88,18 @@ public class TripService : ITripService
             .ToList();
     }
 
+    public IList<StopDTO> GetTripStops(int id)
+    {
+        var stopQuery = _database
+            .Get<Stop>()
+            .Where(new StopsByTripIdSpec(id))
+            .Select(x => x);
+
+        return _mapper
+            .ProjectTo<StopDTO>(stopQuery)
+            .ToList();
+    }
+    
     public IList<ReviewDTO> GetTripReviews(int id)
     {
         var reviewQuery = _database

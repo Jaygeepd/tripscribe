@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { ReactDOM } from "react";
 import {
   useMediaQuery,
@@ -10,66 +10,62 @@ import {
   TextField,
   DialogActions,
   Button,
+  Stack,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
 import { AccountService } from "../../services";
 import { Account } from "../../types/account";
 import { toast } from "react-hot-toast";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 interface hookProps {
   dialogState: boolean;
   setState: any;
 }
 
+interface NewAccount extends Account {
+  confirmPassword: string;
+}
+
+const initialAccount: NewAccount = {
+  email: "",
+  firstName: "",
+  lastName: "",
+  password: "",
+  confirmPassword: "",
+};
+
+const accountReducer = (state: NewAccount, action: any) => {
+  switch (action.type) {
+    case "Update":
+      return {
+        ...state,
+        [action.field]: action.value,
+      };
+    default:
+      return state;
+  }
+};
+
 function SignUp(props: hookProps) {
+  const [newAccount, dispatch] = useReducer(accountReducer, initialAccount);
   const theme = useTheme();
   const fullScreen: any = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorState, setErrorState] = useState({
-    firstName: false,
-    lastName: false,
-    password: false,
-    email: false,
-  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const addAccountClick = () => {
-    const formErrors = {
-      firstName: firstName === "",
-      lastName: lastName === "",
-      email: email === "",
-      password: password === "",
-    };
+  const handleClickShowPassword = (clickPassword: boolean) => {
+    clickPassword
+      ? setShowPassword((show) => !show)
+      : setShowConfirmPassword((show) => !show);
+  };
 
-    setErrorState(formErrors);
-
-    if (
-      !formErrors.firstName &&
-      !formErrors.lastName &&
-      !formErrors.email &&
-      !formErrors.password
-    ) {
-        const newAccount:Account = {
-            id: "",
-            email: email,
-            firstName: firstName, 
-            lastName: lastName,
-            password: password,
-        };
-
-        onAddAccount(newAccount);
-        setFirstName("");
-            setLastName("");
-            setEmail("");
-            setErrorState({
-                firstName: false,
-                lastName: false,
-                email: false,
-                password: false,
-            })
-    }
+  const handleMouseDownPassword = (clickPassword: boolean) => {
+    clickPassword
+      ? setShowPassword((show) => !show)
+      : setShowConfirmPassword((show) => !show);
   };
 
   const onAddAccount = async (newAccount: Account) => {
@@ -99,52 +95,105 @@ function SignUp(props: hookProps) {
             Enter details below to create your Tripscribe account
           </DialogContentText>
 
-          <TextField
-            autoFocus
-            value={email}
-            required
-            helperText={errorState.email && "Email is required"}
-            error={errorState.email}
-            label="Email Address"
-            fullWidth
-            onChange={(_) => setEmail(_.target.value)}
-          />
+          <Stack spacing={2} sx={{ paddingTop: "2vh" }}>
+            <TextField
+              autoFocus
+              variant="filled"
+              label="Email Address"
+              onChange={(e) =>
+                dispatch({
+                  value: e.target.value,
+                  type: "Update",
+                  field: "email",
+                })
+              }
+              value={newAccount.email}
+            />
 
-          <TextField
-            value={firstName}
-            required
-            helperText={errorState.firstName && "First Name is required"}
-            error={errorState.firstName}
-            label="First Name"
-            fullWidth
-            onChange={(_) => setFirstName(_.target.value)}
-          />
+            <TextField
+              label="First Name"
+              variant="filled"
+              onChange={(e) =>
+                dispatch({
+                  value: e.target.value,
+                  type: "Update",
+                  field: "firstName",
+                })
+              }
+              value={newAccount.firstName}
+            />
 
-          <TextField
-            value={lastName}
-            required
-            helperText={errorState.lastName && "Last Name is required"}
-            error={errorState.lastName}
-            label="Last Name"
-            fullWidth
-            onChange={(_) => setLastName(_.target.value)}
-          />
+            <TextField
+              label="Last Name"
+              variant="filled"
+              onChange={(e) =>
+                dispatch({
+                  value: e.target.value,
+                  type: "Update",
+                  field: "lastName",
+                })
+              }
+              value={newAccount.lastName}
+            />
 
-          <TextField
-            value={password}
-            required
-            helperText={errorState.password && "Password is required"}
-            error={errorState.password}
-            label="Password"
-            fullWidth
-            onChange={(_) => setPassword(_.target.value)}
-          />
+            <TextField
+              label="Password"
+              variant="filled"
+              type={showPassword ? "text" : "password"}
+              onChange={(e) =>
+                dispatch({
+                  value: e.target.value,
+                  type: "Update",
+                  field: "password",
+                })
+              }
+              value={newAccount.password}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={(e) => handleClickShowPassword(true)}
+                      onMouseDown={(e) => handleMouseDownPassword(true)}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
 
-
+            <TextField
+              label="Confirm Password"
+              variant="filled"
+              type={showConfirmPassword ? "text" : "password"}
+              onChange={(e) =>
+                dispatch({
+                  value: e.target.value,
+                  type: "Update",
+                  field: "confirmPassword",
+                })
+              }
+              value={newAccount.confirmPassword}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={(e) => handleClickShowPassword(false)}
+                      onMouseDown={(e) => handleMouseDownPassword(false)}
+                    >
+                      {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Stack>
         </DialogContent>
 
         <DialogActions>
-          <Button variant="contained" onClick={addAccountClick}>
+          <Button variant="contained" onClick={() => onAddAccount(newAccount)}>
             Sign Up
           </Button>
           <Button onClick={props.setState}>Back</Button>

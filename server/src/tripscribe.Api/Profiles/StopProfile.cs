@@ -15,8 +15,7 @@ public class StopProfile : Profile
 
     private void ConfigureDTOToViewModel()
     {
-        CreateMap<StopDTO, StopViewModel>()
-            .ForMember(d => d.Id, o => o.Ignore());
+        CreateMap<StopDTO, StopViewModel>();
     }
 
     private void ConfigureViewModelToDTO()

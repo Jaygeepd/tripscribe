@@ -1,7 +1,7 @@
 import { Trip } from "./trip";
 
 export type Account = {
-    id: string,
+    id?: string,
     email: string, 
     firstName: string,
     lastName: string, 

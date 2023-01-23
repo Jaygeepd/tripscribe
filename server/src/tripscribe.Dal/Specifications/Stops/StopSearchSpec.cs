@@ -9,14 +9,14 @@ public class StopSearchSpec : Specification<Stop>
 {
     private readonly Specification<Stop> _spec;
 
-    public StopSearchSpec(string? name, DateTime? arrivedStartDate, DateTime? arrivedEndDate, DateTime? departedStartDate, DateTime? departedEndDate, int? journeyId)
+    public StopSearchSpec(string? name, DateTime? arrivedStartDate, DateTime? arrivedEndDate, DateTime? departedStartDate, DateTime? departedEndDate, int? tripId)
     {
         _spec = new StopsByNameSpec(name)
             .Or(new StopsByStartDateArrivedSpec(arrivedStartDate))
             .Or(new StopsByEndDateArrivedSpec(arrivedEndDate))
             .Or(new StopsByStartDateDepartedSpec(departedStartDate))
             .Or(new StopsByEndDateDepartedSpec(departedEndDate))
-            .Or(new StopsByJourneyIdSpec(journeyId));
+            .Or(new StopsByTripIdSpec(tripId));
     }
 
     public override Expression<Func<Stop, bool>> BuildExpression() => _spec.BuildExpression();

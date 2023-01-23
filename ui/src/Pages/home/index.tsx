@@ -8,21 +8,31 @@ import { Trip } from "../../types/trip";
 import { Stop } from "../../types/stop";
 import { TripService } from "../../services";
 
+const tempTrip: Trip = {
+  id: "20",
+  title: "French Trip",
+  tripDesc: "Days spent in France, specifically around Paris",
+  tripTimestamp: new Date(2023, 1, 1),
+  public: true,
+};
+
+const tempStop: Stop = {
+  id: "20",
+  stopName: "Paris",
+  dateArrived: new Date(2022, 1, 2),
+  dateDeparted: new Date(2022, 1, 4),
+  tripId: "20",
+};
+
 const tempLoc: Location = {
+  id: "20",
   locName: "Eiffel Tower",
   latitude: 48.8584,
   longitude: 2.2945,
   dateVisited: new Date(2022, 2, 2),
   locationType: "Tourist Spot",
+  stopId: "20",
 };
-
-const tempTrip: Trip = {
-  id: 20,
-  title: "French Trip", 
-  tripDesc: "Days spent in France, specifically around Paris",
-  tripTimestamp: new Date(2023, 1, 1),
-  public: true
-}
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,6 +73,10 @@ function Home() {
       </Paper>
     </>
   );
+}
+
+function getDateRange(trip: Trip) {
+  
 }
 
 export default Home;

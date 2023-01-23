@@ -4,11 +4,11 @@ using Unosquare.EntityFramework.Specification.Common.Primitive;
 
 namespace tripscribe.Dal.Specifications.Stops;
 
-public class StopsByJourneyIdSpec : Specification<Stop>
+public class StopsByTripIdSpec : Specification<Stop>
 {
     private readonly int? _tripId;
     
-    public StopsByJourneyIdSpec(int? id) => _tripId = id;
+    public StopsByTripIdSpec(int? id) => _tripId = id;
 
     public override Expression<Func<Stop, bool>> BuildExpression()
     {
