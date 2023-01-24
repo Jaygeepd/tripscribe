@@ -13,7 +13,7 @@ function LeftPanel({userLoggedIn}: panelProps) {
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
 
-  if(typeof(userLoggedIn) == "string"){
+  if(userLoggedIn === "string"){
     userLoggedIn = false;
   };
 

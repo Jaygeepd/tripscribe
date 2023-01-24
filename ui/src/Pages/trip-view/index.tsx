@@ -9,22 +9,6 @@ import { TripService } from "../../services";
 import { Stop } from "../../types/stop";
 import { Location } from "../../types/location";
 
-const tempTrip: Trip = {
-  id: "20",
-  title: "French Trip", 
-  tripDesc: "Days spent in France, specifically around Paris",
-  tripTimestamp: new Date(2023, 1, 1),
-  public: true
-}
-
-const tempStop: Stop = {
-  id: "20",
-  stopName: "Paris",
-  dateArrived: new Date(2022, 1, 2),
-  dateDeparted: new Date(2022, 1, 4),
-  tripId: "20"
-};  
-
 const tempLoc: Location = {
   id: "20",
   locName: "Eiffel Tower",
@@ -34,6 +18,24 @@ const tempLoc: Location = {
   locationType: "Tourist Spot",
   stopId: "20"
 };
+
+const tempStop: Stop = {
+  id: "20",
+  stopName: "Paris",
+  dateArrived: new Date(2022, 1, 2),
+  dateDeparted: new Date(2022, 1, 4),
+  tripId: "20",
+  stopLocations: [tempLoc]
+};
+
+const tempTrip: Trip = {
+  id: "20",
+  title: "French Trip", 
+  tripDesc: "Days spent in France, specifically around Paris",
+  tripTimestamp: new Date(2023, 1, 1),
+  public: true,
+  tripStops: [tempStop]
+}
 
 function TripViewPage() {
 
