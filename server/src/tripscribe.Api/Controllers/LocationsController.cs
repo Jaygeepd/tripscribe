@@ -1,6 +1,7 @@
 using System.Drawing;
 using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using tripscribe.Api.ViewModels.Locations;
 using tripscribe.Api.ViewModels.Reviews;
@@ -20,6 +21,7 @@ public class LocationsController : ControllerBase
         (_mapper, _service) = (mapper, service);
     
     [HttpGet]
+    [AllowAnonymous]
     public ActionResult<IList<LocationViewModel>> GetLocations([FromQuery] string? name, [FromQuery] string? locationType, 
         [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] Point? geoLocation, [FromQuery] int? stopId)
     {

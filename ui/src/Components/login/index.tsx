@@ -8,12 +8,12 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-interface hookProps {
+interface IHookProps {
     dialogState: boolean;
     setState: any;
 }
 
-function Login(props: hookProps){
+function Login(props: IHookProps){
     const theme = useTheme();
     const fullScreen:any = useMediaQuery(theme.breakpoints.down('sm'));
 

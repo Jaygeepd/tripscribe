@@ -19,7 +19,7 @@ import { Account } from "../../types/account";
 import { toast } from "react-hot-toast";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-interface hookProps {
+interface IHookProps {
   dialogState: boolean;
   setState: any;
 }
@@ -48,7 +48,7 @@ const accountReducer = (state: NewAccount, action: any) => {
   }
 };
 
-function SignUp(props: hookProps) {
+function SignUp(props: IHookProps) {
   const [newAccount, dispatch] = useReducer(accountReducer, initialAccount);
   const theme = useTheme();
   const fullScreen: any = useMediaQuery(theme.breakpoints.down("sm"));
