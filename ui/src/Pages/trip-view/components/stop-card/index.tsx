@@ -83,7 +83,7 @@ function StopCard({ stop }: IStopProps) {
             sx={{ paddingTop: "2vh", paddingBottom: "2vh", paddingLeft:"3vw"}}
           >
             <Grid item xs={12} md={6}>
-              <Button variant="contained" component={Link} to={`/stop-edit/${stop.id}`}>Edit Stop</Button>
+              <Button variant="contained" component={Link} to={`/stop-view/${stop.id}`}>View Stop</Button>
             </Grid>
             <Grid item xs={12} md={6}>
               <Button variant="contained" component={Link} to={`/create-location/${stop.id}`}>Add Location</Button>
