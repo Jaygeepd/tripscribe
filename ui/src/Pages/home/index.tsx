@@ -54,12 +54,19 @@ function Home() {
   const [trips, setTrips] = useState([tempTrip]);
   const [locations, setLocations] = useState([tempLoc]);
 
+  const LoadInitData = async () => {
+    const [foundTrips, foundLocations] = await Promise.all([
+      TripService.getAllTrips(),
+      LocationService.getAllLocations()
+    ])
+
+    setTrips(await foundTrips.json());
+    setLocations(await foundLocations.json());
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    TripService.getAllTrips().then(async (response) => {
-      const foundTrips = await response.json();
-      setTrips(foundTrips);
-      setIsLoading(false);
-    });
+    LoadInitData()
   }, []);
 
   useEffect(() => {
