@@ -8,7 +8,7 @@ import { Trip } from "../../types/trip";
 import { StopService, TripService } from "../../services";
 import { Stop } from "../../types/stop";
 import { Location } from "../../types/location";
-import { StopCard } from "./components";
+import { CreateStop, StopCard } from "./components";
 
 const tempLoc: Location = {
   id: "20",
@@ -50,7 +50,15 @@ const tempTrip: Trip = {
 function TripViewPage() {
   const { tripId } = useParams();
 
-  console.log(tripId);
+  const [ createStopOpen, setCreateStopOpen ] = useState(false);
+
+  const handleStopOpen = () => {
+    setCreateStopOpen(true);
+  };
+
+  const handleStopClose = () => {
+    setCreateStopOpen(false);
+  };
 
   const [isLoading, setIsLoading] = useState(true);
   const [trip, setTrip] = useState(tempTrip);
@@ -62,14 +70,14 @@ function TripViewPage() {
       setTrip(foundTrip);
       setIsLoading(false);
     });
-  });
+  }, []);
 
   // useEffect(() => {
   //   StopService.getStopsByTripId(tripId as string).then(async (response) => {
   //     const foundStops = await response.json();
   //     setStops(foundStops);
   //   });
-  // });
+  // }, []);
 
   
 
@@ -104,9 +112,12 @@ function TripViewPage() {
               {stopCards}
           </Grid>
         </Stack>
-        <Button variant="contained" component={Link} to={`/create-stop/${tripId}`}>Add Stop</Button>
+        <Button variant="contained" onClick={handleStopOpen}>Add Stop</Button>
       </Paper>
+      
+    <CreateStop currTripId={tripId ?? "1"} dialogState={createStopOpen} setState={handleStopClose} />
     </>
+
   );
 }
 export default TripViewPage;

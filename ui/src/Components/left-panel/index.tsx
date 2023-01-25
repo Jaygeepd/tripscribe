@@ -102,8 +102,6 @@ function LeftPanel() {
             <h2>Jane Doe</h2>
           </>
         )}
-
-        {loggedIn && <UserDisplay />}
       </Stack>
 
       <Login dialogState={loginOpen} setState={handleLoginClose} />

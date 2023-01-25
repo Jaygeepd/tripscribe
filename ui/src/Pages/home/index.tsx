@@ -60,7 +60,7 @@ function Home() {
       setTrips(foundTrips);
       setIsLoading(false);
     });
-  });
+  }, []);
 
   useEffect(() => {
     LocationService.getAllLocations().then(async (response) => {
@@ -68,7 +68,7 @@ function Home() {
       setLocations(foundLocations);
       setIsLoading(false);
     });
-  });
+  }, []);
 
   if (isLoading) return <div>Loading</div>;
 
@@ -88,7 +88,7 @@ function Home() {
         }}
       >
         <Stack>
-          <Map locationList={locations ?? tempStop.stopLocations} zoomLevel={13} />
+          {/* <Map locationList={locations ?? tempStop.stopLocations} zoomLevel={13} /> */}
           <Divider />
           <h1>Trips</h1>
           <Divider />

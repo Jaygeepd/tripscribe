@@ -1,6 +1,19 @@
 import { Stop } from "../types/stop";
 import { FetchUtils } from "../utils";
 
+const createStop = async (newStop: Stop) => {
+  const { stopName, dateArrived, dateDeparted, tripId } = newStop;
+  return await FetchUtils.fetchInstance(`accounts`, {
+    method: "POST",
+    body: JSON.stringify({
+      stopName,
+      dateArrived,
+      dateDeparted,
+      tripId,
+    }),
+  });
+};
+
 const updateStop = async (updateStop: Stop) => {
   return await FetchUtils.fetchInstance(`stops/${updateStop.id}`, {
     method: "PATCH",
@@ -32,6 +45,7 @@ const getStopsByTripId = async (tripId: string) => {
 };
 
 export default {
+  createStop,
   updateStop,
   deleteStop,
   getStop,
