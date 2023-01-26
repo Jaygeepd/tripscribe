@@ -24,6 +24,14 @@ const getEmail = (accessToken: any) => {
     return email;
 };
 
+const getUserFullDisplay = (accessToken: any): string => {
+    if (!accessToken) return "";
+
+    const {claims: {first_name, last_name}} = jwtDecode(accessToken) as any;
+
+    return `${first_name} ${last_name}`;
+};
+
 const getUserShortDisplay = (accessToken: any): string => {
     if (!accessToken) return "";
 
@@ -44,6 +52,7 @@ const LoginUtils = {
     isTokenExpired,
     getEmail,
     getUserShortDisplay,
+    getUserFullDisplay,
     getUserId,
 };
 

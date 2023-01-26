@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Tripscribe.Api;
+using tripscribe.Api.Authentication;
 using Tripscribe.Api.Authentication;
 using tripscribe.Api.Filters;
 using tripscribe.Dal.Contexts;

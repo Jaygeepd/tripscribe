@@ -9,7 +9,7 @@ CREATE TABLE accounts (
 CREATE TABLE trips (
 	id serial PRIMARY KEY,
 	title VARCHAR (100) NOT NULL,
-	description TEXT NOT NULL,
+	description TEXT,
 	timestamp TIMESTAMP NOT NULL,
 	public BOOLEAN DEFAULT FALSE
 );
