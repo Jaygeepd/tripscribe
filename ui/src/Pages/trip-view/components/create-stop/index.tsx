@@ -25,8 +25,6 @@ interface IHookProps {
   setState: any;
 }
 
-
-
 function CreateStop(props: IHookProps) {
   const theme = useTheme();
   const fullScreen: any = useMediaQuery(theme.breakpoints.down("sm"));
@@ -42,15 +40,12 @@ function CreateStop(props: IHookProps) {
   );
 
   const handleDateChange = (newValue: Date | null) => {
-    if(newValue === undefined){
+    if (newValue === undefined) {
       let dateValue: Date = dateFns.date(new Date());
-    }
-    else {
+    } else {
       let dateValue: Date = newValue as Date;
     }
-
-
-  }
+  };
 
   const createStop = async () => {
     const newStop: Stop = {

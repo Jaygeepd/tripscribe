@@ -113,6 +113,7 @@ function TripViewPage() {
             variant="contained"
             startIcon={<Edit />}
             sx={{ maxWidth: "20%" }}
+            onClick={() => handleEditOpen}
           >
             Edit Trip
           </Button>
