@@ -38,11 +38,17 @@ const getLocation = async (locationId: string) => {
 
 const getLocationsByStop = async (stopId: string) => {
   return (
-    await FetchUtils.fetchInstance(`/stops/${stopId}/locations`),
+    await FetchUtils.fetchInstance(`stops/${stopId}/locations`),
     {
       method: "GET",
     }
   );
+};
+
+const getAllLocations = async () => {
+  return await FetchUtils.fetchInstance(`locations`, {
+    method: "GET",
+  });
 };
 
 export default {
@@ -51,4 +57,5 @@ export default {
   deleteLocation,
   getLocation,
   getLocationsByStop,
+  getAllLocations,
 };

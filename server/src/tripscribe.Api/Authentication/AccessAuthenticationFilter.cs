@@ -1,13 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Tripscribe.Api.Authentication;
+namespace tripscribe.Api.Authentication;
 
 public class AccessAuthenticationFilter: AuthenticationHandler<AuthenticationSchemeOptions>
 {

@@ -81,11 +81,13 @@ public class TripsController : ControllerBase
     [HttpPatch]
     [Route("{id}")]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public ActionResult UpdateTrip(int id, [FromBody] UpdateTripViewModel tripDetails)
+    public ActionResult UpdateTrip(int id, [FromBody] UpdateTripViewModel updateDetails)
     {
-        var trip = _mapper.Map<TripDTO>(tripDetails);
+        var existingTrip = _service.GetTrip(id);
 
-        _service.UpdateTrip(id, trip);
+        _mapper.Map(updateDetails, existingTrip);
+
+        _service.UpdateTrip(id, existingTrip);
         
         return NoContent();
     }

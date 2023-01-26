@@ -9,23 +9,20 @@ export interface ITripProps {
 }
 
 const dateRange = (startDate?: Date, endDate?: Date): string => {
-  
-  if (startDate == null || endDate == null){ 
-    return "No Date Range Found"
+  if (startDate == null || endDate == null) {
+    return "No Date Range Found";
   }
-  
+
   return dateFormat(startDate, "dd/MM/yyyy")
     .concat(" - ")
     .concat(dateFormat(endDate, "dd/MM/yyyy"));
+};
 
-
-  }
-
-function TripDetails({trip}: ITripProps) {
-
-  const dateRangeString = useMemo<string>(() => dateRange(trip.tripStartDate, trip.tripEndDate),
-   [trip.tripStartDate, trip.tripEndDate]
-   )
+function TripDetails({ trip }: ITripProps) {
+  const dateRangeString = useMemo<string>(
+    () => dateRange(trip.tripStartDate, trip.tripEndDate),
+    [trip.tripStartDate, trip.tripEndDate]
+  );
 
   return (
     <Paper elevation={12} sx={{ padding: "2vh", marginBottom: "3vh" }}>
@@ -34,14 +31,13 @@ function TripDetails({trip}: ITripProps) {
         <h4>{dateRangeString}</h4>
         <p>{trip.tripDesc}</p>
         <Button
-        sx={{ marginLeft: "45vw", width: "15vw" }} 
-        variant="contained"
-        component={Link} to={`/trips/${trip.id}`}
+          sx={{ marginLeft: "45vw", width: "15vw" }}
+          variant="contained"
+          component={Link}
+          to={`/trips/${trip.id}`}
         >
           Journey Details
         </Button>
-         
-        
       </Stack>
     </Paper>
   );
