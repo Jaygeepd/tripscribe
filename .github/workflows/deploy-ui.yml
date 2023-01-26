@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'ui/**'
+    # paths:
+    #   - 'ui/**'
 
 defaults:
  run:
@@ -28,9 +28,10 @@ jobs:
       with:
         node-version: '18'
     - name: npm build
-      id: build-ui
-      env:
-        REACT_APP_API_URL: ${{ secrets.API_URL }}
-      run: npm i && npm run-script build
+        id: build-ui
+        run: npm run build
+        env:
+          REACT_APP_API_URL: ${{ secrets.API_URL }}
+          CI: false
     - name: updated app to s3
       run: aws s3 sync build s3://tripscribe/
