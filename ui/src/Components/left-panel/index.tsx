@@ -6,7 +6,6 @@ import { FlightTakeoff } from "@mui/icons-material";
 import { Login, SignUp } from "../index";
 import { AuthContext } from "../../contexts";
 import { LoginUtils } from "../../utils";
-import { UserDisplay } from "./components";
 
 function LeftPanel() {
   const [loginOpen, setLoginOpen] = useState(false);
@@ -98,8 +97,8 @@ function LeftPanel() {
             >
               Log Out
             </Button>
-            <Avatar>JD</Avatar>
-            <h2>Jane Doe</h2>
+            {/* <Avatar>{LoginUtils.getUserShortDisplay(state.accessToken)}</Avatar>
+            <h2>{LoginUtils.getUserFullDisplay(state.accessToken)}</h2> */}
           </>
         )}
       </Stack>

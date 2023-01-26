@@ -8,7 +8,7 @@ import { Trip } from "../../types/trip";
 import { StopService, TripService } from "../../services";
 import { Stop } from "../../types/stop";
 import { Location } from "../../types/location";
-import { CreateStop, StopCard } from "./components";
+import { CreateStop, StopCard, EditTrip } from "./components";
 
 const tempLoc: Location = {
   id: "20",
@@ -51,6 +51,15 @@ function TripViewPage() {
   const { tripId } = useParams();
 
   const [ createStopOpen, setCreateStopOpen ] = useState(false);
+  const [ editTripOpen, setTripOpen ] = useState(false);
+
+  const handleEditOpen = () => {
+    setTripOpen(true);
+  };
+
+  const handleEditClose = () => {
+    setTripOpen(false);
+  };
 
   const handleStopOpen = () => {
     setCreateStopOpen(true);
@@ -116,6 +125,7 @@ function TripViewPage() {
       </Paper>
       
     <CreateStop currTripId={tripId ?? "1"} dialogState={createStopOpen} setState={handleStopClose} />
+    <EditTrip dialogState={editTripOpen} setState={handleEditClose} currTrip={trip} />
     </>
 
   );

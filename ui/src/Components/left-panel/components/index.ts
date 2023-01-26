@@ -1,1 +1,0 @@
-export {default as UserDisplay} from "./user-display";

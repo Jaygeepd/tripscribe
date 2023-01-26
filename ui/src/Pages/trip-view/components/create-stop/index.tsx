@@ -25,6 +25,8 @@ interface IHookProps {
   setState: any;
 }
 
+
+
 function CreateStop(props: IHookProps) {
   const theme = useTheme();
   const fullScreen: any = useMediaQuery(theme.breakpoints.down("sm"));
@@ -32,8 +34,23 @@ function CreateStop(props: IHookProps) {
   const dateFns = new DateFnsAdapter();
 
   const [newStopName, setNewStopName] = useState("");
-  const [newDateArrived, setDateArrived] = useState<Date | null>(dateFns.date(new Date()));
-  const [newDateDeparted, setDateDeparted] = useState<Date | null>(dateFns.date(new Date()));
+  const [newDateArrived, setDateArrived] = useState<Date | null>(
+    dateFns.date(new Date())
+  );
+  const [newDateDeparted, setDateDeparted] = useState<Date | null>(
+    dateFns.date(new Date())
+  );
+
+  const handleDateChange = (newValue: Date | null) => {
+    if(newValue === undefined){
+      let dateValue: Date = dateFns.date(new Date());
+    }
+    else {
+      let dateValue: Date = newValue as Date;
+    }
+
+
+  }
 
   const createStop = async () => {
     const newStop: Stop = {
@@ -82,7 +99,7 @@ function CreateStop(props: IHookProps) {
               label="Date Arrived"
               inputFormat="dd/MM/YYYY"
               value={newDateArrived}
-              onChange={(newValue: Date | null) => setDateArrived(dateFns.format(newValue))}
+              onChange={(newValue: Date | null) => setDateArrived(newValue)}
               renderInput={(params) => <TextField {...params} />}
             />
 
