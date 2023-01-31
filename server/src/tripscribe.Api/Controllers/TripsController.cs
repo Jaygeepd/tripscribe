@@ -24,16 +24,16 @@ public class TripsController : ControllerBase
         (_mapper, _service) = (mapper, service);
     
     [HttpGet("{id}")]
-    public ActionResult<TripViewModel> GetTrip(int id)
+    public ActionResult<TripDetailViewModel> GetTrip(int id)
     {
         var trip = _service.GetTrip(id);
         
-        return Ok(_mapper.Map<TripViewModel>(trip));
+        return Ok(_mapper.Map<TripDetailViewModel>(trip));
     }
     
     [HttpGet]
     [AllowAnonymous]
-    public ActionResult<IList<TripViewModel>> GetTrips([FromQuery] string? title, [FromQuery] DateTime? startTime, [FromQuery] DateTime? endTime)
+    public ActionResult<IList<TripViewModel>> GetTrips([FromQuery] string? title, [FromQuery] DateTime? startTime, [FromQuery] DateTime? endTime, [FromQuery] Boolean? publicView)
     {
         var trips = _service.GetTrips(title, startTime, endTime);
         

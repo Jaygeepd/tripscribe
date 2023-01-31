@@ -15,6 +15,10 @@ public class Trip
 
     [Column("timestamp")] public DateTime Timestamp { get; set; }
     
+    [Column("public_view")] public Boolean PublicView { get; set; }
+    
+    public ICollection<Stop> TripStops { get; set; }
+
     public ICollection<AccountTrip> AccountTrips { get; set; }
     
     public ICollection<TripReview> TripReviews { get; set; }

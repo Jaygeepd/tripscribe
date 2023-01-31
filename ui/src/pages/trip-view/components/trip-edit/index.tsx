@@ -58,6 +58,7 @@ function EditTrip(props: IHookProps) {
         fullScreen={fullScreen}
         open={props.dialogState}
         onClose={props.setState}
+        
       >
         <DialogTitle>Edit Trip</DialogTitle>
 
@@ -68,6 +69,9 @@ function EditTrip(props: IHookProps) {
         <Stack spacing={2} sx={{ paddingTop: "2vh" }}>
           <TextField
             autoFocus
+            margin="dense"
+            fullWidth
+            sx={{width: "30vw"}}
             variant="filled"
             label="Trip Title"
             value={updateTrip.title}
@@ -83,7 +87,7 @@ function EditTrip(props: IHookProps) {
           <TextField
             variant="filled"
             label="Trip Description"
-            value={updateTrip.tripDesc}
+            value={updateTrip.description}
             onChange={(e) => {
               dispatch({
                 value: e.target.value,
@@ -99,7 +103,7 @@ function EditTrip(props: IHookProps) {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={updateTrip.public}
+                  checked={updateTrip.publicView}
                   onChange={(e) => {
                     dispatch({
                       value: e.target.checked,

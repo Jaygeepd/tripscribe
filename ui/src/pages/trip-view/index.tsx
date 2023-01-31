@@ -1,4 +1,4 @@
-import { Edit } from "@mui/icons-material";
+import { Edit, SettingsBrightnessSharp } from "@mui/icons-material";
 import { Grid, IconButton, Paper, Stack, Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
@@ -10,48 +10,19 @@ import { Stop } from "../../types/stop";
 import { Location } from "../../types/location";
 import { CreateStop, StopCard, EditTrip } from "./components";
 
-const tempLoc: Location = {
-  id: "20",
-  locName: "Eiffel Tower",
-  latitude: 48.8584,
-  longitude: 2.2945,
-  dateVisited: new Date(2022, 1, 1),
-  locationType: "Tourist Spot",
-  stopId: "20",
-};
-
-const tempStop: Stop = {
-  id: "20",
-  stopName: "Paris",
-  dateArrived: new Date(2022, 1, 1),
-  dateDeparted: new Date(2022, 1, 4),
-  tripId: "20",
-  stopLocations: [tempLoc],
-};
-
-const tempStop2: Stop = {
-  id: "21",
-  stopName: "Nice",
-  dateArrived: new Date(2022, 1, 4),
-  dateDeparted: new Date(2022, 1, 6),
-  tripId: "20",
-  stopLocations: [tempLoc],
-};
-
 const tempTrip: Trip = {
   id: "20",
   title: "French Trip",
-  tripDesc: "Days spent in France, specifically around Paris",
-  tripTimestamp: new Date(2023, 1, 1),
-  public: true,
-  tripStops: [tempStop, tempStop2],
+  description: "Days spent in France, specifically around Paris",
+  timestamp: new Date(2023, 1, 1),
+  publicView: true,
 };
 
 function TripViewPage() {
   const { tripId } = useParams();
 
-  const [ createStopOpen, setCreateStopOpen ] = useState(false);
-  const [ editTripOpen, setTripOpen ] = useState(false);
+  const [createStopOpen, setCreateStopOpen] = useState(false);
+  const [editTripOpen, setTripOpen] = useState(false);
 
   const handleEditOpen = () => {
     setTripOpen(true);
@@ -70,34 +41,33 @@ function TripViewPage() {
   };
 
   const [isLoading, setIsLoading] = useState(true);
-  const [trip, setTrip] = useState(tempTrip);
-  const [stops, setStops] = useState([tempStop, tempStop2]);
+  const [trip, setTrip] = useState<Trip>(tempTrip);
+
+  const LoadInitData = async () => {
+    const [foundTrip] = await Promise.all([
+      TripService.getTrip(tripId as string),
+    ]);
+
+    setTrip(await foundTrip.json());
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    TripService.getTrip(tripId as string).then(async (response) => {
-      const foundTrip = await response.json();
-      setTrip(foundTrip);
-      setIsLoading(false);
-    });
+    LoadInitData();
   }, []);
 
-  // useEffect(() => {
-  //   StopService.getStopsByTripId(tripId as string).then(async (response) => {
-  //     const foundStops = await response.json();
-  //     setStops(foundStops);
-  //   });
-  // }, []);
-
-  
-
   if (isLoading) return <div>Loading</div>;
-  
-  const stopCards = stops.map((singleStop: Stop) => (
-    
-    <Grid key={singleStop.id} item xs={12} md={6}>
-    <StopCard key={singleStop.id} stop={singleStop} />
-    </Grid>
-  ));
+
+  const buildStopCards = (stops: Stop[] | undefined) => {
+
+    if (stops === undefined) return;
+
+    return stops.map((singleStop: Stop) => (
+      <Grid key={singleStop.id} item xs={12} md={6}>
+        <StopCard key={singleStop.id} stop={singleStop} />
+      </Grid>
+    ));
+  };
 
   return (
     <>
@@ -109,26 +79,34 @@ function TripViewPage() {
           {/* <Map locationList={tempStop.stopLocations ?? [tempLoc]} zoomLevel={13} /> */}
 
           <h1>{trip.title}</h1>
+          <h3>{trip.description}</h3>
           <Button
             variant="contained"
             startIcon={<Edit />}
             sx={{ maxWidth: "20%" }}
-            onClick={() => handleEditOpen}
+            onClick={handleEditOpen}
           >
             Edit Trip
           </Button>
 
-          <Grid container>
-              {stopCards}
-          </Grid>
+          <Grid container>{buildStopCards(trip.stops)}</Grid>
         </Stack>
-        <Button variant="contained" onClick={handleStopOpen}>Add Stop</Button>
+        <Button variant="contained" onClick={handleStopOpen}>
+          Add Stop
+        </Button>
       </Paper>
-      
-    <CreateStop currTripId={tripId ?? "1"} dialogState={createStopOpen} setState={handleStopClose} />
-    <EditTrip dialogState={editTripOpen} setState={handleEditClose} currTrip={trip} />
-    </>
 
+      <CreateStop
+        currTripId={tripId ?? "1"}
+        dialogState={createStopOpen}
+        setState={handleStopClose}
+      />
+      <EditTrip
+        dialogState={editTripOpen}
+        setState={handleEditClose}
+        currTrip={trip}
+      />
+    </>
   );
 }
 export default TripViewPage;

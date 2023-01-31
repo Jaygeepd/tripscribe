@@ -14,7 +14,7 @@ public class TripProfile : Profile
 
     private void ConfigureDomainToDto()
     {
-        CreateMap<Trip, TripDTO>();
+        CreateMap<Trip, TripDTO>().ForMember(d => d.Stops, s => s.MapFrom(x => x.TripStops));
     }
     
     private void ConfigureDtoToDomain()

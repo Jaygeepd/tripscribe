@@ -11,15 +11,15 @@ INSERT INTO accounts(first_name, last_name, email, password)
 INSERT INTO accounts(first_name, last_name, email, password)
     VALUES('Ritchard', 'Waterson', 'richhawk@example.com', '$2a$11$aI7b3zWnfwqoOHKl6xU8i.L0X7hxcqZYaGeJlWIz1xkjSdWoEmUYa');
 
-INSERT INTO trips(title, description, timestamp, public)
+INSERT INTO trips(title, description, timestamp, public_view)
     VALUES('My French Trip', 'Days in Paris', '2022-01-05 08:00:00', TRUE);
-INSERT INTO trips(title, description, timestamp, public)
+INSERT INTO trips(title, description, timestamp, public_view)
     VALUES('Canadian Adventure', 'Trekking Canada!', '2021-07-10 17:30:00', TRUE);
-INSERT INTO trips(title, description, timestamp, public)
+INSERT INTO trips(title, description, timestamp, public_view)
     VALUES('Sleepless in Seattle', 'Love the rainy city:)', '2020-04-22 20:00:00', TRUE);
-INSERT INTO trips(title, description, timestamp, public)
+INSERT INTO trips(title, description, timestamp, public_view)
     VALUES('Interrailing', 'Sweatshirt Pillows', '2020-06-16 00:45:00', TRUE);
-INSERT INTO trips(title, description, timestamp, public)
+INSERT INTO trips(title, description, timestamp, public_view)
     VALUES('Japan Jaunt', 'Hokkaido and Honshu', '2022-05-29 13:15:00', TRUE);
 
 INSERT INTO account_trips(account_id, trip_id)

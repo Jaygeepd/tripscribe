@@ -20,10 +20,10 @@ public class StopsController : ControllerBase
         (_mapper, _service) = (mapper, service);
     
     [HttpGet("{id}", Name = "GetStopById")]
-    public ActionResult<StopViewModel> GetStop(int id)
+    public ActionResult<StopDetailViewModel> GetStop(int id)
     {
         var stop = _service.GetStop(id);
-        return Ok(_mapper.Map<StopViewModel>(stop));
+        return Ok(_mapper.Map<StopDetailViewModel>(stop));
     }
     
     [HttpGet]

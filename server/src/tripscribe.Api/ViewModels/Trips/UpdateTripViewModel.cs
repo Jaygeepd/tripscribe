@@ -7,6 +7,8 @@ public class UpdateTripViewModel
     public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
+    
+    public Boolean PublicView { get; set; }
 }
 
 public class UpdateTripValidator : AbstractValidator<UpdateTripViewModel>

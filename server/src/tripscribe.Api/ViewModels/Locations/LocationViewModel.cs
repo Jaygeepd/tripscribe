@@ -6,8 +6,9 @@ public class LocationViewModel
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public DateTime DateArrived { get; set; }
+    public DateTime DateVisited { get; set; }
     public string LocationType { get; set; }
-    public Point GeoLocation { get; set; }
+    public double latitude { get; set; }
+    public double longitude { get; set; }
     public int StopId { get; set; }
 }

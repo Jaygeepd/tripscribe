@@ -10,5 +10,7 @@ public class StopDTO
     
     public DateTime DateDeparted { get; set; }
     
+    public IList<LocationDTO>? Locations { get; set; }
+
     public int TripId { get; set; }
 }

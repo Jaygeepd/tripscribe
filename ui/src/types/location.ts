@@ -1,8 +1,11 @@
 export type Location = {
     id?: string,
-    locName: string,
-    latitude: number,
-    longitude: number,
+    name: string,
+    geoLocation: {
+        isEmpty: boolean,
+        x: number, 
+        y: number,
+    },
     dateVisited: Date, 
     locationType: string,
     stopId: string

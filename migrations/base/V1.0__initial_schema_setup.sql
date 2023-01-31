@@ -11,7 +11,7 @@ CREATE TABLE trips (
 	title VARCHAR (100) NOT NULL,
 	description TEXT,
 	timestamp TIMESTAMP NOT NULL,
-	public BOOLEAN DEFAULT FALSE
+	public_view BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE account_trips (

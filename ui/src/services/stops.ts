@@ -2,11 +2,11 @@ import { Stop } from "../types/stop";
 import { FetchUtils } from "../utils";
 
 const createStop = async (newStop: Stop) => {
-  const { stopName, dateArrived, dateDeparted, tripId } = newStop;
+  const { name, dateArrived, dateDeparted, tripId } = newStop;
   return await FetchUtils.fetchInstance(`accounts`, {
     method: "POST",
     body: JSON.stringify({
-      stopName,
+      name,
       dateArrived,
       dateDeparted,
       tripId,
@@ -38,7 +38,7 @@ const getAllStops = async () => {
   });
 };
 
-const getStopsByTripId = async (tripId: string) => {
+const getStopsByTripId = async (tripId: string) : Promise<Response> => {
   return await FetchUtils.fetchInstance(`trips/${tripId}/stops`, {
     method: "GET",
   });

@@ -1,4 +1,3 @@
-import { Fullscreen } from "@mui/icons-material";
 import {
   Button,
   Dialog,
@@ -49,7 +48,7 @@ function CreateStop(props: IHookProps) {
 
   const createStop = async () => {
     const newStop: Stop = {
-      stopName: newStopName,
+      name: newStopName,
       dateArrived: newDateArrived as Date,
       dateDeparted: newDateDeparted as Date,
       tripId: props.currTripId,

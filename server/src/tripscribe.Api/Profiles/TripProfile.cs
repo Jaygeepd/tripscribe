@@ -15,6 +15,7 @@ public class TripProfile : Profile
     private void ConfigureDtoToViewModel()
     {
         CreateMap<TripDTO, TripViewModel>();
+        CreateMap<TripDTO, TripDetailViewModel>();
     }
 
     private void ConfigureViewModelToDto()

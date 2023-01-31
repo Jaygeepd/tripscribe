@@ -9,50 +9,18 @@ import { Stop } from "../../types/stop";
 import { LocationService, TripService } from "../../services";
 import { check } from "yargs";
 
-
-const tempLoc: Location = {
-  id: "20",
-  locName: "Eiffel Tower",
-  latitude: 48.8584,
-  longitude: 2.2945,
-  dateVisited: new Date(2022, 2, 2),
-  locationType: "Tourist Spot",
-  stopId: "20",
-};
-
-const tempLoc2: Location = {
-  id: "21",
-  locName: "Louvre",
-  latitude: 48.8606,
-  longitude: 2.3376,
-  dateVisited: new Date(2022, 2, 3),
-  locationType: "Tourist Spot",
-  stopId: "20",
-};
-
-const tempStop: Stop = {
-  id: "20",
-  stopName: "Paris",
-  dateArrived: new Date(2022, 1, 2),
-  dateDeparted: new Date(2022, 1, 4),
-  tripId: "20",
-  stopLocations: [tempLoc, tempLoc2]
-};
-
-
 const tempTrip: Trip = {
   id: "20",
   title: "French Trip",
-  tripDesc: "Days spent in France, specifically around Paris",
-  tripTimestamp: new Date(2023, 1, 1),
-  public: true,
-  tripStops: [tempStop]
+  description: "Days spent in France, specifically around Paris",
+  timestamp: new Date(2023, 1, 1),
+  publicView: true,
 };
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [trips, setTrips] = useState([tempTrip]);
-  const [locations, setLocations] = useState([tempLoc]);
+  const [trips, setTrips] = useState<Trip[]>([tempTrip]);
+  const [locations, setLocations] = useState<Location[]>();
 
   const LoadInitData = async () => {
     const [foundTrips, foundLocations] = await Promise.all([
@@ -67,14 +35,6 @@ function Home() {
 
   useEffect(() => {
     LoadInitData()
-  }, []);
-
-  useEffect(() => {
-    LocationService.getAllLocations().then(async (response) => {
-      const foundLocations = await response.json();
-      setLocations(foundLocations);
-      setIsLoading(false);
-    });
   }, []);
 
   if (isLoading) return <div>Loading</div>;
@@ -95,7 +55,7 @@ function Home() {
         }}
       >
         <Stack>
-          {/* <Map locationList={locations ?? tempStop.stopLocations} zoomLevel={13} /> */}
+          <Map locationList={locations} zoomLevel={13} />
           <Divider />
           <h1>Trips</h1>
           <Divider />
@@ -108,7 +68,7 @@ function Home() {
 
 function getDateRange(trip: Trip) {
 
-  let checkStops = trip.tripStops ?? false;
+  let checkStops = trip.stops ?? false;
 
   if (!checkStops) return; 
 

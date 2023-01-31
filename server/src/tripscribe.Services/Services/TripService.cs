@@ -18,7 +18,7 @@ public class TripService : ITripService
     public TripService(ITripscribeDatabase database, IMapper mapper) =>
         (_database, _mapper) = (database, mapper);
 
-    public TripDTO GetTrip(int id)
+    public TripDTO? GetTrip(int id)
     {
         var tripQuery = _database
             .Get<Trip>()

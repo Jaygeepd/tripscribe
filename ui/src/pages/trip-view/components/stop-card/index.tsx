@@ -14,8 +14,6 @@ import React, { useMemo } from "react";
 import { format as dateFormat } from "date-fns";
 import { Stop } from "../../../../types/stop";
 import { Location } from "../../../../types/location";
-import { ConsoleWriter } from "istanbul-lib-report";
-import { ConfirmationNumberOutlined } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 interface IStopProps {
@@ -34,7 +32,7 @@ const dateRange = (startDate?: Date, endDate?: Date) => {
 
 function StopCard({ stop }: IStopProps) {
   const dateRangeString = useMemo<string>(
-    () => dateRange(stop.dateArrived, stop.dateDeparted),
+    () => dateRange(new Date(stop.dateArrived), new Date(stop.dateDeparted)),
     [stop.dateArrived, stop.dateDeparted]
   );
 
@@ -42,7 +40,7 @@ function StopCard({ stop }: IStopProps) {
     <>
       <Paper elevation={5} sx={{ paddingLeft: "2vw", margin: "1.5vw" }}>
         <Stack>
-          <h2>{stop.stopName}</h2>
+          <h2>{stop.name}</h2>
           <h4>{dateRangeString}</h4>
           <h3>Places Visited</h3>
 
@@ -56,11 +54,11 @@ function StopCard({ stop }: IStopProps) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {stop.stopLocations?.map((stopLoc: Location) => (
+                {stop.locations?.map((stopLoc: Location) => (
                   <TableRow key={stopLoc.id}>
-                    <TableCell>{stopLoc.locName}</TableCell>
+                    <TableCell>{stopLoc.name}</TableCell>
                     <TableCell>
-                      {dateFormat(stopLoc.dateVisited, "dd/MM/yyyy")}
+                      {dateFormat(new Date(stopLoc.dateVisited), "dd/MM/yyyy")}
                     </TableCell>
                     <TableCell>
                       <Button

@@ -4,11 +4,14 @@ import LocationPin from "../location-pin";
 import { Location } from "../../types/location";
 
 interface IMapProps {
-  locationList: Location[];
+  locationList?: Location[];
   zoomLevel: any;
 }
 
 function Map({ locationList, zoomLevel }: IMapProps) {
+
+  if (locationList === undefined) return (<></>);
+
   return (
     <>
       <div style={{ height: "40vh", width: "100%" }}>
@@ -18,33 +21,11 @@ function Map({ locationList, zoomLevel }: IMapProps) {
             language: "en",
           }}
           center={{
-            lat: locationList[0].latitude,
-            lng: locationList[0].longitude,
+            lat: locationList[0].geoLocation.x,
+            lng: locationList[0].geoLocation.y,
           }}
           zoom={zoomLevel}
         >
-          {/* {
-            (locationList.map((singlePin: Location) => (
-              <LocationPin
-                key={singlePin.id}
-                lat={singlePin.latitude}
-                lng={singlePin.latitude}
-                pinText={singlePin.locName}
-              />
-            )))
-          } */}
-
-          <LocationPin
-            lat={locationList[0].latitude}
-            lng={locationList[0].latitude}
-            pinText={locationList[0].locName}
-          />
-
-          <LocationPin
-            lat={locationList[1].latitude}
-            lng={locationList[1].latitude}
-            pinText={locationList[1].locName}
-          />
         </GoogleMapReact>
       </div>
     </>

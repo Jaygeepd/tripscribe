@@ -25,11 +25,11 @@ function TripDetails({ trip }: ITripProps) {
   );
 
   return (
-    <Paper elevation={12} sx={{ padding: "2vh", marginBottom: "3vh" }}>
+    <Paper elevation={12} sx={{ paddingTop: "2vh", paddingBottom: "2vh", marginBottom: "3vh", paddingLeft: "3vw" }}>
       <Stack>
         <h1>{trip.title}</h1>
         <h4>{dateRangeString}</h4>
-        <p>{trip.tripDesc}</p>
+        <p>{trip.description}</p>
         <Button
           sx={{ marginLeft: "45vw", width: "15vw" }}
           variant="contained"

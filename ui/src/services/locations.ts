@@ -3,14 +3,13 @@ import { Location } from "../types/location";
 import { FetchUtils } from "../utils";
 
 const createLocation = async (newLocation: Location) => {
-  const { locName, latitude, longitude, dateVisited, locationType, stopId } =
+  const { name, geoLocation, dateVisited, locationType, stopId } =
     newLocation;
   return await FetchUtils.fetchInstance(`locations`, {
     method: "POST",
     body: JSON.stringify({
-      locName,
-      latitude,
-      longitude,
+      name,
+      geoLocation,
       dateVisited,
       locationType,
       stopId,

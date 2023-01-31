@@ -4,7 +4,7 @@ namespace tripscribe.Services.Services;
 
 public interface ITripService
 {
-    TripDTO GetTrip(int id);
+    TripDTO? GetTrip(int id);
 
     IList<TripDTO> GetTrips(string? title = null, DateTime? startTime = null, DateTime? endTime = null);
 

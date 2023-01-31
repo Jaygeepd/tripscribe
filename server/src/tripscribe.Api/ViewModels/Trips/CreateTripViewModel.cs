@@ -6,6 +6,8 @@ public class CreateTripViewModel
 {
     public string Title { get; set; }
     public string Description { get; set; }
+    
+    public string PublicView { get; set; }
 }
 
 public class CreateTripValidator : AbstractValidator<CreateTripViewModel>

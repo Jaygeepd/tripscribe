@@ -14,5 +14,6 @@ public interface IStopService
 
     void DeleteStop(int id);
 
+
     IList<ReviewDTO> GetStopReviews(int id);
 }

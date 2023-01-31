@@ -16,6 +16,7 @@ public class StopProfile : Profile
     private void ConfigureDTOToViewModel()
     {
         CreateMap<StopDTO, StopViewModel>();
+        CreateMap<StopDTO, StopDetailViewModel>();
     }
 
     private void ConfigureViewModelToDTO()

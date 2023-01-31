@@ -23,9 +23,9 @@ public class LocationsController : ControllerBase
     [HttpGet]
     [AllowAnonymous]
     public ActionResult<IList<LocationViewModel>> GetLocations([FromQuery] string? name, [FromQuery] string? locationType, 
-        [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] Point? geoLocation, [FromQuery] int? stopId)
+        [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] double? latitude, double? longitude, [FromQuery] int? stopId)
     {
-        var locations = _service.GetLocations(name, locationType, startDate, endDate, geoLocation, stopId);
+        var locations = _service.GetLocations(name, locationType, startDate, endDate, latitude, longitude, stopId);
         return Ok(_mapper.Map<IList<LocationViewModel>>(locations));
     }
     

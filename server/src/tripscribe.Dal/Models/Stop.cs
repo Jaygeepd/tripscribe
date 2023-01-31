@@ -16,8 +16,10 @@ public class Stop
     [Column("date_departed")] public DateTime DateDeparted { get; set; }
     
     [Column("trip_id")] public int TripId { get; set; }
+    
+    [ForeignKey(nameof(TripId))]  public Trip Trip { get; set; }
 
-    public ICollection<Location> Locations { get; set; }
+    public ICollection<Location>? StopLocations { get; set; }
 
-    public ICollection<StopReview> StopReviews { get; set; }
+    public ICollection<StopReview>? StopReviews { get; set; }
 }

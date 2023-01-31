@@ -14,7 +14,7 @@ public class StopProfile : Profile
 
     private void ConfigureDomainToDto()
     {
-        CreateMap<Stop, StopDTO>();
+        CreateMap<Stop, StopDTO>().ForMember(d => d.Locations, s => s.MapFrom(x => x.StopLocations));
     }
     
     private void ConfigureDtoToDomain()

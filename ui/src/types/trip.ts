@@ -4,11 +4,11 @@ import { Account } from "./account";
 export type Trip = {
   id?: string;
   title: string;
-  tripDesc: string;
-  tripTimestamp: Date;
-  public: boolean;
+  description: string;
+  timestamp: Date;
+  publicView: boolean;
   attachedAccounts?: Account[];
   tripStartDate?: Date;
   tripEndDate?: Date;
-  tripStops?: Stop[];
+  stops?: Stop[];
 };

@@ -6,4 +6,5 @@ public class TripViewModel
     public string Title { get; set; }
     public string Description { get; set; }
     public DateTime Timestamp { get; set; }
+    public Boolean PublicView { get; set; }
 }
