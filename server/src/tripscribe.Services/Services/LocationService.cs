@@ -28,11 +28,11 @@ public class LocationService : ILocationService
             .SingleOrDefault();
     }
 
-    public IList<LocationDTO> GetLocations(string? name = null, string? locationType = null, DateTime? startDate = null, DateTime? endDate = null, Point? GeoLocation = null, int? stopId = null)
+    public IList<LocationDTO> GetLocations(string? name = null, string? locationType = null, DateTime? startDate = null, DateTime? endDate = null, double? latitude = null, double? longitude = null, int? stopId = null)
     {
         var locationQuery = _database
             .Get<Location>()
-            .Where(new LocationSearchSpec(name, locationType, startDate, endDate, GeoLocation, stopId));
+            .Where(new LocationSearchSpec(name, locationType, startDate, endDate, latitude, longitude, stopId));
 
         return _mapper
             .ProjectTo<LocationDTO>(locationQuery)

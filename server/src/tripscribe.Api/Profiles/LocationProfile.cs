@@ -15,6 +15,7 @@ public class LocationProfile : Profile
     private void ConfigureDtoToViewModel()
     {
         CreateMap<LocationDTO, LocationViewModel>();
+        CreateMap<LocationDTO, LocationDetailViewModel>();
     }
 
     private void ConfigureViewModelToDto()

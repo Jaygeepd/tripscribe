@@ -16,7 +16,9 @@ public class LocationDTO
     
     public DateTime EndDate { get; set; }
     
-    public Point GeoLocation { get; set; }
+    public double Latitude { get; set; }
+    
+    public double Longitude { get; set; }
     
     public int StopId { get; set; }
 }

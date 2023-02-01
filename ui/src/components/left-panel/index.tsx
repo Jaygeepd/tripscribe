@@ -61,9 +61,6 @@ function LeftPanel() {
         >
           Home
         </Button>
-        <Button sx={navButtonStyle} variant="outlined" size="medium">
-          Trips
-        </Button>
 
         {!loggedIn && (
           <Button
@@ -85,6 +82,14 @@ function LeftPanel() {
           >
             Sign Up
           </Button>
+        )}
+
+        {loggedIn && (
+          <>
+            <Button sx={navButtonStyle} variant="outlined" size="medium">
+              My Trips
+            </Button>
+          </>
         )}
 
         {loggedIn && (

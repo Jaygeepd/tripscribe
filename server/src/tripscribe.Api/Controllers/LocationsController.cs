@@ -54,7 +54,8 @@ public class LocationsController : ControllerBase
             Name = locationDetails.Name,
             DateArrived = locationDetails.DateArrived, 
             LocationType = locationDetails.LocationType,
-            GeoLocation = locationDetails.GeoLocation,
+            Latitude = locationDetails.Latitude,
+            Longitude = locationDetails.Longitude,
             StopId = locationDetails.StopId
         };
 
