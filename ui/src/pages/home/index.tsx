@@ -1,13 +1,9 @@
 import { Divider, Paper, Stack } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import useSWR from "swr";
-import { ReactDOM } from "react";
-import { Map, TripDetails } from "../../components";
+import { useState, useEffect } from "react";
+import { MapComponent, TripDetails } from "../../components";
 import { Location } from "../../types/location";
 import { Trip } from "../../types/trip";
-import { Stop } from "../../types/stop";
 import { LocationService, TripService } from "../../services";
-import { check } from "yargs";
 
 const tempTrip: Trip = {
   id: "20",
@@ -25,8 +21,8 @@ function Home() {
   const LoadInitData = async () => {
     const [foundTrips, foundLocations] = await Promise.all([
       TripService.getAllTrips(),
-      LocationService.getAllLocations()
-    ])
+      LocationService.getAllLocations(),
+    ]);
 
     setTrips(await foundTrips.json());
     setLocations(await foundLocations.json());
@@ -34,7 +30,7 @@ function Home() {
   };
 
   useEffect(() => {
-    LoadInitData()
+    LoadInitData();
   }, []);
 
   if (isLoading) return <div>Loading</div>;
@@ -45,48 +41,49 @@ function Home() {
 
   return (
     <>
-      <Paper
-        sx={{
-          paddingLeft: "2.5vw",
-          paddingRight: "2.5vw",
-          paddingTop: "2.5vw",
-          height: "92vh",
-          overflow: "auto",
-        }}
-      >
-        <Stack>
-          <Map locationList={locations} zoomLevel={13} />
-          <Divider />
-          <h1>Trips</h1>
-          <Divider />
-          {tripDisplays}
-        </Stack>
-      </Paper>
+      <Stack spacing={2} sx={{ overflow: "auto" }}>
+        <MapComponent locationList={locations} inputZoom={3} />
+        <Divider />
+        <Paper
+          sx={{
+            paddingLeft: "2.5vw",
+            paddingRight: "2.5vw",
+            paddingTop: "2.5vw",
+            height: "92vh",
+            overflow: "auto",
+          }}
+        >
+          <Stack>
+            <h1>Trips</h1>
+            <Divider />
+            {tripDisplays}
+          </Stack>
+        </Paper>
+      </Stack>
     </>
   );
 }
 
 function getDateRange(trip: Trip) {
-
   let checkStops = trip.stops ?? false;
 
-  if (!checkStops) return; 
+  if (!checkStops) return;
 
   let earliestDate = checkStops[0].dateArrived;
   let latestDate = checkStops[0].dateDeparted;
 
   for (const stop of checkStops) {
-    if (stop.dateArrived < earliestDate){
+    if (stop.dateArrived < earliestDate) {
       earliestDate = stop.dateArrived;
     }
 
-    if (stop.dateDeparted > latestDate){
-      latestDate = stop.dateDeparted
+    if (stop.dateDeparted > latestDate) {
+      latestDate = stop.dateDeparted;
     }
   }
 
   trip.tripStartDate = earliestDate;
   trip.tripEndDate = latestDate;
-};
+}
 
 export default Home;

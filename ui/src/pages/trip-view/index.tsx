@@ -3,7 +3,7 @@ import { Grid, IconButton, Paper, Stack, Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import useSWR, { Key, Fetcher } from "swr";
-import { Map } from "../../components";
+import { MapComponent } from "../../components";
 import { Trip } from "../../types/trip";
 import { StopService, TripService } from "../../services";
 import { Stop } from "../../types/stop";
@@ -76,7 +76,8 @@ function TripViewPage() {
         sx={{ padding: "5vw", height: "100vh", overflow: "auto" }}
       >
         <Stack spacing={2}>
-          {/* <Map locationList={tempStop.stopLocations ?? [tempLoc]} zoomLevel={13} /> */}
+          
+          <MapComponent locationList={calculateTripLocations(trip)} inputZoom={3} />
 
           <h1>{trip.title}</h1>
           <h3>{trip.description}</h3>
@@ -109,4 +110,17 @@ function TripViewPage() {
     </>
   );
 }
+
+function calculateTripLocations(searchTrip: Trip): Location[] {
+  let returnList:Location[] = [];
+
+  searchTrip.stops?.forEach((searchStop: Stop) => {
+    searchStop.locations?.forEach((returnLoc: Location) => {
+      returnList.push(returnLoc);
+    })
+  })
+
+  return returnList;
+};
+
 export default TripViewPage;

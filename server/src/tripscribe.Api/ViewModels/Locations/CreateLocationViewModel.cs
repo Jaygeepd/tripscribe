@@ -9,7 +9,9 @@ public class CreateLocationViewModel
     public DateTime DateArrived { get; set; }
     public string LocationType { get; set; }
     
-    public Point GeoLocation { get; set; }
+    public double Latitude { get; set; }
+    
+    public double Longitude { get; set; }
     public int StopId { get; set; }
 }
 
