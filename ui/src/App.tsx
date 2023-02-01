@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Box } from "@mui/material";
 import { LeftPanel } from "./components";
 import { Route, Routes, Navigate } from "react-router-dom";
-import { HomePage, TripViewPage } from "./pages";
+import { HomePage, ProfilePage, TripViewPage } from "./pages";
 import { AuthContext } from "./contexts";
 import { NavRoutes } from "./constants";
 import { LoginUtils } from "./utils";
@@ -17,7 +17,7 @@ const authenticatedRoutes = () => {
     <>
       <Route path={NavRoutes.Home} element={<HomePage />} />
       <Route path={NavRoutes.TripView} element={<TripViewPage />} />
-      <Route path={NavRoutes.Profile} element={<TripViewPage />} />
+      <Route path={NavRoutes.Profile} element={<ProfilePage />} />
     </>
   )
 };

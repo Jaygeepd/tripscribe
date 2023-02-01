@@ -86,7 +86,7 @@ function LeftPanel() {
 
         {loggedIn && (
           <>
-            <Button sx={navButtonStyle} variant="outlined" size="medium">
+            <Button sx={navButtonStyle} variant="outlined" size="medium" component={Link} to={"/mytrips"}>
               My Trips
             </Button>
           </>

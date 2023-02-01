@@ -21,19 +21,16 @@ const getTrip = async (tripId: string) => {
 };
 
 const getAllTrips = async () => {
-    return await FetchUtils.fetchInstance(`trips`, {
-        method: "GET",
-    })
-    
-}
+  return await FetchUtils.fetchInstance(`trips`, {
+    method: "GET",
+  });
+};
 
 const getTripsByAccount = async (accountId: string) => {
-  return (
-    await FetchUtils.fetchInstance(`/accounts/${accountId}/trips`),
+  return await FetchUtils.fetchInstance(`accounts/${accountId}/trips`,
     {
       method: "GET",
-    }
-  );
+    });
 };
 
 export default {
@@ -41,5 +38,5 @@ export default {
   deleteTrip,
   getTrip,
   getAllTrips,
-  getTripsByAccount
+  getTripsByAccount,
 };

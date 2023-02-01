@@ -3,29 +3,20 @@ import { useState, useEffect } from "react";
 import { MapComponent, TripDetails } from "../../components";
 import { Location } from "../../types/location";
 import { Trip } from "../../types/trip";
-import { LocationService, TripService } from "../../services";
-
-const tempTrip: Trip = {
-  id: "20",
-  title: "French Trip",
-  description: "Days spent in France, specifically around Paris",
-  timestamp: new Date(2023, 1, 1),
-  publicView: true,
-};
+import { Stop } from "../../types/stop";
+import { TripService } from "../../services";
+import React from "react";
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [trips, setTrips] = useState<Trip[]>([tempTrip]);
-  const [locations, setLocations] = useState<Location[]>();
+  const [trips, setTrips] = useState<Trip[]>();
 
   const LoadInitData = async () => {
-    const [foundTrips, foundLocations] = await Promise.all([
-      TripService.getAllTrips(),
-      LocationService.getAllLocations(),
+    const [foundTrips] = await Promise.all([
+      TripService.getAllTrips()
     ]);
 
     setTrips(await foundTrips.json());
-    setLocations(await foundLocations.json());
     setIsLoading(false);
   };
 
@@ -35,14 +26,14 @@ function Home() {
 
   if (isLoading) return <div>Loading</div>;
 
-  const tripDisplays = trips.map((singleTrip: Trip) => (
+  const tripDisplays = trips?.map((singleTrip: Trip) => (
     <TripDetails key={singleTrip.id} trip={singleTrip} />
   ));
 
   return (
     <>
       <Stack spacing={2} sx={{ overflow: "auto" }}>
-        <MapComponent locationList={locations} inputZoom={3} />
+        <MapComponent locationList={getAttachedLocations(trips)} inputZoom={3} />
         <Divider />
         <Paper
           sx={{
@@ -62,6 +53,23 @@ function Home() {
       </Stack>
     </>
   );
+}
+
+function getAttachedLocations(searchTrips?: Trip[]): Location[] {
+
+  let returnList:Location[] = [];
+
+  if(searchTrips === undefined) return returnList;
+
+  searchTrips.forEach((singleTrip: Trip) => {
+    singleTrip.stops?.forEach((searchStop: Stop) => {
+      searchStop.locations?.forEach((setLocation: Location) => {
+        returnList.push(setLocation)
+      })
+    })
+  });
+
+  return returnList;
 }
 
 function getDateRange(trip: Trip) {

@@ -1,7 +1,7 @@
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
+import React from "react";
 import { useState, useMemo, useRef, useCallback } from "react";
 import { Location } from "../../types/location";
-import { MapMarker } from "./components";
 
 interface IMapProps {
   locationList?: Location[];

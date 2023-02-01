@@ -34,8 +34,7 @@ const getAccount = async (accountId: string) => {
 };
 
 const getAccountsByTrip = async (tripId: string) => {
-  return (
-    await FetchUtils.fetchInstance(`/trips/${tripId}/accounts`),
+  return await FetchUtils.fetchInstance(`trips/${tripId}/accounts`,
     {
       method: "GET",
     }
