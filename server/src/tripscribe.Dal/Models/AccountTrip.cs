@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace tripscribe.Dal.Models;
 
-[Table("account_trip")]
+[Table("account_trips")]
 public class AccountTrip
 {
     [Key] [Column("id")] public int Id { get; set; }

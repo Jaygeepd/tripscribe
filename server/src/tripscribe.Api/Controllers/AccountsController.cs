@@ -21,11 +21,11 @@ public class AccountsController : ControllerBase
     
     [HttpGet("{id}", Name = "GetAccountsById")]
     [AllowAnonymous]
-    public ActionResult<AccountViewModel> GetAccount(int id)
+    public ActionResult<AccountDetailViewModel> GetAccount(int id)
     {
         var accounts = _service.GetAccount(id);
 
-        return Ok(_mapper.Map<AccountViewModel>(accounts));
+        return Ok(_mapper.Map<AccountDetailViewModel>(accounts));
     }
     
     [HttpGet]

@@ -17,6 +17,7 @@ public class AccountProfile : Profile
     private void ConfigureDTOToViewModel()
     {
         CreateMap<AccountDTO, AccountViewModel>();
+        CreateMap<AccountDTO, AccountDetailViewModel>();
 
     }
 
@@ -24,5 +25,6 @@ public class AccountProfile : Profile
     {
         CreateMap<UpdateAccountViewModel, AccountDTO>().IgnoreAllNull();
         CreateMap<CreateAccountViewModel, AccountDTO>();
+        CreateMap<AccountViewModel, AccountDTO>();
     }
 }

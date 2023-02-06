@@ -3,7 +3,7 @@ import { ReactDOM } from "react";
 import { Link } from "react-router-dom";
 import { Stack, Button, Avatar } from "@mui/material";
 import { FlightTakeoff } from "@mui/icons-material";
-import { Login, SignUp } from "../index";
+import { LogIn, SignUp } from "./components";
 import { AuthContext } from "../../contexts";
 import { LoginUtils } from "../../utils";
 
@@ -86,7 +86,7 @@ function LeftPanel() {
 
         {loggedIn && (
           <>
-            <Button sx={navButtonStyle} variant="outlined" size="medium" component={Link} to={"/mytrips"}>
+            <Button sx={navButtonStyle} variant="outlined" size="medium" component={Link} to={`/profile`}>
               My Trips
             </Button>
           </>
@@ -108,7 +108,7 @@ function LeftPanel() {
         )}
       </Stack>
 
-      <Login dialogState={loginOpen} setState={handleLoginClose} />
+      <LogIn dialogState={loginOpen} setState={handleLoginClose} />
       <SignUp dialogState={signupOpen} setState={handleSignupClose} />
     </>
   );

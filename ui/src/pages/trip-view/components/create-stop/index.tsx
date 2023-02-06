@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Stack,
   TextField,
   useMediaQuery,
   useTheme,
@@ -55,9 +56,10 @@ function CreateStop(props: IHookProps) {
     };
 
     const response = await StopService.createStop(newStop);
-    if (response.status === 204) {
+    if (response.status === 201) {
       toast.success("New Stop added! Returning to the Trip");
       props.setState(false);
+      window.location.reload();
     } else {
       toast.error("Error creating your stop");
     }
@@ -74,36 +76,38 @@ function CreateStop(props: IHookProps) {
 
         <DialogContent>
           <>
-            <DialogContentText>
+            <DialogContentText sx={{ paddingTop: "2vh", paddingBottom: "2vh" }}>
               Enter the details of the stop below
             </DialogContentText>
 
-            <TextField
-              autoFocus
-              margin="dense"
-              id="nameField"
-              label="Name"
-              type="text"
-              fullWidth
-              variant="filled"
-              onChange={(_) => setNewStopName(_.target.value)}
-            />
+            <Stack spacing={2}>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="nameField"
+                label="Name"
+                type="text"
+                fullWidth
+                variant="filled"
+                onChange={(_) => setNewStopName(_.target.value)}
+              />
 
-            <DesktopDatePicker
-              label="Date Arrived"
-              inputFormat="dd/MM/YYYY"
-              value={newDateArrived}
-              onChange={(newValue: Date | null) => setDateArrived(newValue)}
-              renderInput={(params) => <TextField {...params} />}
-            />
+              <DesktopDatePicker
+                label="Date Arrived"
+                inputFormat="dd/MM/yyyy"
+                value={newDateArrived}
+                onChange={(newValue: Date | null) => setDateArrived(newValue)}
+                renderInput={(params) => <TextField {...params} />}
+              />
 
-            <DesktopDatePicker
-              label="Date Departed"
-              inputFormat="dd/MM/YYYY"
-              value={newDateDeparted}
-              onChange={(newValue: Date | null) => setDateDeparted(newValue)}
-              renderInput={(params) => <TextField {...params} />}
-            />
+              <DesktopDatePicker
+                label="Date Departed"
+                inputFormat="dd/MM/yyyy"
+                value={newDateDeparted}
+                onChange={(newValue: Date | null) => setDateDeparted(newValue)}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </Stack>
           </>
         </DialogContent>
         <DialogActions>

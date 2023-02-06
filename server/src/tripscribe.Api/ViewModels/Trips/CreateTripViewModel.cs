@@ -1,4 +1,5 @@
 using FluentValidation;
+using tripscribe.Api.ViewModels.Accounts;
 
 namespace tripscribe.Api.ViewModels.Trips;
 
@@ -7,7 +8,9 @@ public class CreateTripViewModel
     public string Title { get; set; }
     public string Description { get; set; }
     
-    public string PublicView { get; set; }
+    public Boolean PublicView { get; set; }
+    
+    public IList<AccountViewModel> Accounts { get; set; }
 }
 
 public class CreateTripValidator : AbstractValidator<CreateTripViewModel>

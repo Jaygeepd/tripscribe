@@ -14,8 +14,8 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
-import { AccountService } from "../../services";
-import { Account } from "../../types/account";
+import { AccountService } from "../../../../services";
+import { Account } from "../../../../types/account";
 import { toast } from "react-hot-toast";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 

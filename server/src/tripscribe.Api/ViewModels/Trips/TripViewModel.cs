@@ -1,3 +1,6 @@
+using tripscribe.Api.ViewModels.Accounts;
+using tripscribe.Api.ViewModels.Stop;
+
 namespace tripscribe.Api.ViewModels.Trips;
 
 public class TripViewModel

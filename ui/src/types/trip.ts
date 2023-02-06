@@ -5,9 +5,9 @@ export type Trip = {
   id?: string;
   title: string;
   description: string;
-  timestamp: Date;
+  timestamp?: Date;
   publicView: boolean;
-  attachedAccounts?: Account[];
+  accounts?: Account[];
   tripStartDate?: Date;
   tripEndDate?: Date;
   stops?: Stop[];

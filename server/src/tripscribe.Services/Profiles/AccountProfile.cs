@@ -15,12 +15,15 @@ public class AccountProfile : Profile
 
     private void ConfigureDomainToDto()
     {
-        CreateMap<Account, AccountDTO>();
+        CreateMap<Account, AccountDTO>()
+            .ForMember(d=>d.Trips, s => s.MapFrom(x => x.AccountTrips.Select(y=>y.Trip)));
     }
     
     private void ConfigureDtoToDomain()
     {
         CreateMap<AccountDTO, Account>();
-
+        CreateMap<AccountDTO, AccountTrip>()
+            .ForMember(d => d.Id, o => o.Ignore())
+            .ForMember(d => d.AccountId, o => o.MapFrom(x => x.Id));
     }
 }

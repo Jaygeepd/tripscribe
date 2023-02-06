@@ -12,4 +12,5 @@ public class AccountDTO
     
     public string Password { get; set; }
     
+    public IList<TripDTO>? Trips { get; set; }
 }

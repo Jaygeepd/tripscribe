@@ -13,9 +13,9 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { AuthenticationService, StorageService } from "../../services";
-import { StorageTypes } from "../../constants";
-import { AuthContext } from "../../contexts";
+import { AuthenticationService, StorageService } from "../../../../services";
+import { StorageTypes } from "../../../../constants";
+import { AuthContext } from "../../../../contexts";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
