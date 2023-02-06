@@ -10,11 +10,12 @@ import {
   Button,
   Grid,
 } from "@mui/material";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { format as dateFormat } from "date-fns";
 import { Stop } from "../../../../types/stop";
 import { Location } from "../../../../types/location";
 import { Link } from "react-router-dom";
+import AddLocation from "../../../../components/add-location";
 
 interface IStopProps {
   stop: Stop;
@@ -35,6 +36,16 @@ function StopCard({ stop }: IStopProps) {
     () => dateRange(new Date(stop.dateArrived), new Date(stop.dateDeparted)),
     [stop.dateArrived, stop.dateDeparted]
   );
+
+  const [createLocation, setCreateLocation] = useState(false);
+  
+  const handleLocationOpen = () => {
+    setCreateLocation(true);
+  };
+
+  const handleLocationClose = () => {
+    setCreateLocation(false);
+  };
 
   return (
     <>
@@ -84,11 +95,13 @@ function StopCard({ stop }: IStopProps) {
               <Button variant="contained" component={Link} to={`/stop-view/${stop.id}`}>View Stop</Button>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Button variant="contained" component={Link} to={`/create-location/${stop.id}`}>Add Location</Button>
+              <Button variant="contained" onClick={handleLocationOpen}>Add Location</Button>
             </Grid>
           </Grid>
         </Stack>
       </Paper>
+
+      <AddLocation currStopId={stop.id ?? "0"} dialogState={createLocation} setState={handleLocationClose} />
     </>
   );
 }

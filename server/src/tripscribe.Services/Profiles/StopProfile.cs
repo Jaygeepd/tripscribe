@@ -20,7 +20,6 @@ public class StopProfile : Profile
     private void ConfigureDtoToDomain()
     {
         CreateMap<StopDTO, Stop>()
-            .ForMember(d => d.Id, o => o.Ignore())
-            .ForMember(d => d.TripId, o => o.Ignore());
+            .ForMember(d => d.Id, o => o.Ignore());
     }
 }

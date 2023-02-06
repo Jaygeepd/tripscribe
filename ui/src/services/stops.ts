@@ -3,7 +3,7 @@ import { FetchUtils } from "../utils";
 
 const createStop = async (newStop: Stop) => {
   const { name, dateArrived, dateDeparted, tripId } = newStop;
-  return await FetchUtils.fetchInstance(`accounts`, {
+  return await FetchUtils.fetchInstance(`stops`, {
     method: "POST",
     body: JSON.stringify({
       name,

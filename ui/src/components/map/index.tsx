@@ -1,7 +1,7 @@
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
+import React from "react";
 import { useState, useMemo, useRef, useCallback } from "react";
 import { Location } from "../../types/location";
-import { MapMarker } from "./components";
 
 interface IMapProps {
   locationList?: Location[];
@@ -16,14 +16,15 @@ const containerStyle = {
     height: "40vh"
   };
   
-  function MapComponent({locationList}: IMapProps) {
+  function MapComponent({locationList, inputZoom}: IMapProps) {
 
-    const {isLoaded} = useLoadScript({googleMapsApiKey: "AIzaSyCKgVAi3DvcjFOC3BqS9TEgKbRMFQq8k6I"})
+    const {isLoaded} = useLoadScript({googleMapsApiKey: "AIzaSyCKgVAi3DvcjFOC3BqS9TEgKbRMFQq8k6I", libraries: ["places"]})
   
     let centerVal: LatLngLiteral = { lat: 0, lng: 0};
   
-    if(locationList !== undefined){
+    if(locationList !== undefined && locationList.length > 0){
       centerVal = {lat: locationList[0].latitude, lng: locationList[0].longitude}
+      inputZoom = 2;
     }
   
     const [locations, setLocations] = useState<Location[]>(locationList ?? []);
@@ -40,7 +41,7 @@ const containerStyle = {
 
     return (<div>
       <GoogleMap
-      zoom={12}
+      zoom={inputZoom}
       center={center}
       mapContainerStyle={containerStyle}
       options={options}

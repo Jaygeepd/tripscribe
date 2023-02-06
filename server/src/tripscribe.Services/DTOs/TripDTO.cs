@@ -12,5 +12,7 @@ public class TripDTO
     
     public Boolean PublicView { get; set; }
     
+    public IList<AccountDTO>? Accounts { get; set; }
+    
     public IList<StopDTO>? Stops { get; set; }
 }

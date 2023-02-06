@@ -40,7 +40,7 @@ const getUserShortDisplay = (accessToken: any): string => {
     return `${first_name.charAt(0).toUpperCase()}${last_name.charAt(0).toUpperCase()}`;
 };
 
-const getUserId = (accessToken: string) => {
+const getAccountId = (accessToken: string) => {
     if (!accessToken) return false;
 
     const {sub} = jwtDecode(accessToken) as any;
@@ -53,7 +53,7 @@ const LoginUtils = {
     getEmail,
     getUserShortDisplay,
     getUserFullDisplay,
-    getUserId,
+    getAccountId,
 };
 
 export default LoginUtils;

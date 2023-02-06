@@ -37,7 +37,7 @@ public class TripsController : ControllerBase
     {
         var trips = _service.GetTrips(title, startTime, endTime);
         
-        return Ok(_mapper.Map<IList<TripViewModel>>(trips));
+        return Ok(_mapper.Map<IList<TripDetailViewModel>>(trips));
     }
 
     [HttpGet(template:"{id}/accounts", Name = "GetTripAccounts")]
@@ -71,6 +71,7 @@ public class TripsController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.Created)]
     public ActionResult CreateTrip( [FromBody] CreateTripViewModel tripDetails)
     {
+        
         var trip = _mapper.Map<TripDTO>(tripDetails);
         
         _service.CreateTrip(trip);

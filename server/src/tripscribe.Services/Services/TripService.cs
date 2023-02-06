@@ -46,8 +46,6 @@ public class TripService : ITripService
         var newTrip = _mapper.Map<Trip>(trip);
         _database.Add(newTrip);
         _database.SaveChanges();
-        
-        // TODO track user's ID for creation of AccountTrip table entry
     }
 
     public void UpdateTrip(int id, TripDTO trip)

@@ -48,15 +48,7 @@ public class StopsController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.Created)]
     public ActionResult CreateStop( [FromBody] CreateStopViewModel stopDetails)
     {
-        var newStop = new CreateStopViewModel
-        {
-            Name = stopDetails.Name,
-            DateArrived = stopDetails.DateArrived,
-            DateDeparted = stopDetails.DateDeparted,
-            TripId = stopDetails.TripId
-        };
-
-        var stop = _mapper.Map<StopDTO>(newStop);
+        var stop = _mapper.Map<StopDTO>(stopDetails);
         
         _service.CreateStop(stop);
         

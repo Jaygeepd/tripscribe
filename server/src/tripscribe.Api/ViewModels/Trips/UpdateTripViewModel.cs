@@ -1,4 +1,5 @@
 using FluentValidation;
+using tripscribe.Api.ViewModels.Accounts;
 
 namespace tripscribe.Api.ViewModels.Trips;
 
@@ -9,6 +10,8 @@ public class UpdateTripViewModel
     public string Description { get; set; }
     
     public Boolean PublicView { get; set; }
+    
+    public AccountDetailViewModel Accounts { get; set; }
 }
 
 public class UpdateTripValidator : AbstractValidator<UpdateTripViewModel>

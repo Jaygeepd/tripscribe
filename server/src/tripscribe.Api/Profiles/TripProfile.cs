@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using tripscribe.Api.ViewModels.Accounts;
 using tripscribe.Api.ViewModels.Trips;
 using tripscribe.Services.DTOs;
 
@@ -21,8 +22,9 @@ public class TripProfile : Profile
     private void ConfigureViewModelToDto()
     {
         CreateMap<CreateTripViewModel, TripDTO>()
-            .ForMember(d => d.Timestamp, 
+            .ForMember(d => d.Timestamp,
                 o => o.MapFrom(x => DateTime.UtcNow));
-        CreateMap<UpdateTripViewModel, TripDTO>();
+        CreateMap<UpdateTripViewModel, TripDTO>()
+            .ForMember(d => d.Accounts, o => o.MapFrom(s => s.Accounts));
     }
 }

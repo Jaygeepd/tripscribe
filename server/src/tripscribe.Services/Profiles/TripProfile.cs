@@ -14,11 +14,14 @@ public class TripProfile : Profile
 
     private void ConfigureDomainToDto()
     {
-        CreateMap<Trip, TripDTO>().ForMember(d => d.Stops, s => s.MapFrom(x => x.TripStops));
+        CreateMap<Trip, TripDTO>()
+            .ForMember(d => d.Stops, s => s.MapFrom(x => x.TripStops))
+            .ForMember(d => d.Accounts, o => o.MapFrom(s => s.AccountTrips.Select(y => y.Account)));
     }
     
     private void ConfigureDtoToDomain()
     {
-        CreateMap<TripDTO, Trip>();
+        CreateMap<TripDTO, Trip>()
+            .ForMember(d => d.AccountTrips, o => o.MapFrom(x=>x.Accounts));
     }
 }

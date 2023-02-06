@@ -39,7 +39,7 @@ function TripViewPage() {
   const handleStopClose = () => {
     setCreateStopOpen(false);
   };
-
+  
   const [isLoading, setIsLoading] = useState(true);
   const [trip, setTrip] = useState<Trip>(tempTrip);
 
