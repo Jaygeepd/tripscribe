@@ -17,7 +17,7 @@ services:
     command: -url=jdbc:postgresql://db/tripscribe -schemas=public -user=admin
       -password=password -connectRetries=5 migrate
     volumes:
-      - ./migrations:/flyway/sql
+      - ./migrations/base:/flyway/sql
     depends_on:
       - db
   server:
