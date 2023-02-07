@@ -12,7 +12,7 @@ root.render(
   <Router>
     <Toaster />
     <AuthContext.AuthProvider>
-      <App />
+        <App />
     </AuthContext.AuthProvider>
   </Router>
 );
