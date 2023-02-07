@@ -6,6 +6,7 @@ import { HomePage, ProfilePage, StopViewPage, TripViewPage } from "./pages";
 import { AuthContext } from "./contexts";
 import { NavRoutes } from "./constants";
 import { LoginUtils } from "./utils";
+import { useLoadScript } from "@react-google-maps/api";
 
 // if (process.env.NODE_ENV === "development"){
 //   const { worker } = require('./services/mocks/browser');
@@ -20,7 +21,7 @@ const authenticatedRoutes = () => {
       <Route path={NavRoutes.Profile} element={<ProfilePage />} />
       <Route path={NavRoutes.StopView} element={<StopViewPage />} />
     </>
-  )
+  );
 };
 
 const unauthenticatedRoutes = () => {
@@ -28,13 +29,17 @@ const unauthenticatedRoutes = () => {
     <>
       <Route path={NavRoutes.Home} element={<HomePage />} />
     </>
-  )
+  );
 };
 
 function App() {
-
   const { state } = AuthContext.useLogin();
   const loggedIn = state.accessToken && !LoginUtils.isTokenExpired(state);
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyCKgVAi3DvcjFOC3BqS9TEgKbRMFQq8k6I",
+    libraries: ["places"],
+  });
 
   return (
     <>
@@ -56,5 +61,3 @@ function App() {
 }
 
 export default App;
-
-

@@ -4,6 +4,7 @@ using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Tripscribe.Api.Authentication;
 
 namespace tripscribe.Api.Authentication;
 
@@ -19,6 +20,7 @@ public class AccessAuthenticationFilter: AuthenticationHandler<AuthenticationSch
 
     protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
+        
         var header = _contextAccessor.HttpContext?.Request.Headers["authorization"].ToString().Replace("Bearer ", string.Empty);
         var handler = new JwtSecurityTokenHandler();
         var secretKey = Encoding.UTF8.GetBytes("JWTMySonTheDayYouWereBorn");
@@ -46,5 +48,13 @@ public class AccessAuthenticationFilter: AuthenticationHandler<AuthenticationSch
             
         }
 
+    }
+
+    private TokenTypes RetrieveTokenTypes()
+    {
+        var routeValues = _contextAccessor.HttpContext.Request.RouteValues;
+        var controllerName = routeValues["controller"].ToString();
+        var actionName = routeValues["action"].ToString();
+        return controllerName == "Authentication" && actionName == "Refresh" ? TokenTypes.RefreshToken: TokenTypes.AccessToken;
     }
 }

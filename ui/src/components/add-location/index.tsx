@@ -9,6 +9,7 @@ import {
   DialogTitle,
   Stack,
   TextField,
+  Box,
 } from "@mui/material";
 import DateFnsAdapter from "@date-io/date-fns";
 import React, { useState } from "react";
@@ -22,7 +23,6 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import createStop from "../../pages/trip-view/components/create-stop";
 
 interface IHookProps {
   currStopId: string;
@@ -47,19 +47,48 @@ function AddLocation({ currStopId, dialogState, setState }: IHookProps) {
 
   const [newLocName, setNewLocName] = useState("");
   const [newLocType, setNewLocType] = useState("Attraction");
-  const [newLat, setNewLat] = useState(0 as number);
-  const [newLng, setNewLng] = useState(0 as number);
+  const [newGeoLoc, setNewGeoLoc] = useState<LatLngLiteral>();
   const [newDateVisited, setDateVisited] = useState<Date | null>(
     dateFns.date(new Date())
   );
+
+  const handleInput = (e: any) => {
+    setGeoValue(e.target.value)
+  };
+
+  const handleSelect =
+    ({ description }: any) =>
+    () => {
+      setGeoValue(description, false);
+      clearSuggestions();
+
+      getGeocode({ address: description }).then((results) => {
+        const { lat, lng } = getLatLng(results[0]);
+        setNewGeoLoc({lat: lat, lng: lng})
+      });
+    };
+
+    const renderSuggestions = () =>
+    data.map((suggestion) => {
+      const {
+        place_id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li key={place_id} onClick={handleSelect(suggestion)}>
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
 
   const createLocation = async () => {
     const newLocation: Location = {
       name: newLocName,
       locationType: newLocType,
       dateVisited: newDateVisited as Date,
-      latitude: newLat,
-      longitude: newLng,
+      latitude: newGeoLoc?.lat as number,
+      longitude: newGeoLoc?.lng as number,
       stopId: currStopId,
     };
 
@@ -103,39 +132,16 @@ function AddLocation({ currStopId, dialogState, setState }: IHookProps) {
                 onChange={(newValue: Date | null) => setDateVisited(newValue)}
                 renderInput={(params) => <TextField {...params} />}
               />
-
-              {/* <TextField
-                margin="dense"
-                id="geoLocField"
-                label="Enter Address of Location"
-                type="text"
-                fullWidth
-                variant="filled"
-                value={geoValue}
-                onChange={(_) => setGeoValue(_.target.value)}
-              /> */}
-
-              {/* <TextField
-              
-                margin="dense"
-                id="latField"
-                label="Latitude"
-                type="text"
-                fullWidth
-                variant="filled"
-                onChange={(_) => setNewLat(_.target.value)}
+              <Box>
+              <input 
+                value = {geoValue}
+                onChange = {handleInput}
+                placeholder = "Location Address"
               />
+              {status === "OK" && <ul>{renderSuggestions()}</ul>}
+              </Box>
+              
 
-              <TextField
-                
-                margin="dense"
-                id="lngField"
-                label="Longitude"
-                type="text"
-                fullWidth
-                variant="filled"
-                onChange={(_) => setNewLng(_.target.value)}
-              /> */}
             </Stack>
           </>
         </DialogContent>
@@ -149,7 +155,7 @@ function AddLocation({ currStopId, dialogState, setState }: IHookProps) {
               }
             }}
           >
-            Create Stop
+            Create Location
           </Button>
           <Button onClick={setState}>Back</Button>
         </DialogActions>

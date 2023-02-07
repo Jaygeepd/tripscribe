@@ -42,6 +42,7 @@ public class LocationService : ILocationService
 
     public void CreateLocation(LocationDTO location)
     {
+        
         var newLocation = _mapper.Map<Location>(location);
         _database.Add(newLocation);
         _database.SaveChanges();

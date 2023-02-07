@@ -32,7 +32,8 @@ public class AuthenticationController: TripscribeBaseController
         
         return new AuthenticationResultViewModel
         {
-            AccessToken = GenerateToken(account, 600), RefreshToken = GenerateToken(account, 18000)
+            AccessToken = GenerateToken(account, 600, TokenTypes.AccessToken), 
+            RefreshToken = GenerateToken(account, 18000, TokenTypes.RefreshToken)
         };
     }
     
@@ -46,13 +47,14 @@ public class AuthenticationController: TripscribeBaseController
         
         return new AuthenticationResultViewModel
         {
-            AccessToken = GenerateToken(account, 600), RefreshToken = GenerateToken(account, 18000)
+            AccessToken = GenerateToken(account, 10, TokenTypes.AccessToken), 
+            RefreshToken = GenerateToken(account, 18000, TokenTypes.RefreshToken)
         };
     }
     
-    private string GenerateToken(AccountDTO account, int expirationTimeInMinutes)
+    private string GenerateToken(AccountDTO account, int expirationTimeInMinutes, TokenTypes tokenType)
     {
-        var secretKey = Encoding.UTF8.GetBytes("JWTMySonTheDayYouWereBorn");
+        var secretKey = Encoding.UTF8.GetBytes(tokenType == TokenTypes.AccessToken ? "JWTMySonTheDayYouWereBorn" : "JWTForestsWhisperedYourName");
         var securityKey = new SymmetricSecurityKey(secretKey);
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
         var expiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes);
