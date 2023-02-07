@@ -46,13 +46,13 @@ INSERT INTO stops(name, date_arrived, date_departed, trip_id)
 
 INSERT INTO locations(name, date_visited, location_type, geo_location, stop_id)
     VALUES('Eiffel Tower', '2022-01-02 15:00:00', 'Attraction', '48.8584, 2.2945', 1);
-INSERT INTO locations(name, date_visited, location_type, geoLocation, stop_id)
+INSERT INTO locations(name, date_visited, location_type, geo_location, stop_id)
     VALUES('CN Tower', '2021-06-19 08:00:00', 'Attraction', '43.6426, -79.3870', 2);
-INSERT INTO locations(name, date_visited, location_type, geoLocation, stop_id)
+INSERT INTO locations(name, date_visited, location_type, geo_location, stop_id)
     VALUES('Einstein Bros', '2020-04-15 19:00:00', 'Restaurant', '47.6062, -122.3321', 3);
-INSERT INTO locations(name, date_visited, location_type, geoLocation, stop_id)
+INSERT INTO locations(name, date_visited, location_type, geo_location, stop_id)
     VALUES('Munich Beer Hall', '2020-05-26 10:00:00', 'Other', '48.1351, 11.5820', 4);
-INSERT INTO locations(name, date_visited, location_type, geoLocation, stop_id)
+INSERT INTO locations(name, date_visited, location_type, geo_location, stop_id)
     VALUES('Tokyo Temple', '2022-05-22 18:00:00', 'Scenic Spot', '35.7148, 139.7967',1);
 
 INSERT INTO reviews(review_text, score, timestamp)
