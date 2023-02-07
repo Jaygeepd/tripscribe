@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NpgsqlTypes;
 using tripscribe.Dal.Models;
 using tripscribe.Services.DTOs;
 
@@ -25,8 +26,7 @@ public class LocationProfile : Profile
     {
         CreateMap<LocationDTO, Location>()
             .ForMember(d => d.Id, o => o.Ignore())
-            .ForMember(d => d.StopId, o => o.Ignore());
-        // .ForMember(d => d.GeoLocation.X, s => s.MapFrom(x => x.Latitude))
-        // .ForMember(d => d.GeoLocation.Y, s => s.MapFrom(x => x.Longitude));
+            .ForMember(d => d.GeoLocation, o => 
+                o.MapFrom(x => new NpgsqlPoint(x.Latitude, x.Longitude)));
     }
 }

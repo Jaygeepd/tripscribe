@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Drawing;
 using System.Net;
 using AutoMapper;
@@ -49,17 +50,8 @@ public class LocationsController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.Created)]
     public ActionResult CreateLocation( [FromBody] CreateLocationViewModel locationDetails)
     {
-        var newLocation = new CreateLocationViewModel()
-        {
-            Name = locationDetails.Name,
-            DateArrived = locationDetails.DateArrived, 
-            LocationType = locationDetails.LocationType,
-            Latitude = locationDetails.Latitude,
-            Longitude = locationDetails.Longitude,
-            StopId = locationDetails.StopId
-        };
 
-        var location = _mapper.Map<LocationDTO>(newLocation);
+        var location = _mapper.Map<LocationDTO>(locationDetails);
         
         _service.CreateLocation(location);
         

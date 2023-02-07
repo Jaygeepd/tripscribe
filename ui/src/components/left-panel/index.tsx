@@ -6,6 +6,8 @@ import { FlightTakeoff } from "@mui/icons-material";
 import { LogIn, SignUp } from "./components";
 import { AuthContext } from "../../contexts";
 import { LoginUtils } from "../../utils";
+import { StorageService } from "../../services";
+import { StorageTypes } from "../../constants";
 
 function LeftPanel() {
   const [loginOpen, setLoginOpen] = useState(false);
@@ -36,7 +38,8 @@ function LeftPanel() {
   } as const;
 
   const handleClickLogOut = () => {
-    localStorage.clear();
+    StorageService.removeLocalStorage(StorageTypes.AUTH);
+    StorageService.removeLocalStorage(StorageTypes.EMAIL);
     dispatch({ type: "logout" });
   };
 
