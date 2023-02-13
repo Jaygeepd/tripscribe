@@ -33,7 +33,7 @@ function Home() {
   return (
     <>
       <Stack spacing={2} sx={{ overflow: "auto" }}>
-        <MapComponent locationList={getAttachedLocations(trips)} inputZoom={3} />
+        <MapComponent locationList={getAttachedLocations(trips)} inputZoom={6} />
         <Divider />
         <Paper
           sx={{

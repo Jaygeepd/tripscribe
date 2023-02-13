@@ -2,7 +2,6 @@ import {
   GoogleMap,
   MarkerClustererF,
   MarkerF,
-  useLoadScript,
 } from "@react-google-maps/api";
 import React from "react";
 import { useState, useMemo, useRef, useCallback } from "react";
@@ -29,7 +28,7 @@ function MapComponent({ locationList, inputZoom }: IMapProps) {
       lat: locationList[0].latitude,
       lng: locationList[0].longitude,
     };
-    inputZoom = 2;
+    inputZoom = 8;
   }
 
   const [locations, setLocations] = useState<Location[]>(locationList ?? []);

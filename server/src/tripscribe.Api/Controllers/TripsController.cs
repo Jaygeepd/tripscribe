@@ -33,7 +33,7 @@ public class TripsController : ControllerBase
     
     [HttpGet]
     [AllowAnonymous]
-    public ActionResult<IList<TripViewModel>> GetTrips([FromQuery] string? title, [FromQuery] DateTime? startTime, [FromQuery] DateTime? endTime, [FromQuery] Boolean? publicView)
+    public ActionResult<IList<TripViewModel>> GetTrips([FromQuery] string? title, [FromQuery] DateTime? startTime, [FromQuery] DateTime? endTime)
     {
         var trips = _service.GetTrips(title, startTime, endTime);
         

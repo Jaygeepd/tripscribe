@@ -31,6 +31,7 @@ jobs:
       id: build-ui
       env:
         REACT_APP_API_URL: ${{ secrets.API_URL }}
+        GOOGLE_MAP_API_KEY : ${{ secrets.GOOGLE_MAP_API_KEY}}
         CI: false
       run: npm i && npm run-script build
     - name: updated app to s3
