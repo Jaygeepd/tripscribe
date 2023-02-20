@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Cloud Template to create resources required to deploy Some Application. For our small db application we will be needing AWS Lightsail container, S3 and RDS DB Services.
+
+Parameters:
+  DBPassword:
+    Type: String
+    Description: Password for the DB admin account
+    Default: p455word
+
+Resources:
+  Database:
+    Type: "AWS::RDS::DBInstance"
+    Properties:
+      DBInstanceIdentifier: someDB
+      DBInstanceClass: db.t2.micro
+      AllocatedStorage: 20
+      PubliclyAccessible: true
+      Engine: postgres
+      EngineVersion: '12.9'
+      MasterUsername: postgres
+      MasterUserPassword: !Ref DBPassword
+
+  APIContainer:
+    Type: AWS::Lightsail::Container
+    Properties:
+      IsDisabled: false
+      Power: micro
+      Scale: 1
+      ServiceName: tripscribe-api-container

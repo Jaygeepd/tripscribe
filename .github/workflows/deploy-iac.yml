@@ -1,0 +1,37 @@
+name: Deploy IAC
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'infrastructure/**'
+
+defaults:
+  run:
+    working-directory: ./infrastructure  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🛎 Checkout
+      uses: actions/checkout@v2
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: "eu-west-1"
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - name: Deploy Shared Infrastructure
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      with:
+        name: someapp-Infrastructure-${{ steps.extract_branch.outputs.branch }}
+        template: ./infrastructure/tripscribe_template.yml
+        capabilities: CAPABILITY_NAMED_IAM
+        no-fail-on-empty-changeset: "1"
+        parameter-overrides: file://${{ github.workspace }}/infrastructure/tripscribe-parameters-${{ steps.extract_branch.outputs.branch }}.json
