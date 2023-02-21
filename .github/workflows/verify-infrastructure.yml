@@ -6,6 +6,8 @@ on:
     paths:
       - "infrastructure/**"
 
+  workflow_dispatch:
+
 defaults:
   run:
     working-directory: ./infrastructure
